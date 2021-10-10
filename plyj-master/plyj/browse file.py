@@ -24,7 +24,7 @@ def browseFiles():
 														"*.java*"),
 													("all files",
 														"*.*")))
-	writeFile = open(os.path.expanduser("~/Desktop/repos/SourceCodeChecker/ParsedDataInFile.txt"),"a")
+	writeFile = open(os.path.expanduser("~/Desktop/repos/SourceCodeChecker/ParsedDataInFile.txt","a")
 	# Change label contents
 	label_file_explorer.configure(text="File Opened: "+filename)
 
