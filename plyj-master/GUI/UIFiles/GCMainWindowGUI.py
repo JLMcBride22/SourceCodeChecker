@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'C:\Users\Jonathan Lewis\Documents\School\CS 499\project 17\GUItake2.ui'
+# Form implementation generated from reading ui file 'GUItake2.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -146,9 +146,9 @@ class Ui_MainWindow(object):
         self.noGotoBox = QtWidgets.QCheckBox(self.centralwidget)
         self.noGotoBox.setGeometry(QtCore.QRect(210, 320, 101, 51))
         self.noGotoBox.setObjectName("noGotoBox")
-        self.commandLinkButton = QtWidgets.QCommandLinkButton(self.centralwidget)
-        self.commandLinkButton.setGeometry(QtCore.QRect(30, 500, 185, 41))
-        self.commandLinkButton.setObjectName("commandLinkButton")
+        self.SubmitFileLink = QtWidgets.QCommandLinkButton(self.centralwidget)
+        self.SubmitFileLink.setGeometry(QtCore.QRect(30, 500, 185, 41))
+        self.SubmitFileLink.setObjectName("SubmitFileLink")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 740, 21))
@@ -238,7 +238,7 @@ class Ui_MainWindow(object):
         self.label_4.setText(_translate("MainWindow", "McCabe Complexity"))
         self.label_5.setText(_translate("MainWindow", "Nesting Level"))
         self.noGotoBox.setText(_translate("MainWindow", "No Goto\'s"))
-        self.commandLinkButton.setText(_translate("MainWindow", "Submit File/Directory"))
+        self.SubmitFileLink.setText(_translate("MainWindow", "Submit File/Directory"))
         self.menuFile.setTitle(_translate("MainWindow", "File"))
         self.menuNew_File.setTitle(_translate("MainWindow", "New File"))
         self.menuEdit.setTitle(_translate("MainWindow", "Edit"))

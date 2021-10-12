@@ -402,7 +402,7 @@
      <string>No Goto's</string>
     </property>
    </widget>
-   <widget class="QCommandLinkButton" name="commandLinkButton">
+   <widget class="QCommandLinkButton" name="SubmitFileLink">
     <property name="geometry">
      <rect>
       <x>30</x>
