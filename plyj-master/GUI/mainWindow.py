@@ -4,17 +4,23 @@ from PyQt5 import QtWidgets as qtw
 from UIFiles.GCMainWindowGUI import Ui_MainWindow
 from PyQt5 import QtCore as qtc
 import os
-from PyQt5.QtWidgets import QFileDialog
+from PyQt5.QtWidgets import QFileDialog, QAbstractItemView
 
 
 
 
 class MainWindow(qtw.QMainWindow):
+
     def __init__(self, *args, **kwargs):
         super(MainWindow,self).__init__(*args, **kwargs)
         ui = Ui_MainWindow()
         ui.setupUi(self)
+
+        ## Adds the function to the button.
         ui.SubmitFileLink.clicked.connect(self.uploadSingleFile)
+        ui.javaFileTable.setSelectionBehavior(QAbstractItemView.SelectRows)
+
+
     #Uploads a single java file to the parser.
     def uploadSingleFile(self):
         file_filter = 'Java File(*.java)'
