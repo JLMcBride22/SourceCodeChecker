@@ -1,26 +1,29 @@
 
 from PyQt5 import QtWidgets as qtw
+from PyQt5.QtGui import QIcon
 
 from UIFiles.GCMainWindowGUI import Ui_MainWindow
 from PyQt5 import QtCore as qtc
 import os
-from PyQt5.QtWidgets import QFileDialog, QAbstractItemView, QDialog, QLabel
+from PyQt5.QtWidgets import QFileDialog, QAbstractItemView, QDialog, QLabel,QPushButton
 
 
 
 
 class MainWindow(qtw.QMainWindow):
-
+    ui = Ui_MainWindow()
+    excelBtnDict = {}
     def __init__(self, *args, **kwargs):
         super(MainWindow,self).__init__(*args, **kwargs)
-        ui = Ui_MainWindow()
-        ui.setupUi(self)
-        ui.actionInstruction.associatedGraphicsWidgets
+        
+        self.ui.setupUi(self)
+        self.ui.actionInstruction.associatedGraphicsWidgets
 
         ## Adds the function to the button.
-        ui.SubmitFileLink.clicked.connect(self.uploadSingleFile)
-        ui.actionInstruction.triggered.connect(self.openHelp)
-        ui.javaFileTable.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.ui.SubmitFileLink.clicked.connect(self.uploadSingleFile)
+        self.ui.actionInstruction.triggered.connect(self.openHelp)
+        self.ui.javaFileTable.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.populate_table()
 
 
     #Uploads a single java file to the parser.
@@ -44,6 +47,15 @@ class MainWindow(qtw.QMainWindow):
         label.adjustSize()
         label.move(100, 60)
         dlg.exec_()
+
+    def populate_table(self):
+        
+        for index in range (0, 2):
+            btnExcel = QPushButton(self)
+            btnExcel.setIcon(QIcon("GUI\icons\excel.jfif"))
+            
+            self.ui.javaFileTable.setIndexWidget(self.ui.javaFileTable.model().index(index, 7), btnExcel)
+        
 
 
 if __name__ == '__main__':
