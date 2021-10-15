@@ -40,7 +40,7 @@ class MainWindow(qtw.QMainWindow):
         dlg = QDialog()
         dlg.setWindowTitle("Help")
         label = QLabel(dlg)
-        label.setText("Help\n instructions: \nThis program does shit. Figure it out for you self")
+        label.setText("Help\n instructions: \nThis program does shit. Figure it out for yourself")
         label.adjustSize()
         label.move(100, 60)
         dlg.exec_()
