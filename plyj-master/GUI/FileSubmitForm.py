@@ -24,6 +24,7 @@ class FileSubmitForm(qtw.QDialog):
     ##Connects the actions to all the buttons in the dialog
     def connectActions(self):
         self.uiForm.addBtn.clicked.connect(self.fileExplorer)
+        self.uiForm.removeButton.clicked.connect(self.removeItem)
         return 0
     
     ## Opens file explorer.
@@ -41,6 +42,11 @@ class FileSubmitForm(qtw.QDialog):
 
         return 0
         
+    def removeItem(self):
+        listItems = self.uiForm.filePathList.selectedItems
+        if not listItems: return
+        for item in listItems:
+            self.uiForm.filePathList.takeItem(self.uiForm.filePathList.row(item))
 
 
 
