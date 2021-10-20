@@ -8,8 +8,9 @@ from PAR.model import CompilationUnit, VariableDeclaration
 from tkinter import *
 from PAR import parser
 from PAR import model as m
+<<<<<<< HEAD
 import os
- 
+import sys
 
 # import filedialog module
 from tkinter import filedialog
