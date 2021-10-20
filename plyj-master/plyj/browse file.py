@@ -8,8 +8,10 @@ from PAR.model import CompilationUnit, VariableDeclaration
 from tkinter import *
 from PAR import parser
 from PAR import model as m
+<<<<<<< HEAD
 import os
 import sys
+
 # import filedialog module
 from tkinter import filedialog
 
@@ -24,7 +26,7 @@ def browseFiles():
 														"*.java*"),
 													("all files",
 														"*.*")))
-	writeFile = open(os.path.expanduser("~/Desktop/repos/SourceCodeChecker/ParsedDataInFile.txt","a")
+	writeFile = open(os.path.expanduser("~/Desktop/repos/SourceCodeChecker/ParsedDataInFile.txt","a"))
 	# Change label contents
 	label_file_explorer.configure(text="File Opened: "+filename)
 
@@ -104,8 +106,7 @@ def browseFiles():
 		
 		
 
-		## I have also made the following method return a list of all the lextokens as well
-		## This may be important later if we can't get the parser to actually parse
+
 		
 		
 		
