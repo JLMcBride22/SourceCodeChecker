@@ -37,7 +37,7 @@ class FileSubmitForm(qtw.QDialog):
 
         print(filePaths)
 
-        self.uiForm.filePathList.addItem(filePaths.__getitem__(0))
+        self.uiForm.filePathList.addItems(filePaths.__getitem__(0))
 
         return 0
         
