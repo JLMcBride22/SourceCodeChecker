@@ -1,9 +1,10 @@
 
 from PyQt5 import QtWidgets as qtw
 from PyQt5.QtGui import QIcon
-
+from FileSubmitForm import FileSubmitForm
 from UIFiles.GCMainWindowGUI import Ui_MainWindow
-from PyQt5 import QtCore as qtc
+
+from PyQt5.QtCore import pyqtSlot
 import os
 from PyQt5.QtWidgets import QFileDialog, QAbstractItemView, QDialog, QLabel,QPushButton
 
@@ -18,10 +19,12 @@ class MainWindow(qtw.QMainWindow):
         
         self.ui.setupUi(self)
         self.ui.actionInstruction.associatedGraphicsWidgets
-
-        ## Adds the function to the button.
-        self.ui.SubmitFileLink.clicked.connect(self.uploadSingleFile)
+        
+    
+        ## Adds the function to the button/menu options.
+        ##self.ui.SubmitFileLink.clicked.connect(self.uploadSingleFile)
         self.ui.actionInstruction.triggered.connect(self.openHelp)
+        self.ui.actionSingle_file.triggered.connect(self.uploadFile_s)
         self.ui.javaFileTable.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.populate_table()
 
@@ -40,6 +43,8 @@ class MainWindow(qtw.QMainWindow):
     
     #Opens the dialog for help
     def openHelp(self):
+
+
         dlg = QDialog()
         dlg.setWindowTitle("Help")
         label = QLabel(dlg)
@@ -47,6 +52,20 @@ class MainWindow(qtw.QMainWindow):
         label.adjustSize()
         label.move(100, 60)
         dlg.exec_()
+
+
+
+    def uploadFile_s(self):
+        
+        fileSubmit = FileSubmitForm(self)
+        fileSubmit.setAutoFillBackground(True)
+        
+        self.setEnabled(True)
+        
+        fileSubmit.show()
+        
+
+
 
     def populate_table(self):
         
