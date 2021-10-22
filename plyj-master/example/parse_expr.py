@@ -12,4 +12,3 @@ import plyj.parser as plyj
 parser = plyj.Parser()
 for expr in sys.argv[1:]:
     print(parser.parse_expression(expr))
-

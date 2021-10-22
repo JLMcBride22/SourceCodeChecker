@@ -1,11 +1,12 @@
 #!/usr/bin/env python2
 
 import sys
-from plyj.PAR import parser
+
 from plyj.PAR import model as m
 
 p = plyj.parser.Parser()
 tree = p.parse_file(sys.argv[1])
+
 
 class MyVisitor(m.Visitor):
 
@@ -65,6 +66,7 @@ class MyVisitor(m.Visitor):
             else:
                 type_name = var_declaration.type.name.value
             print('        ' + type_name + ' ' + var_decl.variable.name)
+
 
 print('declared types:')
 tree.accept(MyVisitor())

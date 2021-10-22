@@ -1,7 +1,7 @@
 import unittest
 
-import plyj.parser as plyj
 import plyj.model as model
+import plyj.parser as plyj
 
 one = model.Literal('1')
 two = model.Literal('2')
@@ -12,11 +12,14 @@ c = model.Name('c')
 d = model.Name('d')
 e = model.Name('e')
 
+
 def bin(operator, operand1, operand2):
     return model.BinaryExpression(operator, operand1, operand2)
 
+
 def u(operator, operand):
     return model.Unary(operator, operand)
+
 
 expression_tests = [
     # simple test for each operator
@@ -79,13 +82,16 @@ expression_tests = [
     ('(Foo[]) a', model.Cast(model.Type(model.Name('Foo'), dimensions=1), a)),
     ('(Foo<T>) a', model.Cast(model.Type(model.Name('Foo'), type_arguments=[model.Type(model.Name('T'))]), a)),
     ('(Foo<T>.Bar) a', model.Cast(model.Type(model.Name('Bar'),
-                                  enclosed_in=model.Type(model.Name('Foo'), type_arguments=[model.Type(model.Name('T'))])), a)),
+                                             enclosed_in=model.Type(model.Name('Foo'),
+                                                                    type_arguments=[model.Type(model.Name('T'))])), a)),
     # method invocation
     ('foo.bar()', model.MethodInvocation(name='bar', target=model.Name(value='foo'))),
-    ('foo.class.getName()', model.MethodInvocation(target=model.ClassLiteral(model.Type(model.Name('foo'))), name='getName')),
+    ('foo.class.getName()',
+     model.MethodInvocation(target=model.ClassLiteral(model.Type(model.Name('foo'))), name='getName')),
 
     ('foo.Class[].class', model.ClassLiteral(model.Type(model.Name('foo.Class'), dimensions=1)))
 ]
+
 
 class ExpressionTest(unittest.TestCase):
 
@@ -96,6 +102,7 @@ class ExpressionTest(unittest.TestCase):
         for expr, result in expression_tests:
             t = self.parser.parse_expression(expr)
             self.assertEqual(t, result, 'for {} got: {}, expected: {}'.format(expr, t, result))
+
 
 if __name__ == '__main__':
     unittest.main()

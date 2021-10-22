@@ -62,7 +62,7 @@ class Ui_MainWindow(object):
         item = QtWidgets.QTableWidgetItem()
         self.javaFileTable.setItem(0, 0, item)
         item = QtWidgets.QTableWidgetItem()
-        item.setTextAlignment(QtCore.Qt.AlignJustify|QtCore.Qt.AlignVCenter)
+        item.setTextAlignment(QtCore.Qt.AlignJustify | QtCore.Qt.AlignVCenter)
         self.javaFileTable.setItem(0, 1, item)
         item = QtWidgets.QTableWidgetItem()
         self.javaFileTable.setItem(0, 2, item)
@@ -207,6 +207,7 @@ class Ui_MainWindow(object):
 
 if __name__ == "__main__":
     import sys
+
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()

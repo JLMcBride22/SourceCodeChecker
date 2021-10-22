@@ -1,26 +1,32 @@
+import sys
+
+sys.path.append("./GUI")
 
 from PyQt5 import QtWidgets as qtw
 from PyQt5.QtGui import QIcon
 from FileSubmitForm import FileSubmitForm
 from UIFiles.GCMainWindowGUI import Ui_MainWindow
 
-from PyQt5.QtCore import pyqtSlot
 import os
-from PyQt5.QtWidgets import QFileDialog, QAbstractItemView, QDialog, QLabel,QPushButton
+from PyQt5.QtWidgets import QAbstractItemView, QDialog, QLabel, QPushButton
 
+##SQL
 
+##backend imports
+from ARI import ARI
 
 
 class MainWindow(qtw.QMainWindow):
     ui = Ui_MainWindow()
+
     excelBtnDict = {}
+
     def __init__(self, *args, **kwargs):
-        super(MainWindow,self).__init__(*args, **kwargs)
-        
+        super(MainWindow, self).__init__(*args, **kwargs)
+
         self.ui.setupUi(self)
         self.ui.actionInstruction.associatedGraphicsWidgets
-        
-    
+
         ## Adds the function to the button/menu options.
         ##self.ui.SubmitFileLink.clicked.connect(self.uploadSingleFile)
         self.ui.actionInstruction.triggered.connect(self.openHelp)
@@ -28,23 +34,11 @@ class MainWindow(qtw.QMainWindow):
         self.ui.javaFileTable.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.populate_table()
 
+    def setARI(self, ariPARAM: ARI):
+        self.ari = ariPARAM
 
-    #Uploads a single java file to the parser.
-    def uploadSingleFile(self):
-
-        file_filter = 'Java File(*.java)'
-        filePath = QFileDialog.getOpenFileName(
-            parent = self, caption = 'Select a Java File', 
-            directory= os.getcwd(), filter=file_filter,
-            initialFilter='Java File(*.java)'
-        )
-
-        print(filePath[0])
-    
-    #Opens the dialog for help
+    # Opens the dialog for help
     def openHelp(self):
-
-
         dlg = QDialog()
         dlg.setWindowTitle("Help")
         label = QLabel(dlg)
@@ -53,43 +47,31 @@ class MainWindow(qtw.QMainWindow):
         label.move(100, 60)
         dlg.exec_()
 
-
-
     def uploadFile_s(self):
-        
         fileSubmit = FileSubmitForm(self)
+        fileSubmit.setARI(self.ari)
         fileSubmit.setAutoFillBackground(True)
-        
+
         self.setEnabled(True)
-        
+
         fileSubmit.show()
-        
-
-
 
     def populate_table(self):
-        
-        for index in range (0, 2):
+        for index in range(0, 2):
             btnExcel = QPushButton(self)
             btnExcel.setIcon(QIcon("GUI\icons\excel.jfif"))
-            
+
             self.ui.javaFileTable.setIndexWidget(self.ui.javaFileTable.model().index(index, 7), btnExcel)
-        
 
 
 if __name__ == '__main__':
     import sys
+
     app = qtw.QApplication(sys.argv)
     widget = MainWindow()
+    widget.__init__()
     w = qtw.QMainWindow()
-    
+
     widget.show()
 
-    sys,exit(app.exec_())
-    
-
-
-
-
-        
-
+    sys, exit(app.exec_())

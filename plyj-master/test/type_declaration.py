@@ -1,8 +1,9 @@
 import unittest
 
-import plyj.parser as plyj
 import plyj.model as model
+import plyj.parser as plyj
 from plyj.model import *
+
 
 class TypeDeclarationTest(unittest.TestCase):
 

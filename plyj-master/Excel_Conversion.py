@@ -13,7 +13,6 @@ class ExcelConverter:
         # Declaring a temporary list to hold file data.
         stringlist = []
 
-
         # Opening input file in read mode.
         f = open(filepath, "r")
 
@@ -25,11 +24,8 @@ class ExcelConverter:
             stringlist.append(templist)
         f.close()
 
-
         # Debug statement to ensure your list is correct.
-        #print(stringlist)
-
-
+        # print(stringlist)
 
         # Create a workbook and add a worksheet.
         workbook = xlsxwriter.Workbook('Test.xlsx')
@@ -41,9 +37,9 @@ class ExcelConverter:
 
         # Iterate over the data and write it out row by row.
         for item, value in (stringlist):
-         worksheet.write(row, col,     item)
-         worksheet.write(row, col + 1, value)
-         row += 1
+            worksheet.write(row, col, item)
+            worksheet.write(row, col + 1, value)
+            row += 1
 
         # Close the workbook when finished.
         workbook.close()

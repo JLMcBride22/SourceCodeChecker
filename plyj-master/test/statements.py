@@ -1,7 +1,7 @@
 import unittest
 
-import plyj.parser as plyj
 import plyj.model as model
+import plyj.parser as plyj
 
 foo = model.Name('foo')
 bar = model.Name('bar')
@@ -12,6 +12,7 @@ one = model.Literal('1')
 two = model.Literal('2')
 three = model.Literal('3')
 ten = model.Literal('10')
+
 
 class StatementTest(unittest.TestCase):
 
@@ -26,7 +27,8 @@ class StatementTest(unittest.TestCase):
         self.assert_stmt('do { return; } while(foo);', model.DoWhile(foo, body=model.Block([model.Return()])))
 
     def test_for(self):
-        initializer = model.VariableDeclaration('int', [model.VariableDeclarator(model.Variable('i'), initializer=zero)])
+        initializer = model.VariableDeclaration('int',
+                                                [model.VariableDeclarator(model.Variable('i'), initializer=zero)])
         predicate = model.BinaryExpression('<', i, ten)
         update = model.Unary('x++', i)
 
@@ -36,7 +38,8 @@ class StatementTest(unittest.TestCase):
         self.assert_stmt('for(int i=0;;) return;', model.For(initializer, None, None, body=model.Return()))
         self.assert_stmt('for(;i<10;) return;', model.For(None, predicate, None, body=model.Return()))
         self.assert_stmt('for(;;i++) return;', model.For(None, None, [update], body=model.Return()))
-        self.assert_stmt('for(int i=0; i<10; i++) return;', model.For(initializer, predicate, [update], body=model.Return()))
+        self.assert_stmt('for(int i=0; i<10; i++) return;',
+                         model.For(initializer, predicate, [update], body=model.Return()))
 
         initializer2 = [model.Assignment('=', i, zero), model.Assignment('=', j, ten)]
         self.assert_stmt('for(i=0, j=10;;) return;', model.For(initializer2, None, None, body=model.Return()))
@@ -44,7 +47,8 @@ class StatementTest(unittest.TestCase):
         update2 = model.Unary('x++', j)
         self.assert_stmt('for(;;i++, j++) return;', model.For(None, None, [update, update2], body=model.Return()))
 
-        self.assert_stmt('for(int i : foo) return;', model.ForEach('int', model.Variable('i'), foo, body=model.Return()))
+        self.assert_stmt('for(int i : foo) return;',
+                         model.ForEach('int', model.Variable('i'), foo, body=model.Return()))
 
     def test_assert(self):
         self.assert_stmt('assert foo;', model.Assert(foo))
@@ -62,7 +66,8 @@ class StatementTest(unittest.TestCase):
 
         case12 = model.SwitchCase([one, two], [model.Return(three)])
         self.assert_stmt('switch(foo) { case 1: case 2: return 3; }', model.Switch(foo, [case12]))
-        self.assert_stmt('switch(foo) { case 1: case 2: return 3; default: return; }', model.Switch(foo, [case12, default]))
+        self.assert_stmt('switch(foo) { case 1: case 2: return 3; default: return; }',
+                         model.Switch(foo, [case12, default]))
 
     def test_control_flow(self):
         self.assert_stmt('break;', model.Break())
@@ -84,21 +89,29 @@ class StatementTest(unittest.TestCase):
         r2 = model.Return(two)
         r3 = model.Return(three)
         c1 = model.Catch(model.Variable('e'), types=[model.Type(model.Name('Exception'))], block=model.Block([r2]))
-        self.assert_stmt('try { return 1; } catch (Exception e) { return 2; }', model.Try(model.Block([r1]), catches=[c1]))
+        self.assert_stmt('try { return 1; } catch (Exception e) { return 2; }',
+                         model.Try(model.Block([r1]), catches=[c1]))
         self.assert_stmt('try { return 1; } catch (Exception e) { return 2; } finally { return 3; }',
                          model.Try(model.Block([r1]), catches=[c1], _finally=model.Block([r3])))
-        self.assert_stmt('try { return 1; } finally { return 2; }', model.Try(model.Block([r1]), _finally=model.Block([r2])))
+        self.assert_stmt('try { return 1; } finally { return 2; }',
+                         model.Try(model.Block([r1]), _finally=model.Block([r2])))
 
-        c2 = model.Catch(model.Variable('e'), types=[model.Type(model.Name('Exception1')), model.Type(model.Name('Exception2'))], block=model.Block([r3]))
+        c2 = model.Catch(model.Variable('e'),
+                         types=[model.Type(model.Name('Exception1')), model.Type(model.Name('Exception2'))],
+                         block=model.Block([r3]))
         self.assert_stmt('try { return 1; } catch (Exception1 | Exception2 e) { return 3; }',
                          model.Try(model.Block([r1]), catches=[c2]))
-        self.assert_stmt('try { return 1; } catch (Exception e) { return 2; } catch (Exception1 | Exception2 e) { return 3; }',
-                         model.Try(model.Block([r1]), catches=[c1, c2]))
-        self.assert_stmt('try { return 1; } catch (Exception e) { return 2; } catch (Exception1 | Exception2 e) { return 3; } finally { return 3; }',
-                         model.Try(model.Block([r1]), catches=[c1, c2], _finally=model.Block([r3])))
+        self.assert_stmt(
+            'try { return 1; } catch (Exception e) { return 2; } catch (Exception1 | Exception2 e) { return 3; }',
+            model.Try(model.Block([r1]), catches=[c1, c2]))
+        self.assert_stmt(
+            'try { return 1; } catch (Exception e) { return 2; } catch (Exception1 | Exception2 e) { return 3; } finally { return 3; }',
+            model.Try(model.Block([r1]), catches=[c1, c2], _finally=model.Block([r3])))
 
-        res1 = model.Resource(model.Variable('r'), type=model.Type(model.Name('Resource')), initializer=model.Name('foo'))
-        res2 = model.Resource(model.Variable('r2'), type=model.Type(model.Name('Resource2')), initializer=model.Name('bar'))
+        res1 = model.Resource(model.Variable('r'), type=model.Type(model.Name('Resource')),
+                              initializer=model.Name('foo'))
+        res2 = model.Resource(model.Variable('r2'), type=model.Type(model.Name('Resource2')),
+                              initializer=model.Name('bar'))
         self.assert_stmt('try(Resource r = foo) { return 1; }', model.Try(model.Block([r1]), resources=[res1]))
         self.assert_stmt('try(Resource r = foo;) { return 1; }', model.Try(model.Block([r1]), resources=[res1]))
         self.assert_stmt('try(Resource r = foo; Resource2 r2 = bar) { return 1; }',
@@ -109,14 +122,16 @@ class StatementTest(unittest.TestCase):
                          model.Try(model.Block([r1]), resources=[res1], catches=[c1]))
         self.assert_stmt('try(Resource r = foo) { return 1; } catch (Exception1 | Exception2 e) { return 3;}',
                          model.Try(model.Block([r1]), resources=[res1], catches=[c2]))
-        self.assert_stmt('try(Resource r = foo) { return 1; } catch (Exception e) { return 2; } catch (Exception1 | Exception2 e) { return 3; }',
-                         model.Try(model.Block([r1]), resources=[res1], catches=[c1, c2]))
+        self.assert_stmt(
+            'try(Resource r = foo) { return 1; } catch (Exception e) { return 2; } catch (Exception1 | Exception2 e) { return 3; }',
+            model.Try(model.Block([r1]), resources=[res1], catches=[c1, c2]))
         self.assert_stmt('try(Resource r = foo) { return 1; } finally { return 3; }',
                          model.Try(model.Block([r1]), resources=[res1], _finally=model.Block([r3])))
         self.assert_stmt('try(Resource r = foo) { return 1; } catch (Exception e) { return 2; } finally { return 3; }',
                          model.Try(model.Block([r1]), resources=[res1], catches=[c1], _finally=model.Block([r3])))
-        self.assert_stmt('try(Resource r = foo) { return 1; } catch (Exception e) { return 2; } catch (Exception1 | Exception2 e) { return 3; } finally { return 3; }',
-                         model.Try(model.Block([r1]), resources=[res1], catches=[c1, c2], _finally=model.Block([r3])))
+        self.assert_stmt(
+            'try(Resource r = foo) { return 1; } catch (Exception e) { return 2; } catch (Exception1 | Exception2 e) { return 3; } finally { return 3; }',
+            model.Try(model.Block([r1]), resources=[res1], catches=[c1, c2], _finally=model.Block([r3])))
 
     def test_constructor_invocation(self):
         footype = model.Type(model.Name('Foo'))
@@ -174,7 +189,8 @@ class StatementTest(unittest.TestCase):
         var_i_decltor.initializer = None
         self.assert_stmt('int[] i;', model.VariableDeclaration(int_ar, [var_i_decltor]))
 
-        foo_ar = model.Type(name=model.Name('Foo'), type_arguments=[model.Type(name=model.Name(value='T'))], dimensions=1)
+        foo_ar = model.Type(name=model.Name('Foo'), type_arguments=[model.Type(name=model.Name(value='T'))],
+                            dimensions=1)
         self.assert_stmt('Foo<T>[] i;', model.VariableDeclaration(foo_ar, [var_i_decltor]))
 
     def test_array(self):
@@ -201,5 +217,5 @@ class StatementTest(unittest.TestCase):
 
     def assert_stmt(self, stmt, result):
         s = self.parser.parse_statement(stmt)
-#        print 'comparing expected - actual:\n{}\n{}'.format(result, s)
+        #        print 'comparing expected - actual:\n{}\n{}'.format(result, s)
         self.assertEqual(s, result, 'for {} got {}, expected {}'.format(stmt, s, result))

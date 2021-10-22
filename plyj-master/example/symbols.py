@@ -1,8 +1,9 @@
 #!/usr/bin/env python2
 
 import sys
-import plyj.parser
+
 import plyj.model as m
+import plyj.parser
 
 p = plyj.parser.Parser()
 tree = p.parse_file(sys.argv[1])

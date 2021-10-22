@@ -1,199 +1,200 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>FileSubForm</class>
- <widget class="QWidget" name="FileSubForm">
-  <property name="windowModality">
-   <enum>Qt::WindowModal</enum>
-  </property>
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>680</width>
-    <height>428</height>
-   </rect>
-  </property>
-  <property name="sizePolicy">
-   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-    <horstretch>0</horstretch>
-    <verstretch>0</verstretch>
-   </sizepolicy>
-  </property>
-  <property name="windowTitle">
-   <string>Submit your .java file(s)</string>
-  </property>
-  <property name="toolTip">
-   <string>Please enter open your files</string>
-  </property>
-  <property name="layoutDirection">
-   <enum>Qt::LeftToRight</enum>
-  </property>
-  <property name="windowFilePath">
-   <string extracomment="HEY"/>
-  </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
-    <layout class="QGridLayout" name="gridLayout">
-     <item row="1" column="0" rowspan="2">
-      <layout class="QFormLayout" name="formLayout">
-       <item row="2" column="0">
-        <widget class="QLabel" name="label_3">
-         <property name="text">
-          <string>Mininum Variable Length </string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="label">
-         <property name="text">
-          <string>MaximumVariable Length </string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="QSpinBox" name="maxVarLenBox">
-         <property name="minimum">
-          <number>5</number>
-         </property>
-         <property name="maximum">
-          <number>20</number>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="0">
-        <widget class="QLabel" name="label_4">
-         <property name="text">
-          <string>McCabe Complexity</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="1">
-        <widget class="QSpinBox" name="mcAbeBox">
-         <property name="minimum">
-          <number>1</number>
-         </property>
-         <property name="maximum">
-          <number>40</number>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="0">
-        <widget class="QLabel" name="label_5">
-         <property name="text">
-          <string>Nesting Level</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="1">
-        <widget class="QSpinBox" name="nestLevBox">
-         <property name="minimum">
-          <number>1</number>
-         </property>
-         <property name="maximum">
-          <number>25</number>
-         </property>
-         <property name="displayIntegerBase">
-          <number>10</number>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="0">
-        <widget class="QCheckBox" name="recursionBox">
-         <property name="text">
-          <string>Allow Recursion</string>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="1">
-        <widget class="QCheckBox" name="noGotoBox">
-         <property name="text">
-          <string>No Goto's</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QSpinBox" name="minVarLenBox">
-         <property name="minimum">
-          <number>3</number>
-         </property>
-         <property name="maximum">
-          <number>20</number>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item row="0" column="0" colspan="4">
-      <widget class="QListWidget" name="filePathList">
-       <property name="resizeMode">
-        <enum>QListView::Adjust</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="3">
-      <widget class="QPushButton" name="removeButton">
-       <property name="text">
-        <string>REMOVE</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="2" colspan="2">
-      <widget class="QCommandLinkButton" name="SubmitFileLink_2">
-       <property name="text">
-        <string>Cancel</string>
-       </property>
-       <property name="icon">
-        <iconset>
-         <normaloff>GUI/icons/red_x.png</normaloff>GUI/icons/red_x.png</iconset>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="1">
-      <widget class="QCommandLinkButton" name="SubmitFileLink">
-       <property name="text">
-        <string>Submit Files</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="2">
-      <widget class="QPushButton" name="addBtn">
-       <property name="text">
-        <string>ADD</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1" rowspan="2">
-      <widget class="QLineEdit" name="lineEdit">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-         <horstretch>5</horstretch>
-         <verstretch>6</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>100</width>
-         <height>100</height>
-        </size>
-       </property>
-       <property name="inputMethodHints">
-        <set>Qt::ImhNoAutoUppercase|Qt::ImhNoPredictiveText|Qt::ImhPreferLatin</set>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-       </property>
-       <property name="placeholderText">
-        <string>@Filename,@Author, @Description</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-  </layout>
- </widget>
- <resources/>
- <connections/>
+    <class>FileSubForm</class>
+    <widget class="QWidget" name="FileSubForm">
+        <property name="windowModality">
+            <enum>Qt::WindowModal</enum>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>0</x>
+                <y>0</y>
+                <width>680</width>
+                <height>428</height>
+            </rect>
+        </property>
+        <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+            </sizepolicy>
+        </property>
+        <property name="windowTitle">
+            <string>Submit your .java file(s)</string>
+        </property>
+        <property name="toolTip">
+            <string>Please enter open your files</string>
+        </property>
+        <property name="layoutDirection">
+            <enum>Qt::LeftToRight</enum>
+        </property>
+        <property name="windowFilePath">
+            <string extracomment="HEY"/>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout">
+            <item>
+                <layout class="QGridLayout" name="gridLayout">
+                    <item row="1" column="0" rowspan="2">
+                        <layout class="QFormLayout" name="formLayout">
+                            <item row="2" column="0">
+                                <widget class="QLabel" name="label_3">
+                                    <property name="text">
+                                        <string>Mininum Variable Length</string>
+                                    </property>
+                                </widget>
+                            </item>
+                            <item row="3" column="0">
+                                <widget class="QLabel" name="label">
+                                    <property name="text">
+                                        <string>MaximumVariable Length</string>
+                                    </property>
+                                </widget>
+                            </item>
+                            <item row="3" column="1">
+                                <widget class="QSpinBox" name="maxVarLenBox">
+                                    <property name="minimum">
+                                        <number>5</number>
+                                    </property>
+                                    <property name="maximum">
+                                        <number>20</number>
+                                    </property>
+                                </widget>
+                            </item>
+                            <item row="4" column="0">
+                                <widget class="QLabel" name="label_4">
+                                    <property name="text">
+                                        <string>McCabe Complexity</string>
+                                    </property>
+                                </widget>
+                            </item>
+                            <item row="4" column="1">
+                                <widget class="QSpinBox" name="mcAbeBox">
+                                    <property name="minimum">
+                                        <number>1</number>
+                                    </property>
+                                    <property name="maximum">
+                                        <number>40</number>
+                                    </property>
+                                </widget>
+                            </item>
+                            <item row="5" column="0">
+                                <widget class="QLabel" name="label_5">
+                                    <property name="text">
+                                        <string>Nesting Level</string>
+                                    </property>
+                                </widget>
+                            </item>
+                            <item row="5" column="1">
+                                <widget class="QSpinBox" name="nestLevBox">
+                                    <property name="minimum">
+                                        <number>1</number>
+                                    </property>
+                                    <property name="maximum">
+                                        <number>25</number>
+                                    </property>
+                                    <property name="displayIntegerBase">
+                                        <number>10</number>
+                                    </property>
+                                </widget>
+                            </item>
+                            <item row="6" column="0">
+                                <widget class="QCheckBox" name="recursionBox">
+                                    <property name="text">
+                                        <string>Allow Recursion</string>
+                                    </property>
+                                </widget>
+                            </item>
+                            <item row="6" column="1">
+                                <widget class="QCheckBox" name="noGotoBox">
+                                    <property name="text">
+                                        <string>No Goto's</string>
+                                    </property>
+                                </widget>
+                            </item>
+                            <item row="2" column="1">
+                                <widget class="QSpinBox" name="minVarLenBox">
+                                    <property name="minimum">
+                                        <number>3</number>
+                                    </property>
+                                    <property name="maximum">
+                                        <number>20</number>
+                                    </property>
+                                </widget>
+                            </item>
+                        </layout>
+                    </item>
+                    <item row="0" column="0" colspan="5">
+                        <widget class="QListWidget" name="filePathList">
+                            <property name="resizeMode">
+                                <enum>QListView::Adjust</enum>
+                            </property>
+                        </widget>
+                    </item>
+                    <item row="1" column="4">
+                        <widget class="QPushButton" name="removeButton">
+                            <property name="text">
+                                <string>REMOVE</string>
+                            </property>
+                        </widget>
+                    </item>
+                    <item row="3" column="3" colspan="2">
+                        <widget class="QCommandLinkButton" name="cancel">
+                            <property name="text">
+                                <string>Cancel</string>
+                            </property>
+                            <property name="icon">
+                                <iconset>
+                                    <normaloff>GUI/icons/red_x.png</normaloff>GUI/icons/red_x.png
+                                </iconset>
+                            </property>
+                        </widget>
+                    </item>
+                    <item row="1" column="3">
+                        <widget class="QPushButton" name="addBtn">
+                            <property name="text">
+                                <string>ADD</string>
+                            </property>
+                        </widget>
+                    </item>
+                    <item row="3" column="2">
+                        <widget class="QCommandLinkButton" name="SubmitFileLink">
+                            <property name="text">
+                                <string>Submit Files</string>
+                            </property>
+                        </widget>
+                    </item>
+                    <item row="1" column="1" rowspan="2" colspan="2">
+                        <widget class="QLineEdit" name="lineEdit">
+                            <property name="sizePolicy">
+                                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                                    <horstretch>5</horstretch>
+                                    <verstretch>6</verstretch>
+                                </sizepolicy>
+                            </property>
+                            <property name="minimumSize">
+                                <size>
+                                    <width>100</width>
+                                    <height>100</height>
+                                </size>
+                            </property>
+                            <property name="inputMethodHints">
+                                <set>Qt::ImhNoAutoUppercase|Qt::ImhNoPredictiveText|Qt::ImhPreferLatin</set>
+                            </property>
+                            <property name="text">
+                                <string/>
+                            </property>
+                            <property name="alignment">
+                                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+                            </property>
+                            <property name="placeholderText">
+                                <string>@Filename,@Author, @Description</string>
+                            </property>
+                        </widget>
+                    </item>
+                </layout>
+            </item>
+        </layout>
+    </widget>
+    <resources/>
+    <connections/>
 </ui>
