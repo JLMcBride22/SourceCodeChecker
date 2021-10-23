@@ -63,8 +63,9 @@ class FileSubmitForm(qtw.QDialog):
             item = self.uiForm.filePathList.item(i)
             listPaths.append(item.text())
 
-        print(listPaths[0])
+        
         self.ari.takeFileList(listPaths)
+        self.close()
 
         return
 
