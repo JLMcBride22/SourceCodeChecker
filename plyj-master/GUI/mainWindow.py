@@ -8,7 +8,7 @@ from FileSubmitForm import FileSubmitForm
 from UIFiles.GCMainWindowGUI import Ui_MainWindow
 
 import os
-from PyQt5.QtWidgets import QAbstractItemView, QDialog, QLabel, QPushButton
+from PyQt5.QtWidgets import QAbstractItemView, QDialog, QLabel, QToolButton
 
 ##SQL
 
@@ -42,24 +42,26 @@ class MainWindow(qtw.QMainWindow):
         dlg = QDialog()
         dlg.setWindowTitle("Help")
         label = QLabel(dlg)
-        label.setText("Help\n instructions: \nThis program does shit. Figure it out for yourself")
+        label.setText("Help\n instructions: \nThis program does stuff. Figure it out for yourself")
         label.adjustSize()
         label.move(100, 60)
         dlg.exec_()
 
+    #Opens the upload file screen.
     def uploadFile_s(self):
         fileSubmit = FileSubmitForm(self)
         fileSubmit.setARI(self.ari)
         fileSubmit.setAutoFillBackground(True)
 
-        self.setEnabled(True)
+        
 
         fileSubmit.show()
 
+    ## Places the buttons in the table
     def populate_table(self):
         for index in range(0, 2):
-            btnExcel = QPushButton(self)
-            btnExcel.setIcon(QIcon("GUI\icons\excel.jfif"))
+            btnExcel = QToolButton(self)
+            
 
             self.ui.javaFileTable.setIndexWidget(self.ui.javaFileTable.model().index(index, 7), btnExcel)
 
