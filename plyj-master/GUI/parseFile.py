@@ -66,3 +66,11 @@ class myParser2():
                                 else:
                                     type_name = statement.type.name.value
                                 print('        ' + type_name + ' ' + var_decl.variable.name)
+
+if __name__ == '__main__':
+        p = Parser()
+        tree = p.parse_file("C:\\Users\\Jonathan Lewis\\Documents\\GitHub\\InvManager\\src\\com\\company\\Main.java")
+        ##Type_declaration and 
+        print(tree.type_declarations[0].body[0].body[1])
+        
+
