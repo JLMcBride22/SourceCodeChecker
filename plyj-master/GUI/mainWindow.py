@@ -68,9 +68,11 @@ class MainWindow(qtw.QMainWindow):
 
 if __name__ == '__main__':
     import sys
+    a = ARI()
 
     app = qtw.QApplication(sys.argv)
     widget = MainWindow()
+    widget.setARI(a)
     widget.__init__()
     w = qtw.QMainWindow()
 

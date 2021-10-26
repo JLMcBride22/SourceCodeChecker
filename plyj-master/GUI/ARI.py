@@ -14,5 +14,6 @@ class ARI():
         pars = myParser2()
         for s in filePathList:
             pars.parseThisFile(s)
+            print('\n')
 
         return

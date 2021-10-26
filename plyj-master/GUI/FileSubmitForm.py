@@ -4,7 +4,7 @@ from PyQt5 import QtWidgets as qtw
 import os
 
 from PyQt5 import QtWidgets as qtw
-from PyQt5.QtWidgets import QFileDialog, QListWidgetItem
+from PyQt5.QtWidgets import QFileDialog, QListWidgetItem, QMessageBox
 
 ##Backend interface import
 from ARI import ARI
@@ -58,14 +58,20 @@ class FileSubmitForm(qtw.QDialog):
     def submit(self):
         countPaths = self.uiForm.filePathList.count()
         listPaths = []
-        item: QListWidgetItem
-        for i in range(0, countPaths):
-            item = self.uiForm.filePathList.item(i)
-            listPaths.append(item.text())
+        if countPaths == 0:
+            dlg = QMessageBox()
+            dlg.setText("You haven't selected any files")
+            dlg.setInformativeText("Please select your file by clicking the \"Add File(s)\" button")
+            dlg.setIcon(3)
+            dlg.exec_()
+        else:
+            for i in range(0, countPaths):
+                item = self.uiForm.filePathList.item(i)
+                listPaths.append(item.text())
 
-        
-        self.ari.takeFileList(listPaths)
-        self.close()
+            
+            self.ari.takeFileList(listPaths)
+            self.close()
 
         return
 
