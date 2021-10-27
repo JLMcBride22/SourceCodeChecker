@@ -69,8 +69,8 @@ class myParser2():
 
 if __name__ == '__main__':
         p = Parser()
-        tree = p.parse_file("C:\\Users\\Jonathan Lewis\\Documents\\GitHub\\InvManager\\src\\com\\company\\Main.java")
+        tree = p.parse_file("src\\Main.java")
         ##Type_declaration and 
-        print(tree.type_declarations[0].body[0].body[1])
+        print(tree.type_declarations)
         
 
