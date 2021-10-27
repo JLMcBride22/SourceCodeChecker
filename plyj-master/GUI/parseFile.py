@@ -43,6 +43,7 @@ class myParser2():
                     else:
                         type_name = field_decl.type.name.value
                     print('    ' + type_name + ' ' + var_decl.variable.name)
+                    open('outfile.txt', 'w')
 
             print
             print('methods:')
@@ -69,7 +70,11 @@ class myParser2():
 
 if __name__ == '__main__':
         p = Parser()
+<<<<<<< Updated upstream
         tree = p.parse_file("src\\Main.java")
+=======
+        tree = p.parse_file("C:\\Users\\JLMcB\\OneDrive\\Documents\\GitHub\\SourceCodeChecker\\plyj-master\\src\\Personal_Income_Tax.java")
+>>>>>>> Stashed changes
         ##Type_declaration and 
         print(tree.type_declarations)
         
