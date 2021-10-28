@@ -17,7 +17,29 @@ from PLYJ.parser import Parser
 ## To save time change initialdir to a directory with a java file.
 class myParser2():
     def __init__(self) -> None:
-        pass
+        self.node = 0
+        self.edge = 0
+    
+    
+    def calMetric(self, sourceElement):
+        print()
+        if(type(sourceElement) is m.IfThenElse):
+            self.node +=2
+            self.edge += 4
+            print (sourceElement.if_true)
+            self.calMetric(sourceElement.if_true)
+            print()
+            if sourceElement.if_false is None:
+                self.edge-=1
+            
+            else:
+                self.calMetric(sourceElement.if_false)
+        else:
+            self.node += 1
+
+            
+
+
 
     def parseThisFile(self, filename: str):
 
@@ -43,7 +65,6 @@ class myParser2():
                     else:
                         type_name = field_decl.type.name.value
                     print('    ' + type_name + ' ' + var_decl.variable.name)
-                    open('outfile.txt', 'w')
 
             print
             print('methods:')
@@ -68,14 +89,12 @@ class myParser2():
                                     type_name = statement.type.name.value
                                 print('        ' + type_name + ' ' + var_decl.variable.name)
 
+                        else:
+                            self.calMetric(statement)
+
 if __name__ == '__main__':
+        fn ="JavaTest\\Main.java"
         p = Parser()
-<<<<<<< Updated upstream
-        tree = p.parse_file("src\\Main.java")
-=======
-        tree = p.parse_file("C:\\Users\\JLMcB\\OneDrive\\Documents\\GitHub\\SourceCodeChecker\\plyj-master\\src\\Personal_Income_Tax.java")
->>>>>>> Stashed changes
-        ##Type_declaration and 
-        print(tree.type_declarations)
-        
+        tree = p.parse_file(fn)
+        print(tree)
 

@@ -1,4 +1,4 @@
-/*
+ /*
  * Class: CS103 Spring 2020
  * Date: 02/11/2020
  * Description: Java program to compute personal income tax based on filing status and income
@@ -31,7 +31,16 @@ public class Personal_Income_Tax {
 			System.exit(0);
 			
 		}
-		
+		else if( status = ' '){
+			int x = 0;
+		}
+		else {
+			for(int i = 4; i < 20; i++){
+
+				System.out.print("Something" + i);
+			}
+		}
+
 		System.out.print("Enter taxable income : ");
 		
 		String incomestring = MyInput.nextLine();
