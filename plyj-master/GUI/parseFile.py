@@ -34,7 +34,7 @@ class myParser2():
             
             else:
                 self.calMetric(sourceElement.if_false)
-        else:
+        elif type(sourceElement) is m.VariableDeclaration:
             self.node += 1
 
             
