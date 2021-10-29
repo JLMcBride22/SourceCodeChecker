@@ -1,0 +1,29 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"path": "..\\GUI"
+		},
+		{
+			"path": "..\\GUI\\EXEC"
+		},
+		{
+			"path": "..\\GUI\\__pycache__"
+		},
+		{
+			"path": "..\\GUI\\icons"
+		},
+		{
+			"path": "..\\GUI\\UIFiles"
+		},
+		{
+			"path": "..\\GUI\\plyj"
+		},
+		{
+			"path": "."
+		}
+	],
+	"settings": {}
+}

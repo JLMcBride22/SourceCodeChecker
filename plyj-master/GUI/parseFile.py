@@ -17,9 +17,13 @@ from PLYJ.parser import Parser
 ## To save time change initialdir to a directory with a java file.
 class myParser2():
     def __init__(self) -> None:
-        self.node = 0
-        self.edge = 0
+        self.node:int = 2
+        self.edge:int = 0
     
+    def calcMcCabe(self):
+        out = self.edge - self.node  + 2
+
+        return out
     
     def calMetric(self, sourceElement):
         print()
@@ -34,6 +38,9 @@ class myParser2():
             
             else:
                 self.calMetric(sourceElement.if_false)
+        elif type(sourceElement) is m.While:
+            self.node +=2
+            self.node +=3
         elif type(sourceElement) is m.VariableDeclaration:
             self.node += 1
 
@@ -83,18 +90,34 @@ class myParser2():
                         # see symbols_visitor.py for a better way of handling this
                         if type(statement) is m.VariableDeclaration:
                             for var_decl in statement.variable_declarators:
+
+                                
                                 if type(statement.type) is str:
-                                    type_name = statement.type
+                                    type_name = statement.type.name
                                 else:
-                                    type_name = statement.type.name.value
+                                    ##This is where it's an array type
+                                    dim = statement.type.dimensions
+                                    brackets= "[]"
+                                    type_name = statement.type.name
+                                    for i in range(0,dim):
+                                        type_name = type_name + brackets
+                                    
+                                    
                                 print('        ' + type_name + ' ' + var_decl.variable.name)
 
                         else:
                             self.calMetric(statement)
 
 if __name__ == '__main__':
-        fn ="JavaTest\\Main.java"
-        p = Parser()
+        fn ="JavaTest\\dev.java"
+        
+        """   p = Parser()
         tree = p.parse_file(fn)
-        print(tree)
+        print(tree) """
+        mp = myParser2()
+        mp.parseThisFile(fn)
+        out = mp.calcMcCabe()
+        print(out)
+        
+
 
