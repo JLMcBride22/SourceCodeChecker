@@ -14,10 +14,13 @@ class ARI():
     def takeFileList(self, filePathList: list):
         pars = myParser2()
         for filePath in filePathList:
-            f = open(filePath, "r")
-            sourceLine = f.readlines
-            print(sourceLine)
+           # f = open(filePath, "r")
+           # sourceLine = f.readlines
+           # print(sourceLine)
             pars.parseThisFile(filePath)
             print('\n')
+            open(filePath, 'r') in file
+            fileTxt = file.read()
+            print(fileText)
 
         return
