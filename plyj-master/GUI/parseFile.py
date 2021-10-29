@@ -30,7 +30,7 @@ class myParser2():
         if(type(sourceElement) is m.IfThenElse):
             self.node +=2
             self.edge += 4
-            print (sourceElement.if_true)
+            
             self.calMetric(sourceElement.if_true)
             
             if sourceElement.if_false is None:
@@ -45,7 +45,7 @@ class myParser2():
             ## count the while
             for line in sourceElement.body:
                 self.calMetric(line)
-            print(sourceElement)
+            
         elif type(sourceElement) is m.Switch:
             numSwitches = len(sourceElement.switch_cases)
             self.edge += 2* numSwitches
@@ -54,7 +54,6 @@ class myParser2():
                 for line in switch.body:
                     self.calMetric(line)
 
-            print(sourceElement)
         elif type(sourceElement) is m.VariableDeclaration:
             self.node += 1
             ##Get the names of the variables that are within if, for while or switch statements
@@ -118,7 +117,8 @@ class myParser2():
                                     ##This is where it's an array type
                                     dim = statement.type.dimensions
                                     brackets= "[]"
-                                    type_name = statement.type.name
+                                    
+                                    type_name = str(statement.type.name)
                                     for i in range(0,dim):
                                         type_name = type_name + brackets
                                     
@@ -129,7 +129,7 @@ class myParser2():
                             self.calMetric(statement)
 
 if __name__ == '__main__':
-        fn ="JavaTest\\dev.java"
+        fn ="JavaTest\\Personal_Income_Tax.java"
         
         """   p = Parser()
         tree = p.parse_file(fn)
