@@ -3,6 +3,7 @@
 # it gives the model to the table for displaying ideally with SQLite..
 
 from parseFile import myParser2
+import os
 
 
 class ARI():
@@ -12,8 +13,11 @@ class ARI():
 
     def takeFileList(self, filePathList: list):
         pars = myParser2()
-        for s in filePathList:
-            pars.parseThisFile(s)
+        for filePath in filePathList:
+            f = open(filePath, "r")
+            sourceLine = f.readlines
+            print(sourceLine)
+            pars.parseThisFile(filePath)
             print('\n')
 
         return

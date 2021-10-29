@@ -39,12 +39,16 @@ class myParser2():
             else:
                 self.calMetric(sourceElement.if_false)
         elif type(sourceElement) is m.While:
-
+            ## Count the while loops here
             self.node +=2
             self.edge +=3
             ## count the while
             for line in sourceElement.body:
                 self.calMetric(line)
+        elif(type(sourceElement) is m.For):
+            ## count the for loops 
+            self.node += 2
+            self.edge +=3
             
         elif type(sourceElement) is m.Switch:
             numSwitches = len(sourceElement.switch_cases)
