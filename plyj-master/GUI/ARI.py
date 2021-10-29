@@ -21,6 +21,6 @@ class ARI():
             print('\n')
             open(filePath, 'r') in file
             fileTxt = file.read()
-            print(fileText)
+            print(fileTxt)
 
         return
