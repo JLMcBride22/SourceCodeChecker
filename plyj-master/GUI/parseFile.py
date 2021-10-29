@@ -26,23 +26,43 @@ class myParser2():
         return out
     
     def calMetric(self, sourceElement):
-        print()
+        
         if(type(sourceElement) is m.IfThenElse):
             self.node +=2
             self.edge += 4
             print (sourceElement.if_true)
             self.calMetric(sourceElement.if_true)
-            print()
+            
             if sourceElement.if_false is None:
                 self.edge-=1
             
             else:
                 self.calMetric(sourceElement.if_false)
         elif type(sourceElement) is m.While:
+
             self.node +=2
-            self.node +=3
+            self.edge +=3
+            ## count the while
+            for line in sourceElement.body:
+                self.calMetric(line)
+            print(sourceElement)
+        elif type(sourceElement) is m.Switch:
+            numSwitches = len(sourceElement.switch_cases)
+            self.edge += 2* numSwitches
+
+            for switch in sourceElement.switch_cases:
+                for line in switch.body:
+                    self.calMetric(line)
+
+            print(sourceElement)
         elif type(sourceElement) is m.VariableDeclaration:
             self.node += 1
+            ##Get the names of the variables that are within if, for while or switch statements
+        elif type(sourceElement) is m.Break or type(sourceElement) is m.Return:
+            pass
+
+        else:
+            self.node+=1
 
             
 
@@ -93,7 +113,7 @@ class myParser2():
 
                                 
                                 if type(statement.type) is str:
-                                    type_name = statement.type.name
+                                    type_name = statement.type
                                 else:
                                     ##This is where it's an array type
                                     dim = statement.type.dimensions
