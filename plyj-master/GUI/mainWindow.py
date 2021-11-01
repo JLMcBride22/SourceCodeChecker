@@ -1,9 +1,15 @@
 import sys
 
+from PySide6.QtCore import QModelIndex
+
 sys.path.append("./GUI")
 
 from PyQt5 import QtWidgets as qtw
-from PyQt5.QtGui import QIcon
+
+from PyQt5 import QtSql
+from PyQt5.QtSql import QSqlTableModel
+from PyQt5.QtCore import Qt
+
 from FileSubmitForm import FileSubmitForm
 from UIFiles.GCMainWindowGUI import Ui_MainWindow
 
@@ -20,22 +26,26 @@ class MainWindow(qtw.QMainWindow):
     ui = Ui_MainWindow()
 
     excelBtnDict = {}
-
+    
     def __init__(self, *args, **kwargs):
         super(MainWindow, self).__init__(*args, **kwargs)
 
         self.ui.setupUi(self)
         self.ui.actionInstruction.associatedGraphicsWidgets
-
+        self.ari = None
         ## Adds the function to the button/menu options.
-        ##self.ui.SubmitFileLink.clicked.connect(self.uploadSingleFile)
+        
         self.ui.actionInstruction.triggered.connect(self.openHelp)
         self.ui.actionSingle_file.triggered.connect(self.uploadFile_s)
-        self.ui.javaFileTable.setSelectionBehavior(QAbstractItemView.SelectRows)
-        self.populate_table()
+        self.ui.JavaTableView.setSelectionBehavior(QAbstractItemView.SelectRows)
+        
+
+    
 
     def setARI(self, ariPARAM: ARI):
         self.ari = ariPARAM
+        self.populate_table()
+        
 
     # Opens the dialog for help
     def openHelp(self):
@@ -52,6 +62,8 @@ class MainWindow(qtw.QMainWindow):
         fileSubmit = FileSubmitForm(self)
         fileSubmit.setARI(self.ari)
         fileSubmit.setAutoFillBackground(True)
+        
+        
 
         
 
@@ -59,11 +71,22 @@ class MainWindow(qtw.QMainWindow):
 
     ## Places the buttons in the table
     def populate_table(self):
-        for index in range(0, 2):
-            btnExcel = QToolButton(self)
-            
+        self.dbModel = QSqlTableModel(self)
 
-            self.ui.javaFileTable.setIndexWidget(self.ui.javaFileTable.model().index(index, 7), btnExcel)
+       
+        
+
+        inModel = self.ari.getModel()
+        
+
+
+        
+        self.ui.JavaTableView.setModel(inModel)
+        self.ui.JavaTableView.setVisible(True)
+        self.ui.JavaTableView.show()
+
+        
+
 
 
 if __name__ == '__main__':

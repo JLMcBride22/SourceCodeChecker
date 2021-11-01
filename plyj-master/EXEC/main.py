@@ -8,9 +8,12 @@ a = ARI()
 
 app = qtw.QApplication(sys.argv)
 widget = MainWindow()
-widget.__init__()
 
+
+
+widget.__init__()
 widget.setARI(a)
+
 w = qtw.QMainWindow()
 
 widget.show()

@@ -4,21 +4,91 @@
 # import all components
 # from the tkinter library
 import sys
-sys.path.append(".")
 
+sys.path.append(".")
+import os
 import PLYJ.model as m
 from PLYJ.parser import Parser
+from PyQt5.QtSql import QSqlRecord, QSqlTableModel
 
 
-# Function for opening the
-# file explorer window
-
+#this holds the metrics of the file
+# Such metrics include the list of classes, imports 
+class ARIfile():
+    def __init__(self) -> None:
+        self.numLines = 0 
+    
+    def setNumLines(self, numLines: int):
+        self.numLines = numLines
 
 ## To save time change initialdir to a directory with a java file.
 class myParser2():
     def __init__(self) -> None:
-        self.node:int = 2
-        self.edge:int = 0
+        self.output = []
+        self.date = 0
+        self.hash = 0
+        self.filesize = None
+        self.filePath = ""
+        self.record = QSqlRecord()
+        self.record.setGenerated('tableid', False)
+        self.dbModel = QSqlTableModel()
+        
+        self.blankLines = 0
+        #sloc =source lines of code
+        self.SLOC = 0
+        self.SLOCnoComm = 0
+        self.SLOCwiComm = 0
+        self.fullCommentLines = 0
+        self.NumSemiColons = 0
+        
+        #CodeComplexity
+        self.numPassParams = 0
+        self.mccabe =0
+        ##The following is used for mcCabe Calc
+        self.node = 2
+        self.edge = 0
+        self.P = 2
+        ################################
+        self.halstead = 0
+        self.maxNestingLevel = 0
+        self.ESLOCatMaxLevel = 0
+        self.SwitchComplexity = 0
+
+        ##
+        self.localizationDict = {}
+
+        ##Count loops:
+        self.numForLoops = 0
+        self.numWhileLoops = 0
+        self.numDoWhileLoops = 0
+
+    def getData(self):
+        return self.output
+
+    
+    ## This function should be used when starting the
+    def findMetrics(self, filepath: str):
+        filepathL = filepath.split("\\")
+        numDir=len(filepathL)
+        self.filePath = '.\\'+ filepathL[numDir-2] + filepathL[numDir-1]
+        self.output.append(self.filePath)
+        self.record.setValue(1,filepath)
+
+        self.createCodeStringList(filepath)
+        self.parseThisFile()
+
+        ##self.dbModel.insertRecord(-1,self.record)
+
+    def getRecord(self)->QSqlRecord:
+        return self.record
+
+    ## Creates the raw source code in list format.
+    def createCodeStringList(self, filePath)->bool:
+            
+            file = open(filePath, 'r')
+            self.rawCodeList = file.read()
+            file.close()
+            return True
     
     def calcMcCabe(self):
         out = self.edge - self.node  + 2
@@ -71,12 +141,12 @@ class myParser2():
 
 
 
-    def parseThisFile(self, filename: str):
+    def parseThisFile(self):
 
         # Change label contents
 
         p = Parser()
-        tree = p.parse_file(filename)
+        tree = p.parse_string(self.rawCodeList)
 
         print('declared types:')
         for type_decl in tree.type_declarations:

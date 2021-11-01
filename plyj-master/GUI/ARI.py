@@ -3,24 +3,140 @@
 # it gives the model to the table for displaying ideally with SQLite..
 
 from parseFile import myParser2
-import os
 
+import sys
+from PyQt5.QtSql import*
+from PyQt5.QtCore import Qt
+
+import os
 
 class ARI():
 
     def __init__(self):
-        x = 1
+        
+        self.db =  QSqlDatabase.addDatabase('QSQLITE')
+        self.db.setDatabaseName('GUI\MainTable.sqlite')
+        self.db.open()
+        self.db.transaction()
+        self.db.exec_(
+           """ CREATE TABLE IF NOT EXISTS AnalysisReports (
+                                        id integer PRIMARY KEY,
+                                        filename text NOT NULL,
+                                        timestamp text,
+                                        ESLOC integer,
+                                        SLOCnoComm integer,
+                                        SLOCComm integer,
+                                        BlankLines integer,
+                                        FullCommLines integer,
+                                        Semicolons integer,
+                                        FunctionCalls integer,
+                                        NumPassedParam integer,
+                                        McCabeCyclComp integer,
+                                        Halstead integer,
+                                        MaxNest integer,
+                                        ESLOCMaxNest integer,
+                                        SwitchComp text,
+                                        NumForLoop integer,
+                                        NumWhileLoop integer,
+                                        NumRepeatLoop integer,
+                                        NumInts integer,
+                                        NumFloat integer,
+                                        NumChar integer,
+                                        NumString integer,
+                                        NumUserDef integer,
+                                        NumStruct integer,
+                                        NumArray integer,
+                                        Num3Char integer,
+                                        Num3thru9Char integer,
+                                        Num10thru19Char integer,
+                                        Num20Char integer,
+                                        PreambleFilename text,
+                                        PreambleAuthor text,
+                                        PreamblePurpose text,
+                                        PreambleInterface text,
+                                        PreambleAssumptions text,
+                                        PreambleChangeLog text,
+                                        NoGoTo text,
+                                        OneEntry text,
+                                        OneExit text,
+                                        RecursionStatus text,
+                                        VariableNamesAtLeastXChar text,
+                                        VariableNamesNoLongXChar text,
+                                        DefineParamAllCAPS text,
+                                        VarNamesNotAllCAPS text,
+                                        McCabeLessThanX text,
+                                        NestingLessThanX text,
+                                        ESLOCLessThanXinFunc text,
+                                        LocalizationOfVar text
+                                        
+                                    ); """
+        )
+       
 
+
+
+        ##creating the model for the tableview
+        self.dbModel = QSqlTableModel()
+        #these two lines connect the database to the model
+        self.dbModel.setTable("AnalysisReports")
+        self.dbModel.select()
+        
+        #you have to manually submit your changes. by you using model.submitAll()
+        self.dbModel.setEditStrategy(QSqlTableModel.OnManualSubmit)
+        
+        self.record = self.dbModel.record()
+        self.dbModel.submitAll()
+    
+    #returns the SQL model
+    def getModel(self)->QSqlTableModel:
+        return self.dbModel
+
+    #inserts data into table model.
+    def insertData(self, inList:list):
+        i = 1 # change this to zero!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        for item in inList:
+            self.record.setValue(i, item)
+            i += 1
+        self.dbModel.insertRecord(-1, self.record)
+            
+
+        return 0
+        
     def takeFileList(self, filePathList: list):
         pars = myParser2()
+        
         for filePath in filePathList:
-           # f = open(filePath, "r")
-           # sourceLine = f.readlines
-           # print(sourceLine)
-            pars.parseThisFile(filePath)
-            print('\n')
-            open(filePath, 'r') in file
-            fileTxt = file.read()
-            print(fileTxt)
+            pars.findMetrics(filePath)
+            self.insertData(pars.output)
+            #record = pars.getRecord()
+            #print(record.isGenerated(1))
+            ##self.dbModel.insertRowIntoTable(record)
+            #self.dbModel.insertRecord(-1,record)
+            
+            
+        
+        self.db.commit
+            
+            
 
-        return
+
+
+if __name__ == '__main__':
+
+    a = ARI()
+    filepaths =["JavaTest\\AccessControl.java",
+        "JavaTest\\AddDialog.java",
+        "JavaTest\\AreYouSureDialog.java",
+        "JavaTest\\blank.java",
+        "JavaTest\\Controller.java",
+        "JavaTest\\defaultPage.java",
+        "JavaTest\\dev.java",
+        "JavaTest\\ingrePanel.java",
+        "JavaTest\\loginGUI.java",
+        "JavaTest\\Main.java",
+        "JavaTest\\Personal_Income_Tax.java",
+        "JavaTest\\AccessControl.java"]
+    
+
+    a.takeFileList(filepaths)
+            

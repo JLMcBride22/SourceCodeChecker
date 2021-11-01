@@ -5,7 +5,7 @@ from sqlite3 import Error
 # IF this  has module issues let know immediately.
 
 
-#This class will handle all the methods for storing/seacrhing reports.
+#This class will handle all the methods for storing/searching reports.
 class MeasurementHistorian:
 
     #Standard sqlite function for  creating a connection to a database file.
@@ -187,6 +187,7 @@ with dataconn:
     #mhist.create_analysis_report(dataconn, report3)
     #mhist.create_analysis_report(dataconn, report4)
     tempcheck = mhist.entry_exists(dataconn, "pizza")
+    mhist.print_all_reports(dataconn)
     print(tempcheck)
 
 
