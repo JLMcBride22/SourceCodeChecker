@@ -68,9 +68,9 @@ class myParser2():
     
     ## This function should be used when starting the
     def findMetrics(self, filepath: str):
-        filepathL = filepath.split("\\")
+        filepathL = filepath.split('/')
         numDir=len(filepathL)
-        self.filePath = '.\\'+ filepathL[numDir-2] + filepathL[numDir-1]
+        self.filePath = './'+ filepathL[numDir-2] +'/'+ filepathL[numDir-1]
         self.output.append(self.filePath)
         self.record.setValue(1,filepath)
 
