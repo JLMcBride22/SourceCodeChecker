@@ -71,6 +71,7 @@ class ARI():
                                         
                                     ); """
         )
+        self.db.transaction()
        
 
 
@@ -85,6 +86,7 @@ class ARI():
         self.dbModel.setEditStrategy(QSqlTableModel.OnManualSubmit)
         
         self.record = self.dbModel.record()
+        self.record.setGenerated('tableid', False)
         self.dbModel.submitAll()
     
     #returns the SQL model
@@ -93,11 +95,14 @@ class ARI():
 
     #inserts data into table model.
     def insertData(self, inList:list):
-        i = 1 # change this to zero!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        i = 1
         for item in inList:
             self.record.setValue(i, item)
             i += 1
+            
+        
         self.dbModel.insertRecord(-1, self.record)
+        self.dbModel.submitAll()
             
 
         return 0
@@ -108,6 +113,7 @@ class ARI():
         for filePath in filePathList:
             pars.findMetrics(filePath)
             self.insertData(pars.output)
+            pars.output = []
             #record = pars.getRecord()
             #print(record.isGenerated(1))
             ##self.dbModel.insertRowIntoTable(record)

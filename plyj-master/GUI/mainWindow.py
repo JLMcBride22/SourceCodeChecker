@@ -1,14 +1,13 @@
 import sys
 
-from PySide6.QtCore import QModelIndex
 
 sys.path.append("./GUI")
 
 from PyQt5 import QtWidgets as qtw
+from PyQt5.QtWidgets import QMenu, QTableView
 
-from PyQt5 import QtSql
 from PyQt5.QtSql import QSqlTableModel
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import QEvent, QItemSelection, QItemSelectionModel, Qt, QModelIndex
 
 from FileSubmitForm import FileSubmitForm
 from UIFiles.GCMainWindowGUI import Ui_MainWindow
@@ -38,6 +37,8 @@ class MainWindow(qtw.QMainWindow):
         self.ui.actionInstruction.triggered.connect(self.openHelp)
         self.ui.actionSingle_file.triggered.connect(self.uploadFile_s)
         self.ui.JavaTableView.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.ui.JavaTableView.installEventFilter(self)
+        self.ui.JavaTableView.resizeColumnsToContents()
         
 
     
@@ -56,7 +57,25 @@ class MainWindow(qtw.QMainWindow):
         label.adjustSize()
         label.move(100, 60)
         dlg.exec_()
-
+    
+    def eventFilter(self, source, event):
+        if event.type() == QEvent.ContextMenu and source is self.ui.JavaTableView:
+            
+            menu =QMenu()
+            menu.addAction("View Actions")
+            menu.addAction("View History")
+            if menu.exec_(event.globalPos()):
+                
+                selectionIndexes = self.ui.JavaTableView.selectedIndexes()
+                if len(selectionIndexes) > 0 :
+                    index = selectionIndexes[0]
+                    id =int(self.ui.JavaTableView.model().data(index))
+                    print(id)
+                
+            print("context menu")
+            return True
+        return super().eventFilter(source, event)
+   
     #Opens the upload file screen.
     def uploadFile_s(self):
         fileSubmit = FileSubmitForm(self)

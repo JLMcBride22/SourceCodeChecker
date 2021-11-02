@@ -7,9 +7,10 @@ import sys
 
 sys.path.append(".")
 import os
+#parsar stuff
 import PLYJ.model as m
 from PLYJ.parser import Parser
-from PyQt5.QtSql import QSqlRecord, QSqlTableModel
+
 
 
 #this holds the metrics of the file
@@ -29,9 +30,9 @@ class myParser2():
         self.hash = 0
         self.filesize = None
         self.filePath = ""
-        self.record = QSqlRecord()
-        self.record.setGenerated('tableid', False)
-        self.dbModel = QSqlTableModel()
+        
+        
+        
         
         self.blankLines = 0
         #sloc =source lines of code
@@ -40,7 +41,7 @@ class myParser2():
         self.SLOCwiComm = 0
         self.fullCommentLines = 0
         self.NumSemiColons = 0
-        
+        self.actualFilePath = ""
         #CodeComplexity
         self.numPassParams = 0
         self.mccabe =0
@@ -68,19 +69,22 @@ class myParser2():
     
     ## This function should be used when starting the
     def findMetrics(self, filepath: str):
+        self.actualFilePath
         filepathL = filepath.split('/')
         numDir=len(filepathL)
-        self.filePath = './'+ filepathL[numDir-2] +'/'+ filepathL[numDir-1]
+        self.filePath= './'+ filepathL[numDir-2] +'/'+ filepathL[numDir-1]
         self.output.append(self.filePath)
-        self.record.setValue(1,filepath)
+        
 
         self.createCodeStringList(filepath)
         self.parseThisFile()
 
-        ##self.dbModel.insertRecord(-1,self.record)
+        
+    def resetVariables(self):
+        self.localizationDict = {}
+        self.rawCodeList = []
+        return
 
-    def getRecord(self)->QSqlRecord:
-        return self.record
 
     ## Creates the raw source code in list format.
     def createCodeStringList(self, filePath)->bool:
