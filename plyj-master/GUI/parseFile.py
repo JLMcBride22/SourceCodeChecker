@@ -73,7 +73,11 @@ class myParser2():
                             x = x + 1
                     else:
                         x = x + 1
-
+                    
+            elif(lino.startswith('//')):
+                x = x + 1  
+        
+        self.SLOCnoComm = x
 
 
 
