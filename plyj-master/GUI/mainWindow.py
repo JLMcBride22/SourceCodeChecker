@@ -68,7 +68,7 @@ class MainWindow(qtw.QMainWindow):
     
     def excelOpen(self):
         dlg = QFileDialog.getSaveFileName(self, 'Save File',filter='xlsx(*.xlsx)')
-        print(dlg)
+        self.ari.generateExcelsAll(dlg[0])
         
 
 

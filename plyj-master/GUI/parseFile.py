@@ -65,13 +65,13 @@ class myParser2():
         self.SLOC = len(self.rawCodeList)
         j = 0
         x = 0
-        for lineno in range(0,self.SLOC)
+        for lineno in range(0,self.SLOC):
            
-            if(lineno.startswith('/*'):
-                 for j in lineno 
-                    if (lineno.endswith('*/'))
+            if(lineno.startswith('/*')):
+                 for j in lineno :
+                    if (lineno.endswith('*/')):
                             x = x + 1
-                    else 
+                    else:
                         x = x + 1
 
 

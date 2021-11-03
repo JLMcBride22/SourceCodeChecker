@@ -2,16 +2,19 @@
 # It needs to take in the list of filepath and the metric. I would also want to see that
 # it gives the model to the table for displaying ideally with SQLite..
 
+from Excel_Conversion import ExcelConverter
 from parseFile import myParser2
 
 import sys
 from PyQt5.QtSql import*
 from PyQt5.QtCore import Qt
-
+##import Excel_Conversion
+sys.path.append(".")
+from Measurement_Histories_Draft.MeasurementHistorian import MeasurementHistorian
 import os
 
 class ARI():
-
+    
     def __init__(self):
         
         self.db =  QSqlDatabase.addDatabase('QSQLITE')
@@ -125,26 +128,20 @@ class ARI():
         self.dbModel.submitAll()
         
 
-            
-            
+    ##This is where the Excel_Conversion.py
+    def generateExcelsAll(self, fileDirectory):
+        print(fileDirectory)
+        conn = self.db.databaseName()
+        print(conn)
+        testConverter = ExcelConverter
+        lis = []
+        
+        testConverter.reportToExcel(conn, lis, fileDirectory)
 
 
 
-if __name__ == '__main__':
 
-    a = ARI()
-    filepaths =["JavaTest\\AccessControl.java",
-        "JavaTest\\AddDialog.java",
-        "JavaTest\\AreYouSureDialog.java",
-        "JavaTest\\Controller.java",
-        "JavaTest\\defaultPage.java",
-        "JavaTest\\dev.java",
-        "JavaTest\\ingrePanel.java",
-        "JavaTest\\loginGUI.java",
-        "JavaTest\\Main.java",
-        "JavaTest\\Personal_Income_Tax.java",
-        "JavaTest\\AccessControl.java"]
-    
 
-    a.takeFileList(filepaths)
+
+
             
