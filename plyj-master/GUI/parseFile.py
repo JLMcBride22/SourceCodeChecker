@@ -66,18 +66,21 @@ class myParser2():
         j = 0
         x = 0
         for lineno in range(0,self.SLOC):
-           
-            if(lineno.startswith('/*')):
-                 for j in lineno :
-                    if (lineno.endswith('*/')):
-                            x = x + 1
-                    else:
-                        x = x + 1
-                    
-            elif(lino.startswith('//')):
-                x = x + 1  
+            stripLine = self.rawCodeList[lineno].strip()
+            if(stripLine.startswith('/*')):
+                if(not stripLine.endswith('*/')):
+                    while( not stripLine.endswith('*/')):
+                        x += 1
+                        lineno += 1
+                        stripLine = self.rawCodeList[lineno].strip()
+                x += 1
+            elif(stripLine.startswith('//')):
+                x = x + 1 
+            elif len(stripLine) is 0:
+                self.blankLines += 1 
         
-        self.SLOCnoComm = x
+        self.fullCommentLines = x
+        
 
 
 
@@ -96,6 +99,7 @@ class myParser2():
         
         ##creates the rawsource code
         self.createCodeStringList(filepath)
+        self.checkNumOfComments()
         self.parseThisFile()
         #generates the output
         self.genOutput()
@@ -126,7 +130,7 @@ class myParser2():
     def createCodeStringList(self, filePath)->bool:
             
             file = open(filePath, 'r')
-            self.rawCodeList = file.read()
+            self.rawCodeList = file.readlines()
             file.close()
             return True
     
@@ -250,15 +254,18 @@ class myParser2():
                                 self.maxNestingLevel = self.currNestingLevel
 
 if __name__ == '__main__':
-        fn ="C:/Users/Jonathan Lewis/Documents/GitHub/SourceCodeChecker/plyj-master/JavaTest/AddDialog.java"
+        fn = "C:\\Users\\Jonathan Lewis\\Documents\\GitHub\\SourceCodeChecker\\plyj-master\\JavaTest\\dev.java"
         
         """   p = Parser()
         tree = p.parse_file(fn)
         print(tree) """
         mp = myParser2()
-        mp.findMetrics(fn)
-        out = mp.calcMcCabe()
-        print(out)
+        
+        mp.createCodeStringList(fn)
+        mp.checkNumOfComments()
+        
+        print(mp.fullCommentLines)
+        print(mp.blankLines)
         
 
 

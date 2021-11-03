@@ -1,7 +1,11 @@
 public class CyclomaticComplexityDemo {
     //https://dev.to/designpuddle/coding-concepts---cyclomatic-complexity-3blk
        public static void main(String[] args) {
-       
+       /**
+       HEy
+
+       whats up
+        */
        int[][]A;
        int p,x;
        x = 0;
@@ -21,7 +25,7 @@ public class CyclomaticComplexityDemo {
                default:
                System.out.println("not good");
                break;
-
+//jjj
 
            }
 
@@ -30,6 +34,6 @@ public class CyclomaticComplexityDemo {
            x++;
        }
 
-       
+       /**/
        }
        }

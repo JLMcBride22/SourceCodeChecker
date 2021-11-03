@@ -84,6 +84,7 @@ class MainWindow(qtw.QMainWindow):
                 selectionIndexes = self.ui.JavaTableView.selectedIndexes()
                 if len(selectionIndexes) > 0 :
                     index = selectionIndexes[0]
+                    #TODO must fix this.
                     id =int(self.ui.JavaTableView.model().data(index))
                     print(id)
                 
@@ -117,6 +118,7 @@ class MainWindow(qtw.QMainWindow):
 
         
         self.ui.JavaTableView.setModel(inModel)
+        self.ui.JavaTableView.resizeColumnsToContents()
         self.ui.JavaTableView.hideColumn(0)
         self.ui.JavaTableView.setVisible(True)
         self.ui.JavaTableView.show()

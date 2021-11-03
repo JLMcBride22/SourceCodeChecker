@@ -136,8 +136,12 @@ class ARI():
         print(conn)
         mHist = MeasurementHistorian
         testConverter = ExcelConverter
-        lis = ["Test", "Hello"]
-
+        lis = []
+        """         rowCount = self.dbModel.rowCount()
+        for row in range(0, rowCount):
+            list.append(self.dbModel.record(row).value("filename")) """
+            
+        
         dataconn =  mHist.create_connection(conn)
         
         testConverter.reportToExcel(dataconn, lis, fileDirectory)
