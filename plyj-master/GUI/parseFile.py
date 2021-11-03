@@ -67,17 +67,11 @@ class myParser2():
 
 
     # Check if there is a commented line (SLOC Metric)
-    def checkNumOfComments(int x,int p):
-        x = 0
-        p = 0
+    def checkNumOfComments(self):
         
-        listOfSTrings[]
-        lenOfStrings = len(listOfStrings)
-        for x in range lenOfStrings:
-            if (listOfString[p] == '/')
-                p = p + 1
-                if[listOfStrings[p] == '/')
-                    self.fullCommentLines = self.fullCommentLines = + 1
+        for x in self.rawCodeList:
+            return
+            
 
 
 
