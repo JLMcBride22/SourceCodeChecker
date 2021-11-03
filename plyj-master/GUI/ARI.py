@@ -10,6 +10,7 @@ from PyQt5.QtSql import*
 from PyQt5.QtCore import Qt
 ##import Excel_Conversion
 sys.path.append(".")
+import Utilities.xlsxwriter
 from Measurement_Histories_Draft.MeasurementHistorian import MeasurementHistorian
 import os
 
@@ -133,10 +134,13 @@ class ARI():
         print(fileDirectory)
         conn = self.db.databaseName()
         print(conn)
+        mHist = MeasurementHistorian
         testConverter = ExcelConverter
-        lis = []
+        lis = ["Test", "Hello"]
+
+        dataconn =  mHist.create_connection(conn)
         
-        testConverter.reportToExcel(conn, lis, fileDirectory)
+        testConverter.reportToExcel(dataconn, lis, fileDirectory)
 
 
 
