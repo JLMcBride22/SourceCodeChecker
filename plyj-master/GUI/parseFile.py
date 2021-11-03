@@ -69,10 +69,12 @@ class myParser2():
     
     ## This function should be used when starting the
     def findMetrics(self, filepath: str):
-        self.actualFilePath
+        self.actualFilePath = filepath
+        print(filepath)
         filepathL = filepath.split('/')
         numDir=len(filepathL)
-        self.filePath= './'+ filepathL[numDir-2] +'/'+ filepathL[numDir-1]
+        self.filePath= '.../'+ filepathL[numDir-2] +'/'+ filepathL[numDir-1]
+        
         self.output.append(self.filePath)
         
 
@@ -207,13 +209,13 @@ class myParser2():
                             self.calMetric(statement)
 
 if __name__ == '__main__':
-        fn ="JavaTest\\Personal_Income_Tax.java"
+        fn ="C:/Users/Jonathan Lewis/Documents/GitHub/SourceCodeChecker/plyj-master/JavaTest/AddDialog.java"
         
         """   p = Parser()
         tree = p.parse_file(fn)
         print(tree) """
         mp = myParser2()
-        mp.parseThisFile(fn)
+        mp.findMetrics(fn)
         out = mp.calcMcCabe()
         print(out)
         

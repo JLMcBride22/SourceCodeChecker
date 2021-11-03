@@ -15,11 +15,11 @@ class ARI():
     def __init__(self):
         
         self.db =  QSqlDatabase.addDatabase('QSQLITE')
-        self.db.setDatabaseName('GUI\MainTable.sqlite')
+        self.db.setDatabaseName('MainTable.db')
         self.db.open()
         self.db.transaction()
         self.db.exec_(
-           """ CREATE TABLE IF NOT EXISTS AnalysisReports (
+           ''' CREATE TABLE IF NOT EXISTS AnalysisReports (
                                         id integer PRIMARY KEY,
                                         filename text NOT NULL,
                                         timestamp text,
@@ -68,10 +68,12 @@ class ARI():
                                         NestingLessThanX text,
                                         ESLOCLessThanXinFunc text,
                                         LocalizationOfVar text
-                                        
-                                    ); """
+
+                                    ) '''
         )
-        self.db.transaction()
+        self.db.commit()
+        
+        
        
 
 
@@ -87,7 +89,7 @@ class ARI():
         
         self.record = self.dbModel.record()
         self.record.setGenerated('tableid', False)
-        self.dbModel.submitAll()
+        #self.dbModel.submitAll()
     
     #returns the SQL model
     def getModel(self)->QSqlTableModel:
@@ -102,7 +104,7 @@ class ARI():
             
         
         self.dbModel.insertRecord(-1, self.record)
-        self.dbModel.submitAll()
+        
             
 
         return 0
@@ -119,9 +121,9 @@ class ARI():
             ##self.dbModel.insertRowIntoTable(record)
             #self.dbModel.insertRecord(-1,record)
             
-            
+        self.dbModel.submitAll()
         
-        self.db.commit
+
             
             
 
@@ -133,7 +135,6 @@ if __name__ == '__main__':
     filepaths =["JavaTest\\AccessControl.java",
         "JavaTest\\AddDialog.java",
         "JavaTest\\AreYouSureDialog.java",
-        "JavaTest\\blank.java",
         "JavaTest\\Controller.java",
         "JavaTest\\defaultPage.java",
         "JavaTest\\dev.java",

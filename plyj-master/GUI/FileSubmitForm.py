@@ -4,7 +4,7 @@ from PyQt5 import QtWidgets as qtw
 import os
 
 from PyQt5 import QtWidgets as qtw
-from PyQt5.QtWidgets import QFileDialog, QListWidgetItem, QMessageBox
+from PyQt5.QtWidgets import QDialogButtonBox, QFileDialog, QListWidgetItem, QMessageBox
 
 ##Backend interface 
 from ARI import ARI
@@ -36,15 +36,16 @@ class FileSubmitForm(qtw.QDialog):
         return 0
 
     ## Opens file explorer.
+    #TODO We need to add an settings function that gives the user selects its on default directory!
     def fileExplorer(self):
         file_filter = 'Java File(*.java)'
         filePaths = QFileDialog.getOpenFileNames(
             parent=self, caption='Select a Java File(s)',
-            directory=os.getcwd(), filter=file_filter,
+            directory="JavaTest", filter=file_filter,
             initialFilter='Java File(*.java)'
         )
 
-        ##print(filePaths)
+        
 
         self.uiForm.filePathList.addItems(filePaths.__getitem__(0))
 
@@ -54,7 +55,7 @@ class FileSubmitForm(qtw.QDialog):
     def removeItem(self):
         self.uiForm.filePathList.takeItem(self.uiForm.filePathList.currentRow())
 
-    # The following
+    # The following submits the form
     def submit(self):
         countPaths = self.uiForm.filePathList.count()
         listPaths = []
@@ -66,8 +67,24 @@ class FileSubmitForm(qtw.QDialog):
             dlg.exec_()
         else:
             for i in range(0, countPaths):
-                item = self.uiForm.filePathList.item(i)
-                listPaths.append(item.text())
+                
+                pathway = self.uiForm.filePathList.item(i).text()
+                
+                try:
+                    open(pathway, 'r')
+                    listPaths.append(pathway)
+
+                except IOError:
+                    dlg = QMessageBox()
+                    dlg.setText("Pathway, "+ pathway + " was not found")
+                    dlg.setInformativeText("Please remove forementioned path and try again.")
+                    dlg.setIcon(3)
+                    dlg.exec_()
+                    return
+                    
+
+                ## TODO need if then logic if the user
+                ##listPaths.append(pathway)
 
             
             self.ari.takeFileList(listPaths)
@@ -79,8 +96,9 @@ class FileSubmitForm(qtw.QDialog):
 # Testing purposes
 if __name__ == '__main__':
     import sys
-
-    a = ARI()
+    fileForm =FileSubmitForm()
+    print(fileForm.fileExplorer())
+    """ a = ARI()
     app = qtw.QApplication(sys.argv)
     widget = FileSubmitForm()
     widget.setARI(a)
@@ -88,4 +106,4 @@ if __name__ == '__main__':
 
     widget.show()
 
-    sys, exit(app.exec_())
+    sys, exit(app.exec_()) """

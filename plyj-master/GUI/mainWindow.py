@@ -28,14 +28,14 @@ class MainWindow(qtw.QMainWindow):
     
     def __init__(self, *args, **kwargs):
         super(MainWindow, self).__init__(*args, **kwargs)
-
         self.ui.setupUi(self)
         self.ui.actionInstruction.associatedGraphicsWidgets
         self.ari = None
         ## Adds the function to the button/menu options.
-        
+        self.ui.actionSave_All.triggered.connect(self.saveFile)
         self.ui.actionInstruction.triggered.connect(self.openHelp)
         self.ui.actionSingle_file.triggered.connect(self.uploadFile_s)
+        self.ui.addFilesButton.clicked.connect(self.uploadFile_s)
         self.ui.JavaTableView.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.ui.JavaTableView.installEventFilter(self)
         self.ui.JavaTableView.resizeColumnsToContents()
@@ -45,9 +45,12 @@ class MainWindow(qtw.QMainWindow):
 
     def setARI(self, ariPARAM: ARI):
         self.ari = ariPARAM
+        
         self.populate_table()
         
-
+    def saveFile(self):
+        print("works")
+        self.dbModel.submitAll()
     # Opens the dialog for help
     def openHelp(self):
         dlg = QDialog()
@@ -61,10 +64,10 @@ class MainWindow(qtw.QMainWindow):
     def eventFilter(self, source, event):
         if event.type() == QEvent.ContextMenu and source is self.ui.JavaTableView:
             
-            menu =QMenu()
-            menu.addAction("View Actions")
-            menu.addAction("View History")
-            if menu.exec_(event.globalPos()):
+            self.popUpMenu =QMenu()
+            self.popUpMenu.addAction("View Metrics")
+            self.popUpMenu.addAction("View History")
+            if self.popUpMenu.exec_(event.globalPos()):
                 
                 selectionIndexes = self.ui.JavaTableView.selectedIndexes()
                 if len(selectionIndexes) > 0 :
@@ -72,11 +75,12 @@ class MainWindow(qtw.QMainWindow):
                     id =int(self.ui.JavaTableView.model().data(index))
                     print(id)
                 
-            print("context menu")
+            ## connect action
+            
             return True
         return super().eventFilter(source, event)
    
-    #Opens the upload file screen.
+    #Opens the upload file screen. TODO need to change
     def uploadFile_s(self):
         fileSubmit = FileSubmitForm(self)
         fileSubmit.setARI(self.ari)
