@@ -39,6 +39,7 @@ class MainWindow(qtw.QMainWindow):
         self.ui.JavaTableView.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.ui.JavaTableView.installEventFilter(self)
         self.ui.JavaTableView.resizeColumnsToContents()
+        self.ui.JavaTableView.hideColumn(0)
         
 
     
@@ -96,7 +97,7 @@ class MainWindow(qtw.QMainWindow):
     def populate_table(self):
         self.dbModel = QSqlTableModel(self)
 
-       
+        
         
 
         inModel = self.ari.getModel()
@@ -105,6 +106,7 @@ class MainWindow(qtw.QMainWindow):
 
         
         self.ui.JavaTableView.setModel(inModel)
+        self.ui.JavaTableView.hideColumn(0)
         self.ui.JavaTableView.setVisible(True)
         self.ui.JavaTableView.show()
 

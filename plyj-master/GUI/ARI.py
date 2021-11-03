@@ -110,12 +110,13 @@ class ARI():
         return 0
         
     def takeFileList(self, filePathList: list):
-        pars = myParser2()
+        
         
         for filePath in filePathList:
+            pars = myParser2()
             pars.findMetrics(filePath)
             self.insertData(pars.output)
-            pars.output = []
+            
             #record = pars.getRecord()
             #print(record.isGenerated(1))
             ##self.dbModel.insertRowIntoTable(record)

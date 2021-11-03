@@ -6,7 +6,7 @@
 import sys
 
 sys.path.append(".")
-import os
+import pathlib
 #parsar stuff
 import PLYJ.model as m
 from PLYJ.parser import Parser
@@ -26,7 +26,7 @@ class ARIfile():
 class myParser2():
     def __init__(self) -> None:
         self.output = []
-        self.date = 0
+        self.timeStamp = 0
         self.hash = 0
         self.filesize = None
         self.filePath = ""
@@ -69,18 +69,24 @@ class myParser2():
     
     ## This function should be used when starting the
     def findMetrics(self, filepath: str):
-        self.actualFilePath = filepath
+        self.actFilePath = filepath
         print(filepath)
         filepathL = filepath.split('/')
         numDir=len(filepathL)
         self.filePath= '.../'+ filepathL[numDir-2] +'/'+ filepathL[numDir-1]
         
-        self.output.append(self.filePath)
-        
-
+        ##creates the rawsource code
         self.createCodeStringList(filepath)
         self.parseThisFile()
-
+    #this generates a list
+    def genOutput(self):
+        self.output.append(self.filePath)
+        self.output.append(self.timeStamp)
+        self.output.append(self.SLOC)
+        self.output.append(self.SLOCnoComm)
+        self.output.append(self.SLOCwiComm)
+        self.output
+        return 0
         
     def resetVariables(self):
         self.localizationDict = {}
