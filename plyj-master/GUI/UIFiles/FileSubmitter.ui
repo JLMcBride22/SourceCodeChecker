@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>658</width>
+    <width>661</width>
     <height>732</height>
    </rect>
   </property>
@@ -31,869 +31,1061 @@
   <property name="windowFilePath">
    <string extracomment="HEY"/>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
-    <widget class="QLabel" name="label_2">
-     <property name="text">
-      <string>File Name(s)</string>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>0</width>
+     <height>0</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>File Name(s)</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>250</y>
+     <width>151</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>MaximumVariable Length</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_6">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>10</y>
+     <width>161</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>File Name(s)</string>
+   </property>
+  </widget>
+  <widget class="QTabWidget" name="MeasurementTabs">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>310</y>
+     <width>641</width>
+     <height>411</height>
+    </rect>
+   </property>
+   <property name="currentIndex">
+    <number>1</number>
+   </property>
+   <widget class="QWidget" name="MeasurementTab">
+    <attribute name="title">
+     <string>Measurements</string>
+    </attribute>
+    <widget class="QTabWidget" name="InnerTab">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>641</width>
+       <height>431</height>
+      </rect>
      </property>
+     <property name="toolTip">
+      <string/>
+     </property>
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="SizeTab">
+      <attribute name="title">
+       <string>Code Size</string>
+      </attribute>
+      <widget class="QCheckBox" name="SLOCwCBox">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>20</y>
+         <width>265</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="acceptDrops">
+        <bool>false</bool>
+       </property>
+       <property name="toolTip">
+        <string>Count the number of lines of code including comments.</string>
+       </property>
+       <property name="text">
+        <string>Source Lines of Code with Comments</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="SLOCwoCBox">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>70</y>
+         <width>265</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>Count the number of lines of code not including comments</string>
+       </property>
+       <property name="text">
+        <string>Source Lines of Code without Comments</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="FunctionCallBox">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>270</y>
+         <width>265</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>Count the number of function calls.</string>
+       </property>
+       <property name="text">
+        <string>Number of Function Calls</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="SemicolonBox">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>220</y>
+         <width>265</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>Count the number of semicolons.</string>
+       </property>
+       <property name="text">
+        <string>Number of Semicolons</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="CommentLinesBox">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>170</y>
+         <width>265</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>Count the number of lines in the code that are only comments.</string>
+       </property>
+       <property name="text">
+        <string>Full Comment Lines</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="BlankLineBox">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>120</y>
+         <width>265</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>Count the number of blank lines.</string>
+       </property>
+       <property name="text">
+        <string>Blank Lines</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QWidget" name="ComplexityTab">
+      <attribute name="title">
+       <string>Code Complexity</string>
+      </attribute>
+      <widget class="QCheckBox" name="PassedParamBox">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>20</y>
+         <width>265</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>Count the number of parameters that are passed.</string>
+       </property>
+       <property name="text">
+        <string>Number of Passed Parameters</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="SwitchComplexityBox">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>270</y>
+         <width>265</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>Determine switch complexity</string>
+       </property>
+       <property name="text">
+        <string>Switch Complexity</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="ESLOCatMaxNestBox">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>220</y>
+         <width>265</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>Count the executable source lines of code at the maximum nesting level</string>
+       </property>
+       <property name="text">
+        <string>ESLOC at Max Nesting Level</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="MaxNestingBox">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>170</y>
+         <width>265</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>Determine the maximum nesting level within the source code</string>
+       </property>
+       <property name="text">
+        <string>Maximum Nesting Level</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="HalsteadCompBox">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>120</y>
+         <width>265</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>Calculate Halstead's Software Science Primitives</string>
+       </property>
+       <property name="text">
+        <string>Halstead's Software Science Primitives</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="McCabeCompBox">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>70</y>
+         <width>265</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>Calculate McCab's Cyclomatic Complexity</string>
+       </property>
+       <property name="text">
+        <string>McCabe's Cyclomatic Complexity</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QWidget" name="LoopTab">
+      <attribute name="title">
+       <string>Loop Types</string>
+      </attribute>
+      <widget class="QCheckBox" name="ForLoopBox">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>20</y>
+         <width>265</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>Count the number of for loops</string>
+       </property>
+       <property name="text">
+        <string>Number of For Loops</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="WhileLoopBox">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>70</y>
+         <width>265</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>count the number of while loops</string>
+       </property>
+       <property name="text">
+        <string>Number of While Loops</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="DoWhileLoopBox">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>120</y>
+         <width>265</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>count the number of repeat loops</string>
+       </property>
+       <property name="text">
+        <string>Number of Do-While Loops</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QWidget" name="VariableTab">
+      <attribute name="title">
+       <string>Variables</string>
+      </attribute>
+      <widget class="QCheckBox" name="TotalVarBox">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>5</y>
+         <width>265</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>Count the total number of variables in the code</string>
+       </property>
+       <property name="text">
+        <string>Total Number of Variables</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="IntegerBox">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>55</y>
+         <width>265</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>Count the total number of integer variables in the code</string>
+       </property>
+       <property name="text">
+        <string>Integer</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="FloatBox">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>105</y>
+         <width>265</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>Count the total number of float variables in the code</string>
+       </property>
+       <property name="text">
+        <string>Float</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="CharacterBox">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>155</y>
+         <width>265</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>Count the total number of character variables in the code</string>
+       </property>
+       <property name="text">
+        <string>Character</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="StringBox">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>205</y>
+         <width>265</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>Count the total number of string variables in the code</string>
+       </property>
+       <property name="text">
+        <string>String</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="UserDefBox">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>255</y>
+         <width>265</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>Count the total number of user defined variables in the code</string>
+       </property>
+       <property name="text">
+        <string>User Defined Variable</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="StructBox">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>305</y>
+         <width>265</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>Count the number of structures in the code</string>
+       </property>
+       <property name="text">
+        <string>Structure</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="checkBox_23">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>355</y>
+         <width>265</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>Count the number of arrays in the code</string>
+       </property>
+       <property name="text">
+        <string>Array</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QWidget" name="NameLengthTab">
+      <attribute name="title">
+       <string>Name Length</string>
+      </attribute>
+      <widget class="QCheckBox" name="LessThan3Box">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>20</y>
+         <width>265</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>Count the number of variables with names that are less than 3 characters</string>
+       </property>
+       <property name="text">
+        <string>Names Less Than 3 Characters</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="MoreThan3LessThan10Box">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>70</y>
+         <width>281</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>Count the number of variables with names more than 3 characters but less than 10 characters</string>
+       </property>
+       <property name="text">
+        <string>Names More Than 3 but Less Than 10 Characters</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="MoreThan10LessThan20Box">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>120</y>
+         <width>281</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>Count the number of variables with names more than 10 characters but less than 20 characters</string>
+       </property>
+       <property name="text">
+        <string>Names 10 or More but Less than 20 Characters</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="MoreThan20Box">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>170</y>
+         <width>265</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>Count the number of variables with names mor than 20 characters</string>
+       </property>
+       <property name="text">
+        <string>Names 20 or More Characters</string>
+       </property>
+      </widget>
+     </widget>
     </widget>
-   </item>
-   <item>
-    <layout class="QGridLayout" name="gridLayout">
-     <item row="1" column="1">
-      <layout class="QFormLayout" name="formLayout">
-       <item row="2" column="0">
-        <widget class="QLabel" name="label_3">
-         <property name="text">
-          <string>Mininum Variable Length</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QSpinBox" name="minVarLenBox">
-         <property name="minimum">
-          <number>3</number>
-         </property>
-         <property name="maximum">
-          <number>20</number>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="label">
-         <property name="text">
-          <string>MaximumVariable Length</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="QSpinBox" name="maxVarLenBox">
-         <property name="minimum">
-          <number>5</number>
-         </property>
-         <property name="maximum">
-          <number>20</number>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="0">
-        <widget class="QLabel" name="label_4">
-         <property name="text">
-          <string>McCabe Complexity</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="1">
-        <widget class="QSpinBox" name="mcAbeBox">
-         <property name="minimum">
-          <number>1</number>
-         </property>
-         <property name="maximum">
-          <number>40</number>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="0">
-        <widget class="QLabel" name="label_5">
-         <property name="text">
-          <string>Nesting Level</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="1">
-        <widget class="QSpinBox" name="nestLevBox">
-         <property name="minimum">
-          <number>1</number>
-         </property>
-         <property name="maximum">
-          <number>25</number>
-         </property>
-         <property name="displayIntegerBase">
-          <number>10</number>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="0">
-        <widget class="QCheckBox" name="recursionBox">
-         <property name="text">
-          <string>Allow Recursion</string>
-         </property>
-        </widget>
-       </item>
-       <item row="7" column="0">
-        <widget class="QCheckBox" name="noGotoBox">
-         <property name="text">
-          <string>No Goto's</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QPushButton" name="addBtn">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>84</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>ADD</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QPushButton" name="removeButton">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="text">
-          <string>REMOVE</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item row="3" column="4" colspan="2">
-      <widget class="QCommandLinkButton" name="cancel">
-       <property name="text">
-        <string>Cancel</string>
+   </widget>
+   <widget class="QWidget" name="StandardTab">
+    <attribute name="title">
+     <string>Coding Standards</string>
+    </attribute>
+    <widget class="QTabWidget" name="StandardTabs">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>641</width>
+       <height>391</height>
+      </rect>
+     </property>
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="PreambleTab">
+      <attribute name="title">
+       <string>User Preamble</string>
+      </attribute>
+      <widget class="QCheckBox" name="FileNameBox">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>20</y>
+         <width>265</width>
+         <height>40</height>
+        </rect>
        </property>
-       <property name="icon">
-        <iconset>
-         <normaloff>GUI/icons/red_x.png</normaloff>GUI/icons/red_x.png</iconset>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="3">
-      <widget class="QCommandLinkButton" name="SubmitFileLink">
-       <property name="text">
-        <string>Submit Files</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="3" rowspan="2" colspan="3">
-      <widget class="QTabWidget" name="tabWidget">
-       <property name="currentIndex">
-        <number>1</number>
-       </property>
-       <widget class="QWidget" name="MeasurementTab">
-        <attribute name="title">
-         <string>Measurements</string>
-        </attribute>
-        <widget class="QTabWidget" name="tabWidget_2">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>0</y>
-           <width>321</width>
-           <height>431</height>
-          </rect>
-         </property>
-         <property name="currentIndex">
-          <number>4</number>
-         </property>
-         <widget class="QWidget" name="SizeTab">
-          <attribute name="title">
-           <string>Code Size</string>
-          </attribute>
-          <widget class="QCheckBox" name="checkBox">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>20</y>
-             <width>265</width>
-             <height>40</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Source Lines of Code with Comments</string>
-           </property>
-          </widget>
-          <widget class="QCheckBox" name="checkBox_2">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>70</y>
-             <width>265</width>
-             <height>40</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Source Lines of Code without Comments</string>
-           </property>
-          </widget>
-          <widget class="QCheckBox" name="checkBox_3">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>270</y>
-             <width>265</width>
-             <height>40</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Number of Function Calls</string>
-           </property>
-          </widget>
-          <widget class="QCheckBox" name="checkBox_4">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>220</y>
-             <width>265</width>
-             <height>40</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Number of Semicolons</string>
-           </property>
-          </widget>
-          <widget class="QCheckBox" name="checkBox_5">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>170</y>
-             <width>265</width>
-             <height>40</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Full Comment Lines</string>
-           </property>
-          </widget>
-          <widget class="QCheckBox" name="checkBox_6">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>120</y>
-             <width>265</width>
-             <height>40</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Blank Liners</string>
-           </property>
-          </widget>
-         </widget>
-         <widget class="QWidget" name="ComplexityTab">
-          <attribute name="title">
-           <string>Code Complexity</string>
-          </attribute>
-          <widget class="QCheckBox" name="checkBox_7">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>20</y>
-             <width>265</width>
-             <height>40</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Number of Passed Parameters</string>
-           </property>
-          </widget>
-          <widget class="QCheckBox" name="checkBox_8">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>270</y>
-             <width>265</width>
-             <height>40</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Switch Complexity</string>
-           </property>
-          </widget>
-          <widget class="QCheckBox" name="checkBox_9">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>220</y>
-             <width>265</width>
-             <height>40</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>ESLOC at Max Nesting Leve</string>
-           </property>
-          </widget>
-          <widget class="QCheckBox" name="checkBox_10">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>170</y>
-             <width>265</width>
-             <height>40</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Maximum Nesting Level</string>
-           </property>
-          </widget>
-          <widget class="QCheckBox" name="checkBox_12">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>120</y>
-             <width>265</width>
-             <height>40</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Halstead's Software Science Primitives</string>
-           </property>
-          </widget>
-          <widget class="QCheckBox" name="checkBox_13">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>70</y>
-             <width>265</width>
-             <height>40</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>McCabe's Cyclomatic Complexity</string>
-           </property>
-          </widget>
-         </widget>
-         <widget class="QWidget" name="LoopTab">
-          <attribute name="title">
-           <string>Loop Types</string>
-          </attribute>
-          <widget class="QCheckBox" name="checkBox_11">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>20</y>
-             <width>265</width>
-             <height>40</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Number of For Loops</string>
-           </property>
-          </widget>
-          <widget class="QCheckBox" name="checkBox_14">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>70</y>
-             <width>265</width>
-             <height>40</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Number of While Loops</string>
-           </property>
-          </widget>
-          <widget class="QCheckBox" name="checkBox_15">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>120</y>
-             <width>265</width>
-             <height>40</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Number of Repeat Loops</string>
-           </property>
-          </widget>
-         </widget>
-         <widget class="QWidget" name="VariableTab">
-          <attribute name="title">
-           <string>Variables</string>
-          </attribute>
-          <widget class="QCheckBox" name="checkBox_16">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>5</y>
-             <width>265</width>
-             <height>40</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Total Number of Variables</string>
-           </property>
-          </widget>
-          <widget class="QCheckBox" name="checkBox_17">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>55</y>
-             <width>265</width>
-             <height>40</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Integer</string>
-           </property>
-          </widget>
-          <widget class="QCheckBox" name="checkBox_18">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>105</y>
-             <width>265</width>
-             <height>40</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Float</string>
-           </property>
-          </widget>
-          <widget class="QCheckBox" name="checkBox_19">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>155</y>
-             <width>265</width>
-             <height>40</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Character</string>
-           </property>
-          </widget>
-          <widget class="QCheckBox" name="checkBox_20">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>205</y>
-             <width>265</width>
-             <height>40</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>String</string>
-           </property>
-          </widget>
-          <widget class="QCheckBox" name="checkBox_21">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>255</y>
-             <width>265</width>
-             <height>40</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>User Defined Variable</string>
-           </property>
-          </widget>
-          <widget class="QCheckBox" name="checkBox_22">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>305</y>
-             <width>265</width>
-             <height>40</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Structure</string>
-           </property>
-          </widget>
-          <widget class="QCheckBox" name="checkBox_23">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>355</y>
-             <width>265</width>
-             <height>40</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>CheckBox</string>
-           </property>
-          </widget>
-         </widget>
-         <widget class="QWidget" name="NameLengthTab">
-          <attribute name="title">
-           <string>Name Length</string>
-          </attribute>
-          <widget class="QCheckBox" name="checkBox_24">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>20</y>
-             <width>265</width>
-             <height>40</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Names Less Than 3 Characters</string>
-           </property>
-          </widget>
-          <widget class="QCheckBox" name="checkBox_25">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>70</y>
-             <width>281</width>
-             <height>40</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Names More Than 3 but Less Than 10 Characters</string>
-           </property>
-          </widget>
-          <widget class="QCheckBox" name="checkBox_26">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>120</y>
-             <width>281</width>
-             <height>40</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Names 10 or More but Less than 20 Characters</string>
-           </property>
-          </widget>
-          <widget class="QCheckBox" name="checkBox_27">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>170</y>
-             <width>265</width>
-             <height>40</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Names 20 or More Characters</string>
-           </property>
-          </widget>
-         </widget>
-        </widget>
-       </widget>
-       <widget class="QWidget" name="StandardTab">
-        <attribute name="title">
-         <string>Coding Standards</string>
-        </attribute>
-        <widget class="QTabWidget" name="tabWidget_3">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>0</y>
-           <width>321</width>
-           <height>431</height>
-          </rect>
-         </property>
-         <property name="currentIndex">
-          <number>2</number>
-         </property>
-         <widget class="QWidget" name="PreambleTab">
-          <attribute name="title">
-           <string>User Preamble</string>
-          </attribute>
-          <widget class="QCheckBox" name="checkBox_28">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>20</y>
-             <width>265</width>
-             <height>40</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Filename</string>
-           </property>
-          </widget>
-          <widget class="QCheckBox" name="checkBox_29">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>70</y>
-             <width>265</width>
-             <height>40</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Author</string>
-           </property>
-          </widget>
-          <widget class="QCheckBox" name="checkBox_30">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>120</y>
-             <width>265</width>
-             <height>40</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Purpose</string>
-           </property>
-          </widget>
-          <widget class="QCheckBox" name="checkBox_31">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>170</y>
-             <width>265</width>
-             <height>40</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Interface</string>
-           </property>
-          </widget>
-          <widget class="QCheckBox" name="checkBox_32">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>270</y>
-             <width>265</width>
-             <height>40</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Change Log</string>
-           </property>
-          </widget>
-          <widget class="QCheckBox" name="checkBox_33">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>220</y>
-             <width>265</width>
-             <height>40</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Assumptions</string>
-           </property>
-          </widget>
-         </widget>
-         <widget class="QWidget" name="FlowControlTab">
-          <attribute name="title">
-           <string>Flow Control</string>
-          </attribute>
-          <widget class="QCheckBox" name="checkBox_34">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>20</y>
-             <width>265</width>
-             <height>40</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Presence of GoTo's</string>
-           </property>
-          </widget>
-          <widget class="QCheckBox" name="checkBox_35">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>70</y>
-             <width>265</width>
-             <height>40</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Singular Entry Point</string>
-           </property>
-          </widget>
-          <widget class="QCheckBox" name="checkBox_36">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>120</y>
-             <width>265</width>
-             <height>40</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Singular Exit Point</string>
-           </property>
-          </widget>
-          <widget class="QCheckBox" name="checkBox_37">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>170</y>
-             <width>265</width>
-             <height>40</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Presence of Recursion</string>
-           </property>
-          </widget>
-         </widget>
-         <widget class="QWidget" name="ClarityTab">
-          <attribute name="title">
-           <string>Program Clarity</string>
-          </attribute>
-          <widget class="QCheckBox" name="checkBox_38">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>20</y>
-             <width>281</width>
-             <height>40</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>All Variable Names at Least X Characters Long</string>
-           </property>
-          </widget>
-          <widget class="QCheckBox" name="checkBox_39">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>70</y>
-             <width>281</width>
-             <height>40</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>All Variable Names Not Longer than X Characters</string>
-           </property>
-          </widget>
-          <widget class="QCheckBox" name="checkBox_40">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>120</y>
-             <width>265</width>
-             <height>40</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>All #define Parameters in All Capitals</string>
-           </property>
-          </widget>
-          <widget class="QCheckBox" name="checkBox_41">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>170</y>
-             <width>265</width>
-             <height>40</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>No Variable Names in All Capitals</string>
-           </property>
-          </widget>
-         </widget>
-         <widget class="QWidget" name="ComplexityStandardTab">
-          <attribute name="title">
-           <string>Complexity</string>
-          </attribute>
-          <widget class="QCheckBox" name="checkBox_42">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>20</y>
-             <width>265</width>
-             <height>40</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>McCabe's Cyclomatic Complexity Less Than X</string>
-           </property>
-          </widget>
-          <widget class="QCheckBox" name="checkBox_43">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>70</y>
-             <width>265</width>
-             <height>40</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Maximum Nesting Level Less Than X</string>
-           </property>
-          </widget>
-          <widget class="QCheckBox" name="checkBox_44">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>120</y>
-             <width>265</width>
-             <height>40</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>ESLOC Less Than X Within Functions</string>
-           </property>
-          </widget>
-          <widget class="QCheckBox" name="checkBox_45">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>170</y>
-             <width>265</width>
-             <height>40</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Localization of Variables</string>
-           </property>
-          </widget>
-         </widget>
-        </widget>
-       </widget>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QLineEdit" name="lineEdit">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-         <horstretch>5</horstretch>
-         <verstretch>6</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>100</width>
-         <height>100</height>
-        </size>
-       </property>
-       <property name="inputMethodHints">
-        <set>Qt::ImhNoAutoUppercase|Qt::ImhNoPredictiveText|Qt::ImhPreferLatin</set>
+       <property name="toolTip">
+        <string>Check for the presence of filename in the user preamble</string>
        </property>
        <property name="text">
-        <string/>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-       </property>
-       <property name="placeholderText">
-        <string>@Filename,@Author, @Description</string>
+        <string>Filename</string>
        </property>
       </widget>
-     </item>
-     <item row="0" column="1" colspan="5">
-      <widget class="QListWidget" name="filePathList">
-       <property name="resizeMode">
-        <enum>QListView::Adjust</enum>
+      <widget class="QCheckBox" name="AuthorBox">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>70</y>
+         <width>265</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>Check for the presence of author in the user preamble</string>
+       </property>
+       <property name="text">
+        <string>Author</string>
        </property>
       </widget>
-     </item>
-    </layout>
-   </item>
-  </layout>
+      <widget class="QCheckBox" name="PurposeBox">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>120</y>
+         <width>265</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>Check for the presence of purpose in the user preamble</string>
+       </property>
+       <property name="text">
+        <string>Purpose</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="InterfaceBox">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>170</y>
+         <width>265</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>Check for the presence of interface in the user preamble</string>
+       </property>
+       <property name="text">
+        <string>Interface</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="ChangeLogBox">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>270</y>
+         <width>265</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>Check for the presence of a change log in the user preamble</string>
+       </property>
+       <property name="text">
+        <string>Change Log</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="AssumptionsBox">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>220</y>
+         <width>265</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>Check for the presence of assumptions in the user preamble</string>
+       </property>
+       <property name="text">
+        <string>Assumptions</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QWidget" name="FlowControlTab">
+      <attribute name="title">
+       <string>Flow Control</string>
+      </attribute>
+      <widget class="QCheckBox" name="GotoBox">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>20</y>
+         <width>265</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>Check for the presence of GoTo statements</string>
+       </property>
+       <property name="text">
+        <string>Presence of GoTo's</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="SingleEntryBox">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>70</y>
+         <width>265</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>Check that the code has only one entry point</string>
+       </property>
+       <property name="text">
+        <string>Singular Entry Point</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="SingleExitBox">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>120</y>
+         <width>265</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>Check that the code has only one exit point</string>
+       </property>
+       <property name="text">
+        <string>Singular Exit Point</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="RecursionBox">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>170</y>
+         <width>265</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>Check for the presence of recursion</string>
+       </property>
+       <property name="text">
+        <string>Presence of Recursion</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QWidget" name="ClarityTab">
+      <attribute name="title">
+       <string>Program Clarity</string>
+      </attribute>
+      <widget class="QCheckBox" name="checkBox_38">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>20</y>
+         <width>281</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>Check that all variables are longer than the number &quot;X&quot; entered</string>
+       </property>
+       <property name="text">
+        <string>All Variable Names at Least X Characters Long</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="VariableNameLessThanXBox">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>70</y>
+         <width>281</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>Check that all variables are not longer than the number &quot;X&quot; entered</string>
+       </property>
+       <property name="text">
+        <string>All Variable Names Not Longer than X Characters</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="DefineParamBox">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>120</y>
+         <width>265</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>Check that all #define parameters are in all capital letters</string>
+       </property>
+       <property name="text">
+        <string>All #define Parameters in All Capitals</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="VariableAllCapsBox">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>170</y>
+         <width>265</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>Check that no standard variables are in all capital letters</string>
+       </property>
+       <property name="text">
+        <string>No Variable Names in All Capitals</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QWidget" name="ComplexityStandardTab">
+      <attribute name="title">
+       <string>Complexity</string>
+      </attribute>
+      <widget class="QCheckBox" name="McCabesLessThanXBox">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>20</y>
+         <width>300</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>Determine if the given source code's cyclomatic coplexity is less than the number &quot;X&quot; entered</string>
+       </property>
+       <property name="text">
+        <string>McCabe's Cyclomatic Complexity Less Than X</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="MaxNestingLessThanXBox">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>70</y>
+         <width>265</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>Determine if the source code's maximum nesting level is less than the number &quot;X&quot; entered</string>
+       </property>
+       <property name="text">
+        <string>Maximum Nesting Level Less Than X</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="ESLOCLessThanXInFunctionBox">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>120</y>
+         <width>265</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>Determine if the number of executable source lines of code within functions is less than the number &quot;X&quot; entered</string>
+       </property>
+       <property name="text">
+        <string>ESLOC Less Than X Within Functions</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="LocalizationBox">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>170</y>
+         <width>265</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>Check for localization of variables</string>
+       </property>
+       <property name="text">
+        <string>Localization of Variables</string>
+       </property>
+      </widget>
+     </widget>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QListWidget" name="filePathList">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>29</y>
+     <width>641</width>
+     <height>161</height>
+    </rect>
+   </property>
+   <property name="resizeMode">
+    <enum>QListView::Adjust</enum>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="minVarLenBox">
+   <property name="geometry">
+    <rect>
+     <x>220</x>
+     <y>280</y>
+     <width>37</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="minimum">
+    <number>3</number>
+   </property>
+   <property name="maximum">
+    <number>20</number>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>280</y>
+     <width>151</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Mininum Variable Length</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>320</x>
+     <y>250</y>
+     <width>131</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>McCabe's Complexity</string>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="maxVarLenBox">
+   <property name="geometry">
+    <rect>
+     <x>220</x>
+     <y>250</y>
+     <width>37</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="minimum">
+    <number>5</number>
+   </property>
+   <property name="maximum">
+    <number>20</number>
+   </property>
+  </widget>
+  <widget class="QCommandLinkButton" name="SubmitFileLink">
+   <property name="geometry">
+    <rect>
+     <x>310</x>
+     <y>200</y>
+     <width>172</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Submit Files</string>
+   </property>
+  </widget>
+  <widget class="QCommandLinkButton" name="cancel">
+   <property name="geometry">
+    <rect>
+     <x>470</x>
+     <y>200</y>
+     <width>151</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Cancel</string>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>GUI/icons/red_x.png</normaloff>GUI/icons/red_x.png</iconset>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="removeButton">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>200</y>
+     <width>111</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="text">
+    <string>Remove Files</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="addBtn">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>200</y>
+     <width>111</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>84</width>
+     <height>0</height>
+    </size>
+   </property>
+   <property name="text">
+    <string>Add Files</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>320</x>
+     <y>280</y>
+     <width>131</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Nesting Level</string>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="nestLevBox">
+   <property name="geometry">
+    <rect>
+     <x>470</x>
+     <y>280</y>
+     <width>37</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="minimum">
+    <number>1</number>
+   </property>
+   <property name="maximum">
+    <number>25</number>
+   </property>
+   <property name="displayIntegerBase">
+    <number>10</number>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="mcAbeBox">
+   <property name="geometry">
+    <rect>
+     <x>470</x>
+     <y>250</y>
+     <width>37</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="minimum">
+    <number>1</number>
+   </property>
+   <property name="maximum">
+    <number>40</number>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>
