@@ -1,9 +1,9 @@
 from queue import Queue
-
+import os
+import platform
+import pathlib
 
 def fileQueue(maxSize, file):
-
-
 # Initializing a queue
 q = Queue(maxSize)
 c = 0
@@ -17,8 +17,7 @@ print("\nFull:", q.full())
 ############################################################
 
 # retrieve data for filename and date
-import os
-import platform
+
 
 
 # Function to get the date of file
@@ -31,8 +30,8 @@ def creation_date(filePath):
         try:
             return stat.st_birthtime
         except AttributeError:
-            # We're probably on Linux. No easy way to get creation dates here,
-            # so we'll settle for when its content was last modified.
+           
+            # Return last modification of file.
             return stat.st_mtime
 
 
@@ -40,7 +39,7 @@ def creation_date(filePath):
 
 # Function to get the name of file
 
-import pathlib
+
 
 
 def file_name_created(filePath)

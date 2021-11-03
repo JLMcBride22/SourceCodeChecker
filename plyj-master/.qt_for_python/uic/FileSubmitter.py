@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'FileSubmitter.ui'
+# Form implementation generated from reading ui file 'c:\Users\JLMcB\OneDrive\Documents\GitHub\SourceCodeChecker\plyj-master\GUI\UIFiles\FileSubmitter.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.5
 #
@@ -237,7 +237,7 @@ class Ui_FileSubForm(object):
         self.cancel = QtWidgets.QCommandLinkButton(FileSubForm)
         self.cancel.setGeometry(QtCore.QRect(470, 200, 151, 41))
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("GUI/icons/red_x.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("c:\\Users\\JLMcB\\OneDrive\\Documents\\GitHub\\SourceCodeChecker\\plyj-master\\GUI\\UIFiles\\GUI/icons/red_x.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.cancel.setIcon(icon)
         self.cancel.setObjectName("cancel")
         self.removeButton = QtWidgets.QPushButton(FileSubForm)
@@ -394,13 +394,3 @@ class Ui_FileSubForm(object):
         self.removeButton.setText(_translate("FileSubForm", "Remove Files"))
         self.addBtn.setText(_translate("FileSubForm", "Add Files"))
         self.label_5.setText(_translate("FileSubForm", "Nesting Level"))
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    FileSubForm = QtWidgets.QWidget()
-    ui = Ui_FileSubForm()
-    ui.setupUi(FileSubForm)
-    FileSubForm.show()
-    sys.exit(app.exec_())
