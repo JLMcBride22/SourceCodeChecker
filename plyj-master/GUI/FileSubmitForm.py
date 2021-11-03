@@ -18,6 +18,7 @@ class FileSubmitForm(qtw.QDialog):
         super(FileSubmitForm, self).__init__(*args, **kwargs)
 
         self.uiForm.setupUi(self)
+        
         self.uiForm.removeButton.clicked.connect
         self.connectActions()
         self.setEnabled(True)
