@@ -78,14 +78,18 @@ class myParser2():
         ##creates the rawsource code
         self.createCodeStringList(filepath)
         self.parseThisFile()
-    #this generates a list
+        #generates the output
+        self.genOutput()
+    #this generates a list that contains all the metrics
     def genOutput(self):
         self.output.append(self.filePath)
         self.output.append(self.timeStamp)
         self.output.append(self.SLOC)
         self.output.append(self.SLOCnoComm)
         self.output.append(self.SLOCwiComm)
-        self.output
+        self.output.append(self.blankLines)
+        self.output.append(self.fullCommentLines)
+        self.output.append(self.NumSemiColons)
         return 0
         
     def resetVariables(self):
