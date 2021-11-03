@@ -32,7 +32,8 @@ class myParser2():
         self.filePath = ""
         
         
-        
+        #function calls
+        self.functionCalls = 0
         
         self.blankLines = 0
         #sloc =source lines of code
@@ -52,6 +53,7 @@ class myParser2():
         ################################
         self.halstead = 0
         self.maxNestingLevel = 0
+        self.currNestingLevel = 0
         self.ESLOCatMaxLevel = 0
         self.SwitchComplexity = 0
 
@@ -90,6 +92,11 @@ class myParser2():
         self.output.append(self.blankLines)
         self.output.append(self.fullCommentLines)
         self.output.append(self.NumSemiColons)
+        self.output.append(self.functionCalls)
+        self.output.append(self.numPassParams)
+        self.output.append(self.calcMcCabe())
+        self.output.append(self.halstead)
+        self.output.append(self.maxNestingLevel)
         return 0
         
     def resetVariables(self):
@@ -118,7 +125,7 @@ class myParser2():
             self.edge += 4
             
             self.calMetric(sourceElement.if_true)
-            
+            self.currNestingLevel += 1
             if sourceElement.if_false is None:
                 self.edge-=1
             
@@ -126,15 +133,19 @@ class myParser2():
                 self.calMetric(sourceElement.if_false)
         elif type(sourceElement) is m.While:
             ## Count the while loops here
+            self.currNestingLevel += 1
             self.node +=2
             self.edge +=3
             ## count the while
+            self.numWhileLoops += 1
             for line in sourceElement.body:
                 self.calMetric(line)
         elif(type(sourceElement) is m.For):
-            ## count the for loops 
+            self.currNestingLevel += 1 
             self.node += 2
             self.edge +=3
+
+            self.numForLoops += 1
             
         elif type(sourceElement) is m.Switch:
             numSwitches = len(sourceElement.switch_cases)
@@ -214,9 +225,12 @@ class myParser2():
                                     
                                     
                                 print('        ' + type_name + ' ' + var_decl.variable.name)
-
+                        #TODO Must add a elif statement for function statement.. very important for counting functions
                         else:
+                            self.currNestingLevel = 0
                             self.calMetric(statement)
+                            if self.currNestingLevel > self.maxNestingLevel:
+                                self.maxNestingLevel = self.currNestingLevel
 
 if __name__ == '__main__':
         fn ="C:/Users/Jonathan Lewis/Documents/GitHub/SourceCodeChecker/plyj-master/JavaTest/AddDialog.java"
