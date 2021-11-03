@@ -13,14 +13,7 @@ from PLYJ.parser import Parser
 
 
 
-#this holds the metrics of the file
-# Such metrics include the list of classes, imports 
-class ARIfile():
-    def __init__(self) -> None:
-        self.numLines = 0 
-    
-    def setNumLines(self, numLines: int):
-        self.numLines = numLines
+
 
 ## To save time change initialdir to a directory with a java file.
 class myParser2():
@@ -30,6 +23,7 @@ class myParser2():
         self.hash = 0
         self.filesize = None
         self.filePath = ""
+        
         
         
         #function calls
@@ -68,10 +62,17 @@ class myParser2():
 
     # Check if there is a commented line (SLOC Metric)
     def checkNumOfComments(self):
-        
-        for x in self.rawCodeList:
-            return
-            
+        self.SLOC = len(self.rawCodeList)
+        j = 0
+        x = 0
+        for lineno in range(0,self.SLOC)
+           
+            if(lineno.startswith('/*'):
+                 for j in lineno 
+                    if (lineno.endswith('*/'))
+                            x = x + 1
+                    else 
+                        x = x + 1
 
 
 
