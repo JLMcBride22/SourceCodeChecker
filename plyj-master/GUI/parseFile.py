@@ -131,6 +131,7 @@ class myParser2():
             
             file = open(filePath, 'r')
             self.rawCodeList = file.readlines()
+            self.codeStr = file.read()
             file.close()
             return True
     
@@ -194,7 +195,7 @@ class myParser2():
         # Change label contents
 
         p = Parser()
-        tree = p.parse_string(self.rawCodeList)
+        tree = p.parse_string(self.codeStr)
 
         print('declared types:')
         for type_decl in tree.type_declarations:
