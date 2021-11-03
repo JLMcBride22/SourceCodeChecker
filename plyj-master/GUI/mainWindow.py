@@ -4,7 +4,7 @@ import sys
 sys.path.append("./GUI")
 
 from PyQt5 import QtWidgets as qtw
-from PyQt5.QtWidgets import QMenu, QTableView
+from PyQt5.QtWidgets import QFileDialog, QMenu, QTableView
 
 from PyQt5.QtSql import QSqlTableModel
 from PyQt5.QtCore import QEvent, QItemSelection, QItemSelectionModel, Qt, QModelIndex
@@ -35,7 +35,11 @@ class MainWindow(qtw.QMainWindow):
         self.ui.actionSave_All.triggered.connect(self.saveFile)
         self.ui.actionInstruction.triggered.connect(self.openHelp)
         self.ui.actionSingle_file.triggered.connect(self.uploadFile_s)
+        self.ui.actionExport_File.triggered.connect(self.excelOpen)
+
+        ##buttons
         self.ui.addFilesButton.clicked.connect(self.uploadFile_s)
+        
         self.ui.JavaTableView.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.ui.JavaTableView.installEventFilter(self)
         self.ui.JavaTableView.resizeColumnsToContents()
@@ -62,6 +66,13 @@ class MainWindow(qtw.QMainWindow):
         label.move(100, 60)
         dlg.exec_()
     
+    def excelOpen(self):
+        dlg = QFileDialog.getSaveFileName(self, 'Save File',filter='xlsx(*.xlsx)')
+        print(dlg)
+        
+
+
+
     def eventFilter(self, source, event):
         if event.type() == QEvent.ContextMenu and source is self.ui.JavaTableView:
             
