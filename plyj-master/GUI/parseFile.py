@@ -138,7 +138,7 @@ class myParser2():
         self.output.append(self.numUserDefined)
         self.output.append(0)#<----------NO STRUCTS
         self.output.append(self.numArrays)
-        return 0
+        return 0  
         
 
 
