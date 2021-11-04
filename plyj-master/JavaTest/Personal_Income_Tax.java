@@ -31,9 +31,6 @@ public class Personal_Income_Tax {
 			System.exit(0);
 			
 		}
-		else if( status = ' '){
-			int x = 0;
-		}
 		else {
 			for(int i = 4; i < 20; i++){
 

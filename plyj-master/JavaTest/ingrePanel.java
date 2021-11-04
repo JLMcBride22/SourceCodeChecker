@@ -38,7 +38,7 @@ private void buildIngrePanel(){
     ingreListAllB =new JButton("List All");
 
     //The following code builds toolbar;
-    {
+    
         ingreToolBar.add(ingreSearchTF);
 
         ingreToolBar.add(ingreSearchB);
@@ -47,10 +47,10 @@ private void buildIngrePanel(){
         ingreToolBar.add(ingreRemoveB);
         ingreToolBar.addSeparator();
         ingreToolBar.add(ingreListAllB);
-    }
+    
 
     //add the listener to the  Buttons
-    {
+    
 
         ingreSearchB.addActionListener(this);
         ingreAddB.addActionListener(this);
@@ -59,7 +59,7 @@ private void buildIngrePanel(){
         ingreListAllB.addActionListener(this);
 
 
-    }
+    
       add(ingreToolBar);
 
       ingreSearchTF.setBounds(250,250,50,25);

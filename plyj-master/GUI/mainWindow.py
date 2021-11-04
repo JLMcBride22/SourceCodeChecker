@@ -100,7 +100,7 @@ class MainWindow(qtw.QMainWindow):
         fileSubmit.setAutoFillBackground(True)
         
         
-
+        
         
 
         fileSubmit.show()

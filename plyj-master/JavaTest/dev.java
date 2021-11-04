@@ -1,3 +1,6 @@
+public class namme{
+
+}
 public class CyclomaticComplexityDemo {
     //https://dev.to/designpuddle/coding-concepts---cyclomatic-complexity-3blk
        public static void main(String[] args) {
@@ -8,6 +11,10 @@ public class CyclomaticComplexityDemo {
         */
        int[][]A;
        int p,x;
+       char x;
+       String yy;
+       namme d;
+
        x = 0;
        while(x < 100){
            if(A[x] % 2 == 0){
