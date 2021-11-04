@@ -65,6 +65,7 @@ class myParser2():
         self.numChar = 0
         self.numString = 0
         self.numUserDefined = 0
+        
         self.numArrays = 0
 
         self.testingVariable = 0
@@ -131,6 +132,12 @@ class myParser2():
         self.output.append(self.numForLoops)
         self.output.append(self.numWhileLoops)
         self.output.append(self.numDoWhileLoops)
+        self.output.append(self.numInt)
+        self.output.append(self.numFloat)
+        self.output.append(self.numString)
+        self.output.append(self.numUserDefined)
+        self.output.append(0)#<----------NO STRUCTS
+        self.output.append(self.numArrays)
         return 0
         
 
