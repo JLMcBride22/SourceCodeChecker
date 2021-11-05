@@ -1,15 +1,20 @@
-# The goal of this module is to exchange critical data between the frontend and backend
-# It needs to take in the list of filepath and the metric. I would also want to see that
-# it gives the model to the table for displaying ideally with SQLite..
-
-from Excel_Conversion import ExcelConverter
-from parseFile import myParser2
-
+#######################################################################################
+#
+#
+#
+#######################################################################################
 import sys
+sys.path.append(".")
+from PyQt5.QtWidgets import QTableView
+#from Excel_Conversion import ExcelConverter
+
+from MetricCalc.PostCompileCalc import myParser2
+
+
 from PyQt5.QtSql import*
 from PyQt5.QtCore import Qt
-##import Excel_Conversion
-sys.path.append(".")
+from Excel_Conversion import ExcelConverter
+
 import Utilities.xlsxwriter
 from Measurement_Histories_Draft.MeasurementHistorian import MeasurementHistorian
 import os
@@ -17,7 +22,7 @@ import os
 class ARI():
     
     def __init__(self):
-        
+        self.uncompilable = ""
         self.db =  QSqlDatabase.addDatabase('QSQLITE')
         self.db.setDatabaseName('MainTable.db')
         self.db.open()
@@ -99,35 +104,48 @@ class ARI():
     def getModel(self)->QSqlTableModel:
         return self.dbModel
 
-    #inserts data into table model.
+    #inserts a list of data into table model.
     def insertData(self, inList:list):
         i = 1
         for item in inList:
             self.record.setValue(i, item)
             i += 1
             
-        
+        ## -1 mean inserted at the bottem
         self.dbModel.insertRecord(-1, self.record)
         
             
 
         return 0
-        
+    #This takes the filepath to the compiler
     def takeFileList(self, filePathList: list):
-        
-        
+        self.uncompilable = ""
+        listOfOutputs = []
         for filePath in filePathList:
             pars = myParser2()
-            pars.findMetrics(filePath)
-            self.insertData(pars.output)
+
+            try:
+                pars.findMetrics(filePath)
+            except AttributeError:
+                self.uncompilable = filePath
+                return
+            
+
+            listOfOutputs.append(pars.output)
             
             #record = pars.getRecord()
             #print(record.isGenerated(1))
             ##self.dbModel.insertRowIntoTable(record)
             #self.dbModel.insertRecord(-1,record)
-            
+        
+        for output in listOfOutputs:
+            self.insertData(output)
+
+
         self.dbModel.submitAll()
         
+    def getUncompiled(self):
+        return self.uncompilable
 
     ##This is where the Excel_Conversion.py
     def generateExcelsAll(self, fileDirectory):
@@ -136,15 +154,19 @@ class ARI():
         print(conn)
         mHist = MeasurementHistorian
         testConverter = ExcelConverter
-        lis = []
-        """         rowCount = self.dbModel.rowCount()
-        for row in range(0, rowCount):
-            list.append(self.dbModel.record(row).value("filename")) """
+        
+         
+        quer = QSqlQuery('Select filename FROM AnalysisReports')
+        listOfFilenames = []
+        while quer.next():
+            listOfFilenames.append(quer.value(0))
+
             
+
         
         dataconn =  mHist.create_connection(conn)
         
-        testConverter.reportToExcel(dataconn, lis, fileDirectory)
+        testConverter.reportToExcel(dataconn, listOfFilenames, fileDirectory)
 
 
 

@@ -1,10 +1,11 @@
+from typing import IO
 from PyQt5 import QtWidgets as qtw
 # Imported the following to connect a button to a function?
 # vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 import os
 
 from PyQt5 import QtWidgets as qtw
-from PyQt5.QtWidgets import QDialogButtonBox, QFileDialog, QListWidgetItem, QMessageBox
+from PyQt5.QtWidgets import QDialogButtonBox, QFileDialog, QListWidgetItem, QMessageBox, QTableView
 
 ##Backend interface 
 from ARI import ARI
@@ -19,13 +20,15 @@ class FileSubmitForm(qtw.QDialog):
 
         self.uiForm.setupUi(self)
         
-        self.uiForm.removeButton.clicked.connect
+        
         self.connectActions()
         self.setEnabled(True)
+        self.tableView = None
 
     def setARI(self, ariParam: ARI):
         self.ari = ariParam
-
+       
+    
     ##Connects the actions to all the buttons in the dialog
     def connectActions(self):
         ## Add remove.
@@ -51,7 +54,7 @@ class FileSubmitForm(qtw.QDialog):
         self.uiForm.filePathList.addItems(filePaths.__getitem__(0))
 
         return 0
-
+    
     # This function removes only one item.
     def removeItem(self):
         self.uiForm.filePathList.takeItem(self.uiForm.filePathList.currentRow())
@@ -84,22 +87,29 @@ class FileSubmitForm(qtw.QDialog):
                     return
                     
 
-                ## TODO need if then logic if the user
-                ##listPaths.append(pathway)
-
+        self.ari.takeFileList(listPaths)
             
-            self.ari.takeFileList(listPaths)
-            self.close()
+        uncompiled=self.ari.getUncompiled()
+        
+        if(uncompiled is not ""):
+            dlg = QMessageBox()
+            
+            dlg.setText("Pathway, "+ str(uncompiled) + ", wasn't abled to be compiled")
+            dlg.setInformativeText("Please remove the forementioned path and try again.")
+            dlg.setIcon(3)
+            dlg.exec_()
+            return
+        
+        self.close()
 
-        return
+        
 
 
 # Testing purposes
 if __name__ == '__main__':
     import sys
-    fileForm =FileSubmitForm()
-    print(fileForm.fileExplorer())
-    """ a = ARI()
+  
+    a = ARI()
     app = qtw.QApplication(sys.argv)
     widget = FileSubmitForm()
     widget.setARI(a)
@@ -107,4 +117,4 @@ if __name__ == '__main__':
 
     widget.show()
 
-    sys, exit(app.exec_()) """
+    sys, exit(app.exec_())

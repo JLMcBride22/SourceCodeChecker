@@ -152,7 +152,6 @@
     </widget>
     <addaction name="menuNew_File"/>
     <addaction name="actionExport_File"/>
-    <addaction name="actionSave_All"/>
    </widget>
    <widget class="QMenu" name="menuEdit">
     <property name="title">

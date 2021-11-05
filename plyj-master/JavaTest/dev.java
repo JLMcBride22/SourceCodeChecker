@@ -3,6 +3,7 @@ public class namme{
 }
 public class CyclomaticComplexityDemo {
     //https://dev.to/designpuddle/coding-concepts---cyclomatic-complexity-3blk
+    //McCabe score of 11.
        public static void main(String[] args) {
        /**
        HEy

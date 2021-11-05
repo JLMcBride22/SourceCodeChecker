@@ -32,7 +32,6 @@ class MainWindow(qtw.QMainWindow):
         self.ui.actionInstruction.associatedGraphicsWidgets
         self.ari = None
         ## Adds the function to the button/menu options.
-        self.ui.actionSave_All.triggered.connect(self.saveFile)
         self.ui.actionInstruction.triggered.connect(self.openHelp)
         self.ui.actionSingle_file.triggered.connect(self.uploadFile_s)
         self.ui.actionExport_File.triggered.connect(self.excelOpen)
@@ -53,9 +52,7 @@ class MainWindow(qtw.QMainWindow):
         
         self.populate_table()
         
-    def saveFile(self):
-        print("works")
-        self.dbModel.submitAll()
+
     # Opens the dialog for help
     def openHelp(self):
         dlg = QDialog()
@@ -67,7 +64,7 @@ class MainWindow(qtw.QMainWindow):
         dlg.exec_()
     
     def excelOpen(self):
-        dlg = QFileDialog.getSaveFileName(self, 'Save File',filter='xlsx(*.xlsx)')
+        dlg = QFileDialog.getSaveFileName(self, 'Save File',filter='xlsx(*.xlsx)',directory='ExcelTest')
         self.ari.generateExcelsAll(dlg[0])
         
 

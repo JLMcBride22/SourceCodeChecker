@@ -6,7 +6,9 @@
 import sys
 
 sys.path.append(".")
-import pathlib
+import os
+from pathlib import Path
+import datetime
 #parsar stuff
 import PLYJ.model as m
 from PLYJ.parser import Parser
@@ -69,6 +71,7 @@ class myParser2():
         self.numArrays = 0
 
         self.testingVariable = 0
+    ##########################################This will be moved to precompiled file###############################################    
     # Check if there is a commented line (SLOC Metric)
     def checkNumOfComments(self):
         self.SLOC = len(self.rawCodeList)
@@ -93,9 +96,15 @@ class myParser2():
         
         self.fullCommentLines = x
         
+    def getTimeStamp(self):
+        p = Path(self.actFilePath)
+        stats = p.stat()
+        time = stats.st_mtime
+        self.timeStamp = datetime.datetime.fromtimestamp(time).strftime('%c')
+        return self.timeStamp
+        
 
-
-
+##################################precompiled class######################################
 
     def getData(self):
         return self.output
@@ -117,10 +126,10 @@ class myParser2():
         self.genOutput()
 
 
-    #this generates a list that contains all the metrics
+    #this generates a list that contains all the metrics. This should be move to calc interface.
     def genOutput(self):
         self.output.append(self.filePath)
-        self.output.append(self.timeStamp)
+        self.output.append(self.getTimeStamp())
         self.output.append(self.SLOC)
         self.output.append(self.SLOCnoComm)
         self.output.append(self.SLOCwiComm)
@@ -321,10 +330,10 @@ if __name__ == '__main__':
         """   p = Parser()
         tree = p.parse_file(fn)
         print(tree) """
-        mp = myParser2()
-        mp.findMetrics(fn)
+        p = myParser2()
+        p.actFilePath = fn
+        print(p.getTimeStamp())
         
-        print(mp.numSemiColons)
         
 
 

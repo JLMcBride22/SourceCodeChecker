@@ -98,7 +98,6 @@ class Ui_MainWindow(object):
         self.menuNew_File.addAction(self.actionDirectory)
         self.menuFile.addAction(self.menuNew_File.menuAction())
         self.menuFile.addAction(self.actionExport_File)
-        self.menuFile.addAction(self.actionSave_All)
         self.menuHelp.addAction(self.actionInstruction)
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuEdit.menuAction())
