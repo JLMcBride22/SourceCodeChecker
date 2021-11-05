@@ -18,8 +18,6 @@ print("\nFull:", q.full())
 
 # retrieve data for filename and date
 
-
-
 # Function to get the date of file
 def creation_date(filePath):
     if platform.system() == 'Windows':
@@ -31,7 +29,7 @@ def creation_date(filePath):
             return stat.st_birthtime
         except AttributeError:
            
-            # Return last modification of file.
+            # Return last modification of.
             return stat.st_mtime
 
 
@@ -39,11 +37,7 @@ def creation_date(filePath):
 
 # Function to get the name of file
 
-
-
-
 def file_name_created(filePath)
-
 
 path = filePath
 

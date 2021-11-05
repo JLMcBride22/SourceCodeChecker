@@ -96,6 +96,21 @@ class myParser2():
         
         self.fullCommentLines = x
         
+    def programClarity(self):
+
+        for lineNo in range (0,SLOC)
+            words = self.rawCodeList[lineno].split(" ")
+            for x in words:
+                if (len(x) >= self.minCharsLong):
+                     self.varsAtleastXCharsLong += 1
+                elif (self.maxCharsLong >= x):
+                    self.varsNoLongerThanXChars += 1
+            
+
+
+
+
+
     def getTimeStamp(self):
         p = Path(self.actFilePath)
         stats = p.stat()
