@@ -4,7 +4,7 @@ from PyQt5 import QtWidgets as qtw
 # vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 import os
 
-from PyQt5 import QtWidgets as qtw
+
 from PyQt5.QtWidgets import QDialogButtonBox, QFileDialog, QListWidgetItem, QMessageBox, QTableView
 
 ##Backend interface 
@@ -22,8 +22,8 @@ class FileSubmitForm(qtw.QDialog):
         
         
         self.connectActions()
-        self.setEnabled(True)
-        self.tableView = None
+        #self.setEnabled(True)
+        
 
     def setARI(self, ariParam: ARI):
         self.ari = ariParam

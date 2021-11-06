@@ -6,11 +6,12 @@ from PyQt5 import QtWidgets as qtw
 ##The create the interface
 a = ARI()
 
+##creates the app and and main window
 app = qtw.QApplication(sys.argv)
 widget = MainWindow()
 widget.__init__()
 widget.setARI(a)
-w = qtw.QMainWindow()
+
 widget.show()
 
 sys, exit(app.exec_())

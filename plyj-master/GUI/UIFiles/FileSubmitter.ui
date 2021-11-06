@@ -3,7 +3,7 @@
  <class>FileSubForm</class>
  <widget class="QWidget" name="FileSubForm">
   <property name="windowModality">
-   <enum>Qt::WindowModal</enum>
+   <enum>Qt::NonModal</enum>
   </property>
   <property name="geometry">
    <rect>
@@ -80,7 +80,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="MeasurementTab">
     <attribute name="title">
