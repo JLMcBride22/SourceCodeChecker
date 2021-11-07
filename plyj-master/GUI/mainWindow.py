@@ -39,8 +39,7 @@ class MainWindow(qtw.QMainWindow):
         
         self.popUpMenu =QMenu()
         
-        self.actionMetric = self.popUpMenu.addAction("View Metrics")
-        self.actionHistory=self.popUpMenu.addAction("View History")
+
 
 
         
@@ -53,6 +52,10 @@ class MainWindow(qtw.QMainWindow):
         self.ui.JavaTableView.installEventFilter(self)
         self.ui.JavaTableView.resizeColumnsToContents()
         self.ui.JavaTableView.hideColumn(0)
+
+        self.actionMetric = self.popUpMenu.addAction("View Metrics")
+        self.actionHistory=self.popUpMenu.addAction("View History")
+        
         
 
     
@@ -84,8 +87,7 @@ class MainWindow(qtw.QMainWindow):
         if event.type() == QEvent.ContextMenu and source is self.ui.JavaTableView:
             
             
-            self.popUpMenu.show()
-
+            
             if self.popUpMenu.exec_(event.globalPos()):
                 
                 selectionIndexes = self.ui.JavaTableView.selectedIndexes()
@@ -93,13 +95,15 @@ class MainWindow(qtw.QMainWindow):
                     index = selectionIndexes[0]
                     #TODO must fix this.
                     id =self.ui.JavaTableView.model().data(index)
+                    self.actionHistory.triggered.connect(lambda: self.viewHistory(id))
+                else:
+                    dlg = QDialog()
+                    dlg.setWindowTitle("No item selected")
+                    label = QLabel(dlg)
+                    label.setText("Please Select an item")
+                    label.adjustSize()
+                    label.move(100, 60)
                     
-                    action = self.popUpMenu.exec_(self.mapToGlobal(event.pos()))
-
-                    if(action == self.actionHistory):
-                        self.viewHistory(id)
-                    elif(action == self.actionMetric):
-                        print(id)
                     
                 
             ## connect action
@@ -119,8 +123,10 @@ class MainWindow(qtw.QMainWindow):
 
         fileSubmit.show()
 
-    def viewHistory(self):
+    def viewHistory(self, id):
         hist = historyForm(self)
+        hist.setWindowTitle(id + " \'s History")
+        print(id)
         hist.setWindowFlag(True)
         hist.show()
         

@@ -1,9 +1,10 @@
-# Python program to create
+
 # a file explorer in Tkinter
 
 # import all components
 # from the tkinter library
 import sys
+from xml.etree.ElementTree import tostring
 
 sys.path.append(".")
 import os
@@ -13,20 +14,27 @@ import datetime
 import PLYJ.model as m
 from PLYJ.parser import Parser
 
+import xml.etree.ElementTree as xml2
+from xml.etree import ElementTree
+
+
+
 
 
 
 
 ## To save time change initialdir to a directory with a java file.
 class myParser2():
+    
     def __init__(self) -> None:
         self.output = []
         self.timeStamp = 0
         self.hash = 0
         self.filesize = None
         self.filePath = ""
-        
-        
+        self.root = xml2.Element("File")
+        self.strXML =""
+
         
         #function calls
         self.functionCalls = 0
@@ -98,9 +106,10 @@ class myParser2():
         
     def programClarity(self):
 
-        for lineNo in range (0,SLOC)
-            words = self.rawCodeList[lineno].split(" ")
+        for lineNo in range (0,self.SLOC):
+            words = self.rawCodeList[lineNo].split(" ")
             for x in words:
+                
                 if (len(x) >= self.minCharsLong):
                      self.varsAtleastXCharsLong += 1
                 elif (self.maxCharsLong >= x):
@@ -136,11 +145,74 @@ class myParser2():
         ##creates the rawsource code
         self.createCodeStringList(filepath)
         self.checkNumOfComments()
-        self.parseThisFile()
+        self.compileThisFile()
+        self.createXMLString()
         #generates the output
         self.genOutput()
+    ##This creates a string of the xml
+    def createXMLString(self):
+        tree =  ElementTree.ElementTree(self.root)
+        f = open("prac.xml",'wb')
+        tree.write(f)
 
+        f.close()
+        f = open("prac.xml")
+        stringXml = f.read()
+        self.strXML = stringXml
+        
+        return 0
 
+        
+        
+        """ id integer PRIMARY KEY,
+        0 filename text NOT NULL,
+        1 timestamp text,
+        2 ESLOC integer,
+        3 SLOCnoComm integer,
+        4 SLOCComm integer,
+        5 BlankLines integer,
+        6 FullCommLines integer,
+        7 Semicolons integer,
+        8 FunctionCalls integer,
+        9 NumPassedParam integer,
+        10 McCabeCyclComp integer,
+        11 Halstead integer,
+        12 MaxNest integer,
+        ESLOCMaxNest integer,
+        SwitchComp text,
+        NumForLoop integer,
+        NumWhileLoop integer,
+        NumRepeatLoop integer,
+        NumInts integer,
+        NumFloat integer,
+        NumChar integer,
+        NumString integer,
+        NumUserDef integer,
+        NumStruct integer,
+        NumArray integer,
+        Num3Char integer,
+        Num3thru9Char integer,
+        Num10thru19Char integer,
+        Num20Char integer,
+        PreambleFilename text,
+        PreambleAuthor text,
+        PreamblePurpose text,
+        PreambleInterface text,
+        PreambleAssumptions text,
+        PreambleChangeLog text,
+        NoGoTo text,
+        OneEntry text,
+        OneExit text,
+        RecursionStatus text,
+        VariableNamesAtLeastXChar text,
+        VariableNamesNoLongXChar text,
+        DefineParamAllCAPS text,
+        VarNamesNotAllCAPS text,
+        McCabeLessThanX text,
+        NestingLessThanX text,
+        ESLOCLessThanXinFunc text,
+        LocalizationOfVar text  
+ """
     #this generates a list that contains all the metrics. This should be move to calc interface.
     def genOutput(self):
         self.output.append(self.filePath)
@@ -163,6 +235,7 @@ class myParser2():
         self.output.append(self.numDoWhileLoops)
         self.output.append(self.numInt)
         self.output.append(self.numFloat)
+        self.output.append(self.numChar)
         self.output.append(self.numString)
         self.output.append(self.numUserDefined)
         self.output.append(0)#<----------NO STRUCTS
@@ -177,7 +250,6 @@ class myParser2():
             
             file = open(filePath, 'r')
             self.rawCodeList = file.readlines()
-            
             file.close()
 
             return True
@@ -188,13 +260,13 @@ class myParser2():
         return out
     
     ##Calculate metric
-    def calMetric(self, sourceElement):
+    def calMetric(self, sourceElement, variableElement:xml2.Element):
         
         if(type(sourceElement) is m.IfThenElse):
             self.node +=2
             self.edge += 4
 
-            self.calMetric(sourceElement.if_true)
+            self.calMetric(sourceElement.if_true, variableElement)
             self.currNestingLevel += 1
             if sourceElement.if_false is None:
                 
@@ -203,7 +275,7 @@ class myParser2():
                 self.currNestingLevel -= 1
                 if type(sourceElement.if_false is m.For):
                     self.testingVariable += 1
-                self.calMetric(sourceElement.if_false)
+                self.calMetric(sourceElement.if_false, variableElement)
                 
         elif type(sourceElement) is m.While:
             ## Count the while loops here
@@ -213,7 +285,7 @@ class myParser2():
             ## count the while
             self.numWhileLoops += 1
             for line in sourceElement.body:
-                self.calMetric(line)
+                self.calMetric(line, variableElement)
         elif(type(sourceElement) is m.For):
             self.currNestingLevel += 1 
             self.node += 2
@@ -221,7 +293,7 @@ class myParser2():
 
             self.numForLoops += 1
            
-            self.calMetric(sourceElement.body)
+            self.calMetric(sourceElement.body, variableElement)
             
 
         elif(type(sourceElement)is m.DoWhile):
@@ -230,7 +302,7 @@ class myParser2():
             self.edge += 3
 
             self.numDoWhileLoops += 1
-            self.calMetric(sourceElement.body)
+            self.calMetric(sourceElement.body, variableElement)
             
         elif type(sourceElement) is m.Switch:
             numSwitches = len(sourceElement.switch_cases)
@@ -238,18 +310,23 @@ class myParser2():
 
             for switch in sourceElement.switch_cases:
                 for line in switch.body:
-                    self.calMetric(line)
+                    self.calMetric(line, variableElement)
 
         elif type(sourceElement) is m.VariableDeclaration:
             self.node += 1
             ##Get the names of the variables that are within if, for while or switch statements
             
-            for var_decl in sourceElement.variable_declarators:
-                    if type(sourceElement.type) is str:
-                        type_name = sourceElement.type
-                    else:
-                        type_name = sourceElement.type.name.value
-                    self.variableCounter(type_name)
+            
+            if type(sourceElement.type) is str:
+                type_name = sourceElement.type
+            else:
+                type_name = sourceElement.type.name.value
+            self.variableCounter(type_name)
+
+            variableSE = xml2.SubElement(variableElement, "Variable")
+            variableSE.text = type_name + ' ' + sourceElement.variable.name
+
+
         elif type(sourceElement) is m.Break or type(sourceElement) is m.Return:
             pass
 
@@ -258,7 +335,7 @@ class myParser2():
             for line in sourceElement.statements:
                 if(type(line) is m.For):
                     self.testingVariable +=1
-                self.calMetric(line)
+                self.calMetric(line,variableElement)
 ###############################################################
     #counts the variables 
     def variableCounter(self,type):
@@ -275,8 +352,8 @@ class myParser2():
 
         return
 
-
-    def parseThisFile(self):
+    #This Compiles the file and calculates
+    def compileThisFile(self):
 
         # Change label contents
 
@@ -285,38 +362,71 @@ class myParser2():
 
         print('declared types:')
         for type_decl in tree.type_declarations:
+            ### This is where I'll get the class names
+            classElement = xml2.Element(type_decl.name)
+            self.root.append(classElement)
             print(type_decl.name)
+
             if type_decl.extends is not None:
                 print(' -> extending ' + type_decl.extends.name.value)
             if len(type_decl.implements) is not 0:
                 print(' -> implementing ' + ', '.join([type.name.value for type in type_decl.implements]))
             print
-
+            ## This where I'll get the fields
             print('fields:')
+            fieldElement = xml2.Element("Field")
+            classElement.append(fieldElement)
             for field_decl in [decl for decl in type_decl.body if type(decl) is m.FieldDeclaration]:
                 for var_decl in field_decl.variable_declarators:
+
                     if type(field_decl.type) is str:
                         type_name = field_decl.type
                     else:
                         type_name = field_decl.type.name.value
-                    print('    ' + type_name + ' ' + var_decl.variable.name)
+                    field = xml2.SubElement(fieldElement, "field")
+                    field.text = type_name + ' ' + var_decl.variable.name
+
+
 
             print
             print('methods:')
+            
+            methodsElement = xml2.Element("Methods")
+            classElement.append(methodsElement)
+            
             for method_decl in [decl for decl in type_decl.body if type(decl) is m.MethodDeclaration]:
+                method = xml2.Element(method_decl.name)
+                methodsElement.append(method)
                 param_strings = []
+                parametersElement = xml2.Element("Parameters")
+                method.append(parametersElement)
                 for param in method_decl.parameters:
                     #count the params
                     self.numPassParams +=1
+                    
+                    parameterSE = xml2.SubElement(parametersElement, "parameter")
                     if type(param.type) is str:
                         param_strings.append(param.type + ' ' + param.variable.name)
+
+                        
+                        parameterSE.text = param.type + ' ' + param.variable.name
                     else:
                         param_strings.append(param.type.name.value + ' ' + param.variable.name)
+                        
+                        parameterSE.text = param.type.name.value + ' ' + param.variable.name
+
                 print('    ' + method_decl.name + '(' + ', '.join(param_strings) + ')')
 
+
                 if method_decl.body is not None:
+                    variablesElement = xml2.Element("Variables")
+                    method.append(variablesElement)
                     for statement in method_decl.body:
+                        
+                        
                         if type(statement) is m.VariableDeclaration:
+
+                            variableSE = xml2.SubElement(variablesElement,"Variable")
                             for var_decl in statement.variable_declarators:
 
                                 
@@ -329,25 +439,28 @@ class myParser2():
                                     type_name = str(statement.type.name)
                                     if(dim > 0):
                                         type_name = "Array"
+                                    else:
+                                        type_name = statement.type.name.value
                                     
                                 self.variableCounter(type_name)
-                                print('        ' + type_name + ' ' + var_decl.variable.name)
-                        #TODO Must add a elif statement for function statement.. very important for counting functions
+                                variableSE.text = type_name + ' ' + var_decl.variable.name
+                        
                         else:
                             self.currNestingLevel = 0
-                            self.calMetric(statement)
+                            self.calMetric(statement, variablesElement)
                             if self.currNestingLevel > self.maxNestingLevel:
                                 self.maxNestingLevel = self.currNestingLevel
 
 if __name__ == '__main__':
-        fn = "C:\\Users\\Jonathan Lewis\\Documents\\GitHub\\SourceCodeChecker\\plyj-master\\JavaTest\\Personal_Income_Tax.java"
+        fn = "JavaTest\dev.java"
         
         """   p = Parser()
         tree = p.parse_file(fn)
         print(tree) """
         p = myParser2()
         p.actFilePath = fn
-        print(p.getTimeStamp())
+        p.compileThisFile()
+        p.createXMLString()
         
         
 
