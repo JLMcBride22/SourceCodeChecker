@@ -79,6 +79,28 @@ class myParser2():
         self.numArrays = 0
 
         self.testingVariable = 0
+        self.Num3Char =0
+        self.Num3thru9Char =0
+        self.Num10thru19Char =0
+        self.Num20Char = 0
+        self.PreambleFilename = ""
+        self.PreambleAuthor = 0
+        self.PreamblePurpose ="",
+        self.PreambleInterface = ""
+        self.PreambleAssumptions = ""
+        self.PreambleChangeLog = ""
+        self.NoGoTo = ""
+        self.OneEntry = ""
+        self.OneExit = ""
+        self.RecursionStatus = ""
+        self.VariableNamesAtLeastXChar =""
+        self.VariableNamesNoLongXChar = ""
+        self.DefineParamAllCAPS =""
+        self.VarNamesNotAllCAPS = ""
+        self.McCabeLessThanX =""
+        self.NestingLessThanX =""
+        self.ESLOCLessThanXinFunc = ""
+        self.LocalizationOfVar = "" 
     ##########################################This will be moved to precompiled file###############################################    
     # Check if there is a commented line (SLOC Metric)
     def checkNumOfComments(self):
@@ -159,7 +181,7 @@ class myParser2():
         f = open("prac.xml")
         stringXml = f.read()
         self.strXML = stringXml
-        
+        print(self.strXML)
         return 0
 
         
@@ -314,16 +336,15 @@ class myParser2():
 
         elif type(sourceElement) is m.VariableDeclaration:
             self.node += 1
-            ##Get the names of the variables that are within if, for while or switch statements
-            
-            
+
+                        
             if type(sourceElement.type) is str:
                 type_name = sourceElement.type
             else:
                 type_name = sourceElement.type.name.value
             self.variableCounter(type_name)
 
-            variableSE = xml2.SubElement(variableElement, "Variable")
+            variableSE = xml2.SubElement(variableElement, "")
             variableSE.text = type_name + ' ' + sourceElement.variable.name
 
 
@@ -347,6 +368,10 @@ class myParser2():
             self.numChar +=1
         elif(type =="Array"):
             self.numArrays += 1
+        elif(type =="float"):
+            self.numFloat += 1
+        elif type == "byte" or type == "double" or type == "boolean" or type == "short" or type == "long":
+            return
         else:
             self.numUserDefined +=1
 
@@ -404,7 +429,7 @@ class myParser2():
                     #count the params
                     self.numPassParams +=1
                     
-                    parameterSE = xml2.SubElement(parametersElement, "parameter")
+                    parameterSE = xml2.SubElement(parametersElement,"")
                     if type(param.type) is str:
                         param_strings.append(param.type + ' ' + param.variable.name)
 
@@ -426,7 +451,7 @@ class myParser2():
                         
                         if type(statement) is m.VariableDeclaration:
 
-                            variableSE = xml2.SubElement(variablesElement,"Variable")
+                            variableSE = xml2.SubElement(variablesElement,"")
                             for var_decl in statement.variable_declarators:
 
                                 
