@@ -31,7 +31,7 @@ class ExcelConverter:
         row = 0
         col = 0
         # Column header names. Need to change to grab from sql in the future.
-        columnnames = ["id","filename", "timestamp", "size", "LastAnalyzed", "ESLOC", "SLOCnoComm", "SLOCComm", "BlankLines", "FullCommLines","Semicolons", "FunctionCalls","NumPassedParam",
+        columnnames = ["id","filename", "timestamp", "datasize", "DateAnalyzed", "ESLOC", "SLOCnoComm", "SLOCComm", "BlankLines", "FullCommLines","Semicolons", "FunctionCalls","NumPassedParam",
                         "McCabeCyclComp","Halstead","MaxNest","ESLOCMaxNest","SwitchComp","NumForLoop","NumWhileLoop","NumRepeatLoop","NumInts","NumFloat",
                         "NumChar","NumString","NumUserDef","NumStruct","NumArray","Num3Char","Num3thru9Char","Num10thru19Char","Num20Char",
                         "PreambleFilename","PreambleAuthor","PreamblePurpose","PreambleInterface","PreambleAssumptions","PreambleChangeLog",
