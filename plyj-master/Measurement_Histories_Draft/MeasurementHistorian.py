@@ -1,8 +1,6 @@
 import os
 import sqlite3
 from sqlite3 import Error
-import sys
-sys.path.append(".")
 
 # IF this  has module issues let know immediately.
 
@@ -40,7 +38,8 @@ class MeasurementHistorian:
         sql_create_projects_table = """ CREATE TABLE IF NOT EXISTS AnalysisReports (
                                         id integer PRIMARY KEY,
                                         filename text NOT NULL,
-                                        timestamp text,
+                                        timestamp text, size text,
+                                        LastAnalyzed text,
                                         ESLOC integer,
                                         SLOCnoComm integer,
                                         SLOCComm integer,
@@ -94,9 +93,68 @@ class MeasurementHistorian:
             print("Error! cannot create the database connection.")
     #************************************************************
 
+    def create_function_table(self, conn):
+        sql_create_projects_table = """ CREATE TABLE IF NOT EXISTS FunctionReports (
+                                        id integer PRIMARY KEY,
+                                        filename text NOT NULL,
+                                        timestamp text,
+                                        size text,
+                                        LastAnalyzed text,
+                                        ESLOC integer,
+                                        SLOCnoComm integer,
+                                        SLOCComm integer,
+                                        BlankLines integer,
+                                        FullCommLines integer,
+                                        Semicolons integer,
+                                        FunctionCalls integer,
+                                        NumPassedParam integer,
+                                        McCabeCyclComp integer,
+                                        Halstead integer,
+                                        MaxNest integer,
+                                        ESLOCMaxNest integer,
+                                        SwitchComp text,
+                                        NumForLoop integer,
+                                        NumWhileLoop integer,
+                                        NumRepeatLoop integer,
+                                        NumInts integer,
+                                        NumFloat integer,
+                                        NumChar integer,
+                                        NumString integer,
+                                        NumUserDef integer,
+                                        NumStruct integer,
+                                        NumArray integer,
+                                        Num3Char integer,
+                                        Num3thru9Char integer,
+                                        Num10thru19Char integer,
+                                        Num20Char integer,
+                                        PreambleFilename text,
+                                        PreambleAuthor text,
+                                        PreamblePurpose text,
+                                        PreambleInterface text,
+                                        PreambleAssumptions text,
+                                        PreambleChangeLog text,
+                                        NoGoTo text,
+                                        OneEntry text,
+                                        OneExit text,
+                                        RecursionStatus text,
+                                        VariableNamesAtLeastXChar text,
+                                        VariableNamesNoLongXChar text,
+                                        DefineParamAllCAPS text,
+                                        VarNamesNotAllCAPS text,
+                                        McCabeLessThanX text,
+                                        NestingLessThanX text,
+                                        ESLOCLessThanXinFunc text,
+                                        LocalizationOfVar text
+
+                                    ); """
+        if conn is not None:
+            self.create_table(conn, sql_create_projects_table )
+        else:
+            print("Error! cannot create the database connection.")
+    #*************************************************************************
     # Take an analysis report and add it to our report table. 
     def create_analysis_report(conn, report):
-        sql = ''' INSERT INTO AnalysisReports(filename, timestamp, ESLOC,
+        sql = ''' INSERT INTO AnalysisReports(filename, timestamp, size, LastAnalyzed, ESLOC,
                                         SLOCnoComm,
                                         SLOCComm,
                                         BlankLines,
@@ -141,11 +199,64 @@ class MeasurementHistorian:
                                         NestingLessThanX,
                                         ESLOCLessThanXinFunc,
                                         LocalizationOfVar)
-              VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) '''
+              VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) '''
         cur = conn.cursor()
         cur.execute(sql, report)
         conn.commit()
-        return cur.lastrowid     
+        return cur.lastrowid
+
+
+    def create_function_report(conn, report):
+        sql = ''' INSERT INTO FunctionReports(filename, timestamp, size, LastAnalyzed, ESLOC,
+                                        SLOCnoComm,
+                                        SLOCComm,
+                                        BlankLines,
+                                        FullCommLines,
+                                        Semicolons,
+                                        FunctionCalls,
+                                        NumPassedParam,
+                                        McCabeCyclComp,
+                                        Halstead,
+                                        MaxNest,
+                                        ESLOCMaxNest,
+                                        SwitchComp,
+                                        NumForLoop,
+                                        NumWhileLoop,
+                                        NumRepeatLoop,
+                                        NumInts,
+                                        NumFloat,
+                                        NumChar,
+                                        NumString,
+                                        NumUserDef,
+                                        NumStruct,
+                                        NumArray,
+                                        Num3Char,
+                                        Num3thru9Char,
+                                        Num10thru19Char,
+                                        Num20Char,
+                                        PreambleFilename,
+                                        PreambleAuthor,
+                                        PreamblePurpose,
+                                        PreambleInterface,
+                                        PreambleAssumptions,
+                                        PreambleChangeLog,
+                                        NoGoTo,
+                                        OneEntry,
+                                        OneExit,
+                                        RecursionStatus,
+                                        VariableNamesAtLeastXChar,
+                                        VariableNamesNoLongXChar,
+                                        DefineParamAllCAPS,
+                                        VarNamesNotAllCAPS,
+                                        McCabeLessThanX,
+                                        NestingLessThanX,
+                                        ESLOCLessThanXinFunc,
+                                        LocalizationOfVar)
+              VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) '''
+        cur = conn.cursor()
+        cur.execute(sql, report)
+        conn.commit()
+        return cur.lastrowid          
 
 
     # Debugging function. Will print the entire contents of the database to the console.
@@ -176,22 +287,23 @@ class MeasurementHistorian:
 
 
 mhist = MeasurementHistorian
-dataconn = mhist.create_connection("MainTable.db")
+dataconn = mhist.create_connection("test3.db")
 with dataconn:
 
-    report1 = ("Test", "Hello", 1, 2, 3, 4, 5, 6, 7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45)
-    report2 = ("Hello", "Hello", 1, 2, 3, 4, 5, 6, 7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45)
-    report3 = ("Java", "Hello", 1, 2, 3, 4, 5, 6, 7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45)
-    report4 = ("Goodbye", "Hello", 1, 2, 3, 4, 5, 6, 7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45)
-    #mhist.create_analysis_table(mhist, dataconn)
-    #mhist.create_analysis_report(dataconn, report1)
-    #mhist.create_analysis_report(dataconn, report2)
-    #mhist.create_analysis_report(dataconn, report3)
-    #mhist.create_analysis_report(dataconn, report4)
-    #tempcheck = mhist.entry_exists(dataconn, "pizza")
-    #mhist.print_all_reports(dataconn)
-    #print(tempcheck)
+    report1 = ("Test", "Hello", "filler", 1, 2, 3, 4, 5, 6, 7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46)
+    report2 = ("Hello", "Hello", "filler", 1, 2, 3, 4, 5, 6, 7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46)
+    report3 = ("Java", "Hello", "filler", 1, 2, 3, 4, 5, 6, 7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46)
+    report4 = ("Goodbye", "Hello", "filler", 1, 2, 3, 4, 5, 6, 7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46)
+    mhist.create_analysis_table(mhist, dataconn)
+    mhist.create_function_table(mhist, dataconn)
+    mhist.create_analysis_report(dataconn, report1)
+    mhist.create_analysis_report(dataconn, report2)
+    mhist.create_analysis_report(dataconn, report3)
+    mhist.create_analysis_report(dataconn, report4)
+    tempcheck = mhist.entry_exists(dataconn, "pizza")
+    mhist.print_all_reports(dataconn)
+    print(tempcheck)
 
 
 
-
+# NEED TO UPDATE FOR BYTE SIZE AND UPDATE THE EXCEL CONVERTER.
