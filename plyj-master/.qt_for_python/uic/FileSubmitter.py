@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_FileSubForm(object):
     def setupUi(self, FileSubForm):
         FileSubForm.setObjectName("FileSubForm")
-        FileSubForm.setWindowModality(QtCore.Qt.WindowModal)
+        FileSubForm.setWindowModality(QtCore.Qt.NonModal)
         FileSubForm.resize(661, 732)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
@@ -274,7 +274,7 @@ class Ui_FileSubForm(object):
         self.mcAbeBox.setObjectName("mcAbeBox")
 
         self.retranslateUi(FileSubForm)
-        self.MeasurementTabs.setCurrentIndex(1)
+        self.MeasurementTabs.setCurrentIndex(0)
         self.InnerTab.setCurrentIndex(0)
         self.StandardTabs.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(FileSubForm)
