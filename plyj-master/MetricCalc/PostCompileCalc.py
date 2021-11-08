@@ -13,7 +13,7 @@ import datetime
 #parsar stuff
 import PLYJ.model as m
 from PLYJ.parser import Parser
-
+from datetime import datetime
 import xml.etree.ElementTree as xml2
 from xml.etree import ElementTree
 
@@ -34,7 +34,7 @@ class myParser2():
         self.filePath = ""
         self.root = xml2.Element("File")
         self.strXML =""
-
+        self.dataSize = ""
         
         #function calls
         self.functionCalls = 0
@@ -146,7 +146,7 @@ class myParser2():
         p = Path(self.actFilePath)
         stats = p.stat()
         time = stats.st_mtime
-        self.timeStamp = datetime.datetime.fromtimestamp(time).strftime('%c')
+        self.timeStamp = datetime.fromtimestamp(time).strftime('%c')
         return self.timeStamp
         
 
@@ -239,6 +239,9 @@ class myParser2():
     def genOutput(self):
         self.output.append(self.filePath)
         self.output.append(self.getTimeStamp())
+        self.output.append(self.dataSize)
+        now = datetime.now()
+        self.output.append(now.strftime("%c"))
         self.output.append(self.SLOC)
         self.output.append(self.SLOCnoComm)
         self.output.append(self.SLOCwiComm)
@@ -486,7 +489,6 @@ if __name__ == '__main__':
         p.actFilePath = fn
         p.compileThisFile()
         p.createXMLString()
-        
-        
+        p.genOutput()
 
 

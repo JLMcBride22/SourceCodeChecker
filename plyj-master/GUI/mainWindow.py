@@ -124,13 +124,16 @@ class MainWindow(qtw.QMainWindow):
 
     def viewHistory(self):
         selectionIndexes = self.ui.JavaTableView.selectedIndexes()
-        index = selectionIndexes[0]
-        id =self.ui.JavaTableView.model().data(index)
-        hist = historyForm(self)
-        hist.setWindowTitle(id + " \'s History")
-        print(id)
-        hist.setWindowFlag(True)
-        hist.show()
+        if(len(selectionIndexes) > 0):
+            index = selectionIndexes[0]
+            id =self.ui.JavaTableView.model().data(index)
+            hist = historyForm(self)
+            hist.setWindowTitle(id + " \'s History")
+            print(id)
+            hist.setWindowFlag(True)
+            hist.show()
+        else:
+            print("catch bug")
         
 
     ## Places the buttons in the table

@@ -24,7 +24,7 @@ class ARI():
     def __init__(self):
         self.uncompilable = ""
         self.db =  QSqlDatabase.addDatabase('QSQLITE')
-        self.db.setDatabaseName('MainTable.db')
+        self.db.setDatabaseName('test3.db')
         self.db.open()
         self.db.transaction()
         self.db.exec_(
