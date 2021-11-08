@@ -22,7 +22,7 @@ class ExcelConverter:
         # Create a workbook and add a worksheet, format column size.
         workbook = xlsxwriter.Workbook(ExcelName)
         worksheet = workbook.add_worksheet()
-        worksheet.set_column(1,50,20)
+        worksheet.set_column(1,75,20)
         # Define format object so we can add boldface.
         cell_format = workbook.add_format()
         cell_format.set_bold()
@@ -31,7 +31,7 @@ class ExcelConverter:
         row = 0
         col = 0
         # Column header names. Need to change to grab from sql in the future.
-        columnnames = ["id","filename", "timestamp", "ESLOC", "SLOCnoComm", "SLOCComm", "BlankLines", "FullCommLines","Semicolons", "FunctionCalls","NumPassedParam",
+        columnnames = ["id","filename", "timestamp", "datasize", "DateAnalyzed", "ESLOC", "SLOCnoComm", "SLOCComm", "BlankLines", "FullCommLines","Semicolons", "FunctionCalls","NumPassedParam",
                         "McCabeCyclComp","Halstead","MaxNest","ESLOCMaxNest","SwitchComp","NumForLoop","NumWhileLoop","NumRepeatLoop","NumInts","NumFloat",
                         "NumChar","NumString","NumUserDef","NumStruct","NumArray","Num3Char","Num3thru9Char","Num10thru19Char","Num20Char",
                         "PreambleFilename","PreambleAuthor","PreamblePurpose","PreambleInterface","PreambleAssumptions","PreambleChangeLog",
@@ -56,7 +56,7 @@ class ExcelConverter:
                 i = 0
 
                 # Saving one report.
-                while i < 48:
+                while i < 50:
                     worksheet.write(row, col, entry[i])
                     col +=1
                     i+=1
@@ -77,7 +77,7 @@ test1 = ExcelConverter
 mhist = MeasurementHistorian
 
 # Create connection to our test database.
-dataconn = mhist.create_connection("test.db")
+dataconn = mhist.create_connection("test3.db")
 # Here we have a hardcoded list, corresponding to our test db.
 # Last entry is not present in the db, used to test handling bad filenames.
 # If nothing is generated, make sure data is present in the db using sqlite and MeasurementHistorian

@@ -10,6 +10,7 @@ from PyQt5.QtSql import QSqlTableModel
 from PyQt5.QtCore import QEvent, QItemSelection, QItemSelectionModel, Qt, QModelIndex
 
 from FileSubmitForm import FileSubmitForm
+from history import historyForm
 from UIFiles.GCMainWindowGUI import Ui_MainWindow
 
 import os
@@ -35,14 +36,28 @@ class MainWindow(qtw.QMainWindow):
         self.ui.actionInstruction.triggered.connect(self.openHelp)
         self.ui.actionSingle_file.triggered.connect(self.uploadFile_s)
         self.ui.actionExport_File.triggered.connect(self.excelOpen)
+        
+        self.popUpMenu =QMenu()
+        
+        
+
+
+
+        
 
         ##buttons
         self.ui.addFilesButton.clicked.connect(self.uploadFile_s)
-        
+    
+        self.ui.refreshAllButton.clicked.connect(self.viewHistory)
         self.ui.JavaTableView.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.ui.JavaTableView.installEventFilter(self)
         self.ui.JavaTableView.resizeColumnsToContents()
-        self.ui.JavaTableView.hideColumn(0)
+        #self.ui.JavaTableView.hideColumn(0)
+
+        self.actionMetric = self.popUpMenu.addAction("View Metrics")
+        self.actionHistory=self.popUpMenu.addAction("View History")
+        self.actionHistory.triggered.connect(self.viewHistory)
+        
         
 
     
@@ -73,17 +88,21 @@ class MainWindow(qtw.QMainWindow):
     def eventFilter(self, source, event):
         if event.type() == QEvent.ContextMenu and source is self.ui.JavaTableView:
             
-            self.popUpMenu =QMenu()
-            self.popUpMenu.addAction("View Metrics")
-            self.popUpMenu.addAction("View History")
+            
+            
             if self.popUpMenu.exec_(event.globalPos()):
                 
                 selectionIndexes = self.ui.JavaTableView.selectedIndexes()
-                if len(selectionIndexes) > 0 :
-                    index = selectionIndexes[0]
-                    #TODO must fix this.
-                    id =int(self.ui.JavaTableView.model().data(index))
-                    print(id)
+                if len(selectionIndexes) == 0 :
+
+                    dlg = QDialog()
+                    dlg.setWindowTitle("No item selected")
+                    label = QLabel(dlg)
+                    label.setText("Please Select an item")
+                    label.adjustSize()
+                    label.move(100, 60)
+                    
+                    
                 
             ## connect action
             
@@ -93,14 +112,26 @@ class MainWindow(qtw.QMainWindow):
     #Opens the upload file screen. TODO need to change
     def uploadFile_s(self):
         fileSubmit = FileSubmitForm(self)
+        
         fileSubmit.setARI(self.ari)
-        fileSubmit.setAutoFillBackground(True)
+        ##fileSubmit.setAutoFillBackground(True)
         
         
         
         
 
         fileSubmit.show()
+
+    def viewHistory(self):
+        selectionIndexes = self.ui.JavaTableView.selectedIndexes()
+        index = selectionIndexes[0]
+        id =self.ui.JavaTableView.model().data(index)
+        hist = historyForm(self)
+        hist.setWindowTitle(id + " \'s History")
+        print(id)
+        hist.setWindowFlag(True)
+        hist.show()
+        
 
     ## Places the buttons in the table
     def populate_table(self):

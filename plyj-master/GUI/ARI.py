@@ -110,7 +110,7 @@ class ARI():
         for item in inList:
             self.record.setValue(i, item)
             i += 1
-            
+          
         ## -1 mean inserted at the bottem
         self.dbModel.insertRecord(-1, self.record)
         
