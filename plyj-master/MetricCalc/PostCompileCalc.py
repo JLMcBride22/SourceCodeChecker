@@ -137,7 +137,8 @@ class myParser2():
                 elif (self.maxCharsLong >= x):
                     self.varsNoLongerThanXChars += 1
             
-
+            
+        
 
 
 
