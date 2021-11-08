@@ -39,6 +39,7 @@ class MainWindow(qtw.QMainWindow):
         
         self.popUpMenu =QMenu()
         
+        
 
 
 
@@ -51,10 +52,11 @@ class MainWindow(qtw.QMainWindow):
         self.ui.JavaTableView.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.ui.JavaTableView.installEventFilter(self)
         self.ui.JavaTableView.resizeColumnsToContents()
-        self.ui.JavaTableView.hideColumn(0)
+        #self.ui.JavaTableView.hideColumn(0)
 
         self.actionMetric = self.popUpMenu.addAction("View Metrics")
         self.actionHistory=self.popUpMenu.addAction("View History")
+        self.actionHistory.triggered.connect(self.viewHistory)
         
         
 
@@ -91,12 +93,8 @@ class MainWindow(qtw.QMainWindow):
             if self.popUpMenu.exec_(event.globalPos()):
                 
                 selectionIndexes = self.ui.JavaTableView.selectedIndexes()
-                if len(selectionIndexes) > 0 :
-                    index = selectionIndexes[0]
-                    #TODO must fix this.
-                    id =self.ui.JavaTableView.model().data(index)
-                    self.actionHistory.triggered.connect(lambda: self.viewHistory(id))
-                else:
+                if len(selectionIndexes) == 0 :
+
                     dlg = QDialog()
                     dlg.setWindowTitle("No item selected")
                     label = QLabel(dlg)
@@ -114,6 +112,7 @@ class MainWindow(qtw.QMainWindow):
     #Opens the upload file screen. TODO need to change
     def uploadFile_s(self):
         fileSubmit = FileSubmitForm(self)
+        
         fileSubmit.setARI(self.ari)
         ##fileSubmit.setAutoFillBackground(True)
         
@@ -123,7 +122,10 @@ class MainWindow(qtw.QMainWindow):
 
         fileSubmit.show()
 
-    def viewHistory(self, id):
+    def viewHistory(self):
+        selectionIndexes = self.ui.JavaTableView.selectedIndexes()
+        index = selectionIndexes[0]
+        id =self.ui.JavaTableView.model().data(index)
         hist = historyForm(self)
         hist.setWindowTitle(id + " \'s History")
         print(id)

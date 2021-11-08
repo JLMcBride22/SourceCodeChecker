@@ -38,8 +38,8 @@ class MeasurementHistorian:
         sql_create_projects_table = """ CREATE TABLE IF NOT EXISTS AnalysisReports (
                                         id integer PRIMARY KEY,
                                         filename text NOT NULL,
-                                        timestamp text, size text,
-                                        LastAnalyzed text,
+                                        timestamp text, datasize text,
+                                        DateAnalyzed text,
                                         ESLOC integer,
                                         SLOCnoComm integer,
                                         SLOCComm integer,
@@ -98,8 +98,8 @@ class MeasurementHistorian:
                                         id integer PRIMARY KEY,
                                         filename text NOT NULL,
                                         timestamp text,
-                                        size text,
-                                        LastAnalyzed text,
+                                        datasize text,
+                                        DateAnalyzed text,
                                         ESLOC integer,
                                         SLOCnoComm integer,
                                         SLOCComm integer,
@@ -154,7 +154,7 @@ class MeasurementHistorian:
     #*************************************************************************
     # Take an analysis report and add it to our report table. 
     def create_analysis_report(conn, report):
-        sql = ''' INSERT INTO AnalysisReports(filename, timestamp, size, LastAnalyzed, ESLOC,
+        sql = ''' INSERT INTO AnalysisReports(filename, timestamp, datasize, DateAnalyzed, ESLOC,
                                         SLOCnoComm,
                                         SLOCComm,
                                         BlankLines,
@@ -207,7 +207,7 @@ class MeasurementHistorian:
 
 
     def create_function_report(conn, report):
-        sql = ''' INSERT INTO FunctionReports(filename, timestamp, size, LastAnalyzed, ESLOC,
+        sql = ''' INSERT INTO FunctionReports(filename, timestamp, datasize, DateAnalyzed, ESLOC,
                                         SLOCnoComm,
                                         SLOCComm,
                                         BlankLines,
@@ -269,7 +269,25 @@ class MeasurementHistorian:
 
         for row in rows:
             print(row)
+
+
+
+
+#******************************************************************************************
+
+    # Given a MeasurementHistorian instance, connection to a database, and the name of the file...
+    # will search the AnalysisReport database for all instances of that filename. 
+    def search_archive_filename(self, conn, filename):
+        IdList = []
+        cur = conn.cursor()
+        if (self.entry_exists(conn, filename)):
+            rows = cur.execute("SELECT * FROM AnalysisReports WHERE filename = ?", (filename,))
+            for row in rows:
+                IdList.append(row[0])
+            return IdList
+
     #***********************************
+
 
     # Will check if an entry exists based on the stored filename. Takes a filename as input.
     # Returns true if an entry exists, false if not.
@@ -281,7 +299,9 @@ class MeasurementHistorian:
         data = cur.fetchall()
         
         if len(data) == 0:
+            print(filename + " not found in report archive.")
             return False
+
         else:
             return True
 
@@ -296,13 +316,15 @@ with dataconn:
     report4 = ("Goodbye", "Hello", "filler", 1, 2, 3, 4, 5, 6, 7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46)
     mhist.create_analysis_table(mhist, dataconn)
     mhist.create_function_table(mhist, dataconn)
-    mhist.create_analysis_report(dataconn, report1)
-    mhist.create_analysis_report(dataconn, report2)
-    mhist.create_analysis_report(dataconn, report3)
-    mhist.create_analysis_report(dataconn, report4)
+    #mhist.create_analysis_report(dataconn, report1)
+    #mhist.create_analysis_report(dataconn, report2)
+    #mhist.create_analysis_report(dataconn, report3)
+    #mhist.create_analysis_report(dataconn, report4)
     tempcheck = mhist.entry_exists(dataconn, "pizza")
     mhist.print_all_reports(dataconn)
-    print(tempcheck)
+    tempList = mhist.search_archive_filename(mhist, dataconn, "Java")
+    for Id in tempList:
+        print(Id)
 
 
 
