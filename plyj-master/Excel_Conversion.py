@@ -7,7 +7,8 @@ from Measurement_Histories_Draft.MeasurementHistorian import MeasurementHistoria
 # Will grab from sql database.
 
 class ExcelConverter:
-
+    def __init__(self) -> None:
+        pass
     # Will convert analysis report for files to an Excel workbook.
     # Has 3 parameters.
     # conn is the dataconnection object, which we can create through Measurement Historian.

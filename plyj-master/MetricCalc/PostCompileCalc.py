@@ -143,12 +143,13 @@ class myParser2():
 
 
 
-    def getTimeStamp(self):
+    def calcFileStats(self):
         p = Path(self.actFilePath)
         stats = p.stat()
         time = stats.st_mtime
         self.timeStamp = datetime.fromtimestamp(time).strftime('%c')
-        return self.timeStamp
+        self.dataSize = str(float(stats.st_size)/100) + " MB"
+        
         
 
 ##################################precompiled class######################################
@@ -171,6 +172,7 @@ class myParser2():
         self.compileThisFile()
         self.createXMLString()
         #generates the output
+        self.calcFileStats()
         self.genOutput()
     ##This creates a string of the xml
     def createXMLString(self):
@@ -239,7 +241,7 @@ class myParser2():
     #this generates a list that contains all the metrics. This should be move to calc interface.
     def genOutput(self):
         self.output.append(self.filePath)
-        self.output.append(self.getTimeStamp())
+        self.output.append(self.timeStamp)
         self.output.append(self.dataSize)
         now = datetime.now()
         self.output.append(now.strftime("%c"))
@@ -266,6 +268,7 @@ class myParser2():
         self.output.append(self.numUserDefined)
         self.output.append(0)#<----------NO STRUCTS
         self.output.append(self.numArrays)
+        
         return 0  
         
 
@@ -488,8 +491,7 @@ if __name__ == '__main__':
         print(tree) """
         p = myParser2()
         p.actFilePath = fn
-        p.compileThisFile()
-        p.createXMLString()
-        p.genOutput()
+        p.calcFileStats()
+        #p.genOutput()
 
 

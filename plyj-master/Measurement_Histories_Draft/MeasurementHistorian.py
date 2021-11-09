@@ -305,27 +305,27 @@ class MeasurementHistorian:
         else:
             return True
 
+if __name__ == '__main__':
+    mhist = MeasurementHistorian
+    dataconn = mhist.create_connection("test3.db")
+    with dataconn:
 
-mhist = MeasurementHistorian
-dataconn = mhist.create_connection("test3.db")
-with dataconn:
-
-    report1 = ("Test", "Hello", "filler", 1, 2, 3, 4, 5, 6, 7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46)
-    report2 = ("Hello", "Hello", "filler", 1, 2, 3, 4, 5, 6, 7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46)
-    report3 = ("Java", "Hello", "filler", 1, 2, 3, 4, 5, 6, 7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46)
-    report4 = ("Goodbye", "Hello", "filler", 1, 2, 3, 4, 5, 6, 7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46)
-    mhist.create_analysis_table(mhist, dataconn)
-    mhist.create_function_table(mhist, dataconn)
-    #mhist.create_analysis_report(dataconn, report1)
-    #mhist.create_analysis_report(dataconn, report2)
-    #mhist.create_analysis_report(dataconn, report3)
-    #mhist.create_analysis_report(dataconn, report4)
-    tempcheck = mhist.entry_exists(dataconn, "pizza")
-    mhist.print_all_reports(dataconn)
-    tempList = mhist.search_archive_filename(mhist, dataconn, "Java")
-    for Id in tempList:
-        print(Id)
+        report1 = ("Test", "Hello", "filler", 1, 2, 3, 4, 5, 6, 7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46)
+        report2 = ("Hello", "Hello", "filler", 1, 2, 3, 4, 5, 6, 7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46)
+        report3 = ("Java", "Hello", "filler", 1, 2, 3, 4, 5, 6, 7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46)
+        report4 = ("Goodbye", "Hello", "filler", 1, 2, 3, 4, 5, 6, 7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46)
+        mhist.create_analysis_table(mhist, dataconn)
+        mhist.create_function_table(mhist, dataconn)
+        #mhist.create_analysis_report(dataconn, report1)
+        #mhist.create_analysis_report(dataconn, report2)
+        #mhist.create_analysis_report(dataconn, report3)
+        #mhist.create_analysis_report(dataconn, report4)
+        #tempcheck = mhist.entry_exists(dataconn, "pizza")
+        #mhist.print_all_reports(dataconn)
+        #tempList = mhist.search_archive_filename(mhist, dataconn, "Java")
+        #for Id in tempList:
+            #   print(Id)
 
 
 
-# NEED TO UPDATE FOR BYTE SIZE AND UPDATE THE EXCEL CONVERTER.
+        # NEED TO UPDATE FOR BYTE SIZE AND UPDATE THE EXCEL CONVERTER.

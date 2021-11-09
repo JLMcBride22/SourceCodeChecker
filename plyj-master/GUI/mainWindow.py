@@ -1,6 +1,8 @@
 import sys
 
+import asyncio
 
+from PyQt5.QtGui import QCloseEvent
 sys.path.append("./GUI")
 
 from PyQt5 import QtWidgets as qtw
@@ -36,7 +38,7 @@ class MainWindow(qtw.QMainWindow):
         self.ui.actionInstruction.triggered.connect(self.openHelp)
         self.ui.actionSingle_file.triggered.connect(self.uploadFile_s)
         self.ui.actionExport_File.triggered.connect(self.excelOpen)
-        
+        self.fileSubmit = None
         self.popUpMenu =QMenu()
         
         
@@ -47,8 +49,9 @@ class MainWindow(qtw.QMainWindow):
 
         ##buttons
         self.ui.addFilesButton.clicked.connect(self.uploadFile_s)
+        
     
-        self.ui.refreshAllButton.clicked.connect(self.viewHistory)
+        self.ui.refreshAllButton.clicked.connect(self.refresh)
         self.ui.JavaTableView.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.ui.JavaTableView.installEventFilter(self)
         self.ui.JavaTableView.resizeColumnsToContents()
@@ -83,7 +86,8 @@ class MainWindow(qtw.QMainWindow):
         self.ari.generateExcelsAll(dlg[0])
         
 
-
+    def refresh(self):
+        self.ui.JavaTableView.resizeColumnsToContents()
 
     def eventFilter(self, source, event):
         if event.type() == QEvent.ContextMenu and source is self.ui.JavaTableView:
@@ -101,39 +105,60 @@ class MainWindow(qtw.QMainWindow):
                     label.setText("Please Select an item")
                     label.adjustSize()
                     label.move(100, 60)
-                    
+        
+            
                     
                 
             ## connect action
             
-            return True
+
+            
         return super().eventFilter(source, event)
-   
+
+
+
+
     #Opens the upload file screen. TODO need to change
     def uploadFile_s(self):
-        fileSubmit = FileSubmitForm(self)
         
-        fileSubmit.setARI(self.ari)
+
+        self.fileSubmit = FileSubmitForm(self)
+        
+        self.fileSubmit.setARI(self.ari)
+        self.fileSubmit.show()
+        
+            
         ##fileSubmit.setAutoFillBackground(True)
         
         
-        
-        
-
-        fileSubmit.show()
-
-    def viewHistory(self):
+    def getID(self,column):
         selectionIndexes = self.ui.JavaTableView.selectedIndexes()
         if(len(selectionIndexes) > 0):
-            index = selectionIndexes[0]
+            
+            index = selectionIndexes[column]
             id =self.ui.JavaTableView.model().data(index)
-            hist = historyForm(self)
-            hist.setWindowTitle(id + " \'s History")
-            print(id)
-            hist.setWindowFlag(True)
-            hist.show()
+        
+            return id
+        elif(len(selectionIndexes)==0):
+            return ""
         else:
-            print("catch bug")
+            return None
+        
+
+    def viewHistory(self):
+            
+            id = self.getID(0)
+            if(id == ""):
+                print("can't select more than one")
+            elif id == None:
+                print("must select at least one")
+            else:
+                hist = historyForm(self)
+                hist.setWindowTitle(id + " \'s History")
+                print(id)
+                hist.setWindowFlag(True)
+                hist.show()
+
         
 
     ## Places the buttons in the table
