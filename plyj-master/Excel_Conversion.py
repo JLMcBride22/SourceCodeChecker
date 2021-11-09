@@ -50,7 +50,7 @@ class ExcelConverter:
         # Each row in workbook is one analysis report.
         for file in filelist:
             
-            cur.execute("SELECT * FROM AnalysisReports WHERE filename=?", (file,))
+            #cur.execute("SELECT * FROM AnalysisReports WHERE filename=?", (file,))
             data = cur.fetchall()
             # Saving all reports.
             for entry in data:
@@ -58,7 +58,10 @@ class ExcelConverter:
 
                 # Saving one report.
                 while i < 50:
-                    worksheet.write(row, col, entry[i])
+                    try:
+                        worksheet.write(row, col, entry[i])
+                    except IndexError:
+                        print(i)
                     col +=1
                     i+=1
                 row += 1

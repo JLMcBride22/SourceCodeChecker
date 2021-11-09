@@ -84,8 +84,8 @@ class myParser2():
         self.Num10thru19Char =0
         self.Num20Char = 0
         self.PreambleFilename = ""
-        self.PreambleAuthor = 0
-        self.PreamblePurpose ="",
+        self.PreambleAuthor = ""
+        self.PreamblePurpose = ""
         self.PreambleInterface = ""
         self.PreambleAssumptions = ""
         self.PreambleChangeLog = ""
@@ -187,87 +187,61 @@ class myParser2():
         print(self.strXML)
         return 0
 
-        
-        
-        """ id integer PRIMARY KEY,
-        0 filename text NOT NULL,
-        1 timestamp text,
-        2 ESLOC integer,
-        3 SLOCnoComm integer,
-        4 SLOCComm integer,
-        5 BlankLines integer,
-        6 FullCommLines integer,
-        7 Semicolons integer,
-        8 FunctionCalls integer,
-        9 NumPassedParam integer,
-        10 McCabeCyclComp integer,
-        11 Halstead integer,
-        12 MaxNest integer,
-        ESLOCMaxNest integer,
-        SwitchComp text,
-        NumForLoop integer,
-        NumWhileLoop integer,
-        NumRepeatLoop integer,
-        NumInts integer,
-        NumFloat integer,
-        NumChar integer,
-        NumString integer,
-        NumUserDef integer,
-        NumStruct integer,
-        NumArray integer,
-        Num3Char integer,
-        Num3thru9Char integer,
-        Num10thru19Char integer,
-        Num20Char integer,
-        PreambleFilename text,
-        PreambleAuthor text,
-        PreamblePurpose text,
-        PreambleInterface text,
-        PreambleAssumptions text,
-        PreambleChangeLog text,
-        NoGoTo text,
-        OneEntry text,
-        OneExit text,
-        RecursionStatus text,
-        VariableNamesAtLeastXChar text,
-        VariableNamesNoLongXChar text,
-        DefineParamAllCAPS text,
-        VarNamesNotAllCAPS text,
-        McCabeLessThanX text,
-        NestingLessThanX text,
-        ESLOCLessThanXinFunc text,
-        LocalizationOfVar text  
- """
+
+ 
     #this generates a list that contains all the metrics. This should be move to calc interface.
     def genOutput(self):
-        self.output.append(self.filePath)
+        self.output.append(self.filePath)#1
         self.output.append(self.timeStamp)
         self.output.append(self.dataSize)
         now = datetime.now()
-        self.output.append(now.strftime("%c"))
+        self.output.append(now.strftime("%c"))#5
         self.output.append(self.SLOC)
         self.output.append(self.SLOCnoComm)
         self.output.append(self.SLOCwiComm)
         self.output.append(self.blankLines)
-        self.output.append(self.fullCommentLines)
+        self.output.append(self.fullCommentLines)#10
         self.output.append(self.numSemiColons)
         self.output.append(self.functionCalls)
         self.output.append(self.numPassParams)
         self.output.append(self.calcMcCabe())
-        self.output.append(self.halstead)
+        self.output.append(self.halstead)#15
         self.output.append(self.maxNestingLevel)
         self.output.append(self.ESLOCatMaxLevel)
         self.output.append(self.SwitchComplexity)
         self.output.append(self.numForLoops)
-        self.output.append(self.numWhileLoops)
+        self.output.append(self.numWhileLoops)#20
         self.output.append(self.numDoWhileLoops)
         self.output.append(self.numInt)
         self.output.append(self.numFloat)
         self.output.append(self.numChar)
-        self.output.append(self.numString)
+        self.output.append(self.numString)#25
         self.output.append(self.numUserDefined)
         self.output.append(0)#<----------NO STRUCTS
         self.output.append(self.numArrays)
+        self.output.append(self.Num3Char)
+        self.output.append(self.Num3thru9Char)#30
+        self.output.append(self.Num10thru19Char)
+        self.output.append(self.Num20Char)
+        self.output.append(self.PreambleFilename)
+        self.output.append(self.PreambleAuthor)
+        self.output.append(self.PreamblePurpose)#35
+        self.output.append(self.PreambleInterface)
+        self.output.append(self.PreambleAssumptions)
+        self.output.append(self.PreambleChangeLog)
+        self.output.append(self.NoGoTo)
+        self.output.append(self.OneEntry)#40
+        self.output.append(self.OneExit)
+        self.output.append(self.RecursionStatus)
+        self.output.append(self.VariableNamesAtLeastXChar)
+        self.output.append(self.VariableNamesNoLongXChar)
+        self.output.append(self.DefineParamAllCAPS)#45
+        self.output.append(self.VarNamesNotAllCAPS)
+        self.output.append(self.McCabeLessThanX)
+        self.output.append(self.NestingLessThanX)
+        self.output.append(self.ESLOCLessThanXinFunc)
+        self.output.append(self.strXML)#50
+
         
         return 0  
         

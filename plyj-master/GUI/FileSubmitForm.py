@@ -69,6 +69,7 @@ class FileSubmitForm(qtw.QDialog):
             dlg.setInformativeText("Please select your file by clicking the \"Add File(s)\" button")
             dlg.setIcon(3)
             dlg.exec_()
+            return
         else:
             for i in range(0, countPaths):
                 

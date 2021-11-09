@@ -8,7 +8,7 @@ sys.path.append("./GUI")
 from PyQt5 import QtWidgets as qtw
 from PyQt5.QtWidgets import QFileDialog, QMenu, QTableView
 
-from PyQt5.QtSql import QSqlTableModel
+from PyQt5.QtSql import QSqlQuery, QSqlTableModel
 from PyQt5.QtCore import QEvent, QItemSelection, QItemSelectionModel, Qt, QModelIndex
 
 from FileSubmitForm import FileSubmitForm
@@ -89,6 +89,7 @@ class MainWindow(qtw.QMainWindow):
     def refresh(self):
         self.ui.JavaTableView.resizeColumnsToContents()
 
+
     def eventFilter(self, source, event):
         if event.type() == QEvent.ContextMenu and source is self.ui.JavaTableView:
             
@@ -99,26 +100,22 @@ class MainWindow(qtw.QMainWindow):
                 selectionIndexes = self.ui.JavaTableView.selectedIndexes()
                 if len(selectionIndexes) == 0 :
 
-                    dlg = QDialog()
-                    dlg.setWindowTitle("No item selected")
-                    label = QLabel(dlg)
-                    label.setText("Please Select an item")
-                    label.adjustSize()
-                    label.move(100, 60)
-        
-            
-                    
                 
-            ## connect action
-            
+                
+                if self.popUpMenu.exec_(event.globalPos()):
+                    
+                    selectionIndexes = self.ui.JavaTableView.selectedIndexes()
+                    if len(selectionIndexes) == 0 :
 
-            
-        return super().eventFilter(source, event)
+                        dlg = QDialog()
+                        dlg.setWindowTitle("No item selected")
+                        label = QLabel(dlg)
+                        label.setText("Please Select an item")
+                        label.adjustSize()
+                        label.move(100, 60)
 
-
-
-
-    #Opens the upload file screen. TODO need to change
+            return super().eventFilter(source, event)
+    
     def uploadFile_s(self):
         
 
@@ -130,36 +127,39 @@ class MainWindow(qtw.QMainWindow):
             
         ##fileSubmit.setAutoFillBackground(True)
         
-        
-    def getID(self,column):
+    #this get the value of the selected row from SQL DB
+    def getSelectedRowFromDB(self):
         selectionIndexes = self.ui.JavaTableView.selectedIndexes()
-        if(len(selectionIndexes) > 0):
-            
-            index = selectionIndexes[column]
-            id =self.ui.JavaTableView.model().data(index)
         
-            return id
-        elif(len(selectionIndexes)==0):
-            return ""
-        else:
-            return None
+            
+        index = selectionIndexes[0]
+        
+        id= index.row() +1
+    
+        return id
+
         
 
     def viewHistory(self):
-            
-            id = self.getID(0)
+            #TODO dialog boxes
+            id = self.getSelectedRowFromDB()
             if(id == ""):
-                print("can't select more than one")
+                print("Must select at least 1")
             elif id == None:
-                print("must select at least one")
+                print("Can't select more than")
             else:
+                fileName = self.ari.getCellContentFromDataBase(id,"filename")
+
+                
                 hist = historyForm(self)
-                hist.setWindowTitle(id + " \'s History")
-                print(id)
+                hist.setWindowTitle(fileName + " \'s History")
+                
                 hist.setWindowFlag(True)
                 hist.show()
 
-        
+    def viewMetrics(self):
+        print(self.getSelectedRowFromDB())
+
 
     ## Places the buttons in the table
     def populate_table(self):
@@ -175,7 +175,9 @@ class MainWindow(qtw.QMainWindow):
         
         self.ui.JavaTableView.setModel(inModel)
         self.ui.JavaTableView.resizeColumnsToContents()
+        #hide columns
         self.ui.JavaTableView.hideColumn(0)
+        self.ui.JavaTableView.hideColumn(48)
         self.ui.JavaTableView.setVisible(True)
         self.ui.JavaTableView.show()
 

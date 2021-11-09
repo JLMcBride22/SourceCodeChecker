@@ -32,6 +32,8 @@ class ARI():
                                         id integer PRIMARY KEY,
                                         filename text NOT NULL,
                                         timestamp text,
+                                        datasize text,
+                                        DateAnalyzed text,
                                         ESLOC integer,
                                         SLOCnoComm integer,
                                         SLOCComm integer,
@@ -110,6 +112,8 @@ class ARI():
         for item in inList:
             self.record.setValue(i, item)
             i += 1
+            if(i > 25):
+                print(i)
           
         ## -1 mean inserted at the bottem
         self.dbModel.insertRecord(-1, self.record)
@@ -139,13 +143,26 @@ class ARI():
             #self.dbModel.insertRecord(-1,record)
         
         for output in listOfOutputs:
+
             self.insertData(output)
+            
 
 
         self.dbModel.submitAll()
         
     def getUncompiled(self):
         return self.uncompilable
+
+    def getCellContentFromDataBase(self, rowNo, columnName:str):
+        q = QSqlQuery(self.db)
+        qStr = "Select [" + columnName + "] FROM AnalysisReports WHERE id = " + str(rowNo)+";"
+        q.exec(qStr)
+        while q.next():
+           return q.value(0)
+
+
+        
+        
 
     ##This is where the Excel_Conversion.py
     def generateExcelsAll(self, fileDirectory):
