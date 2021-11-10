@@ -48,13 +48,23 @@ class ExcelConverter:
 
         # For every file we need to send to excel, grab the data from its report and save it to the workbook.
         # Each row in workbook is one analysis report.
+        inExcel = []
         for file in filelist:
             
-            #cur.execute("SELECT * FROM AnalysisReports WHERE filename=?", (file,))
+            cur.execute("SELECT * FROM AnalysisReports WHERE filename=?", (file,))
             data = cur.fetchall()
             # Saving all reports.
             for entry in data:
                 i = 0
+                
+                if (entry[0] in inExcel):
+                    i = 1000
+                    
+                else:
+                    inExcel.append(entry[0])
+                
+                    
+                
 
                 # Saving one report.
                 while i < 50:
