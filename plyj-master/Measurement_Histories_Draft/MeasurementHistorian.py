@@ -1,5 +1,6 @@
 import os
 import sqlite3
+import datetime
 from sqlite3 import Error
 
 # IF this  has module issues let know immediately.
@@ -305,15 +306,49 @@ class MeasurementHistorian:
         else:
             return True
 
+    # This function takes a filepath, database connection, and a MeasurementHistorian object.
+    # It returns a list of row Ids from the database, sorted in descending order of DateAnalyzed.
+    # DateAnalyzed is assumed to be in the format given by datetime.datetime.now().
+    # MORE TESTING OVER THE COURSE OF THE WEEK IS NEEDED TO MAKE SURE SORTING WORKS!
+    def pullHistory(self, conn, filepath):
+        if(self.entry_exists(conn, filepath)):
+            IdList = []
+            cur = conn.cursor()
+            rows = cur.execute("SELECT * FROM AnalysisReports WHERE filename = ?", (filepath,))
+            # Need a formal sorting function for agreed upon date format.
+            
+            for row in rows:
+                
+                # For each report, grab the rowid and the DateAnalyzed field
+                IdList.append((row[0], row[4]))
+                
+            
+            # Sort the Ids based on their respective DateAnalyzed fields, in descending order.
+            IdList.sort(key=lambda tup: tup[1], reverse=True)
+
+            # Debug statement, remove in final.
+            print(IdList)
+
+            # Since we want it to only return Ids, transfer Ids to a new list and return.
+            SortedIdList = []
+            for tuple in IdList:
+                SortedIdList.append(tuple[0])
+            return SortedIdList
+        
+        # IF an invalid filepath, return an error value.
+        # This should only occur if the user edits the sqlite database mid execution, using sqlite software
+        else:
+            return False
+
 if __name__ == '__main__':
     mhist = MeasurementHistorian
-    dataconn = mhist.create_connection("test3.db")
+    dataconn = mhist.create_connection("testHistory.db")
     with dataconn:
 
-        report1 = ("Test", "Hello", "filler", 1, 2, 3, 4, 5, 6, 7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46)
-        report2 = ("Hello", "Hello", "filler", 1, 2, 3, 4, 5, 6, 7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46)
-        report3 = ("Java", "Hello", "filler", 1, 2, 3, 4, 5, 6, 7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46)
-        report4 = ("Goodbye", "Hello", "filler", 1, 2, 3, 4, 5, 6, 7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46)
+        report1 = ("Test", "Hello", "filler", datetime.datetime.now(), 2, 3, 4, 5, 6, 7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46)
+        report2 = ("Test", "Hello", "filler", datetime.datetime.now(), 2, 3, 4, 5, 6, 7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46)
+        report3 = ("Hello", "Hello", "filler", datetime.datetime.now(), 2, 3, 4, 5, 6, 7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46)
+        report4 = ("Test", "Hello", "filler", datetime.datetime.now(), 2, 3, 4, 5, 6, 7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46)
         mhist.create_analysis_table(mhist, dataconn)
         mhist.create_function_table(mhist, dataconn)
         #mhist.create_analysis_report(dataconn, report1)
@@ -321,10 +356,12 @@ if __name__ == '__main__':
         #mhist.create_analysis_report(dataconn, report3)
         #mhist.create_analysis_report(dataconn, report4)
         #tempcheck = mhist.entry_exists(dataconn, "pizza")
-        #mhist.print_all_reports(dataconn)
+        mhist.print_all_reports(dataconn)
         #tempList = mhist.search_archive_filename(mhist, dataconn, "Java")
         #for Id in tempList:
             #   print(Id)
+        dateList = mhist.pullHistory(mhist, dataconn, "Test")
+        print(dateList)
 
 
 
