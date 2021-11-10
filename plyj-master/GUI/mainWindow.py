@@ -60,7 +60,7 @@ class MainWindow(qtw.QMainWindow):
         self.actionMetric = self.popUpMenu.addAction("View Metrics")
         self.actionHistory=self.popUpMenu.addAction("View History")
         self.actionHistory.triggered.connect(self.viewHistory)
-        
+        self.actionMetric.triggered.connect(self.viewMetrics)
         
 
     
@@ -90,16 +90,10 @@ class MainWindow(qtw.QMainWindow):
         self.ui.JavaTableView.resizeColumnsToContents()
 
 
-    def eventFilter(self, source, event):
-        if event.type() == QEvent.ContextMenu and source is self.ui.JavaTableView:
-            
-            
-            
-            if self.popUpMenu.exec_(event.globalPos()):
-                
-                selectionIndexes = self.ui.JavaTableView.selectedIndexes()
-                if len(selectionIndexes) == 0 :
 
+    def eventFilter(self, source, event):
+            if event.type() == QEvent.ContextMenu and source is self.ui.JavaTableView:
+                
                 
                 
                 if self.popUpMenu.exec_(event.globalPos()):
