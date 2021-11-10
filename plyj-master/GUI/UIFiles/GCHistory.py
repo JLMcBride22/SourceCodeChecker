@@ -14,8 +14,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_HistoryForm(object):
     def setupUi(self, HistoryForm):
         HistoryForm.setObjectName("HistoryForm")
-        HistoryForm.setWindowModality(QtCore.Qt.NonModal)
-        HistoryForm.resize(646, 500)
+        HistoryForm.setWindowModality(QtCore.Qt.WindowModal)
+        HistoryForm.resize(740, 500)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)

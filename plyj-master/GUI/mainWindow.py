@@ -1,9 +1,13 @@
 import sys
 
-import asyncio
+
 
 from PyQt5.QtGui import QCloseEvent
+
+
+
 sys.path.append("./GUI")
+
 
 from PyQt5 import QtWidgets as qtw
 from PyQt5.QtWidgets import QFileDialog, QMenu, QTableView
@@ -13,6 +17,9 @@ from PyQt5.QtCore import QEvent, QItemSelection, QItemSelectionModel, Qt, QModel
 
 from FileSubmitForm import FileSubmitForm
 from history import historyForm
+from metricReport import metricFormC
+
+
 from UIFiles.GCMainWindowGUI import Ui_MainWindow
 
 import os
@@ -98,15 +105,7 @@ class MainWindow(qtw.QMainWindow):
                 
                 if self.popUpMenu.exec_(event.globalPos()):
                     
-                    selectionIndexes = self.ui.JavaTableView.selectedIndexes()
-                    if len(selectionIndexes) == 0 :
-
-                        dlg = QDialog()
-                        dlg.setWindowTitle("No item selected")
-                        label = QLabel(dlg)
-                        label.setText("Please Select an item")
-                        label.adjustSize()
-                        label.move(100, 60)
+                    return True
 
             return super().eventFilter(source, event)
     
@@ -121,7 +120,7 @@ class MainWindow(qtw.QMainWindow):
             
         ##fileSubmit.setAutoFillBackground(True)
         
-    #this get the value of the selected row from SQL DB
+    #this gets the value of the selected row from SQL DB
     def getSelectedRowFromDB(self):
         selectionIndexes = self.ui.JavaTableView.selectedIndexes()
         
@@ -152,7 +151,16 @@ class MainWindow(qtw.QMainWindow):
                 hist.show()
 
     def viewMetrics(self):
-        print(self.getSelectedRowFromDB())
+        
+        met = metricFormC(self)
+        met.setVisible(True)
+        met.setWindowFlag(True)
+        met.show()
+        met.showNormal()
+        
+
+
+
 
 
     ## Places the buttons in the table
