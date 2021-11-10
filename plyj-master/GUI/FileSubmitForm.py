@@ -59,7 +59,7 @@ class FileSubmitForm(qtw.QDialog):
     def removeItem(self):
         self.uiForm.filePathList.takeItem(self.uiForm.filePathList.currentRow())
 
-    # The following submits the form
+    # The following submits the list.
     def submit(self):
         countPaths = self.uiForm.filePathList.count()
         listPaths = []

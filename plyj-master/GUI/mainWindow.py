@@ -153,6 +153,9 @@ class MainWindow(qtw.QMainWindow):
     def viewMetrics(self):
         
         met = metricFormC(self)
+        row = self.getSelectedRowFromDB()
+        xmlStr =self.ari.getCellContentFromDataBase(row, "LocalizationOfVar")
+        met.strToXml(xmlStr)
         met.setVisible(True)
         met.setWindowFlag(True)
         met.show()

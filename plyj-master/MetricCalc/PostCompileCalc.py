@@ -101,7 +101,7 @@ class myParser2():
         self.NestingLessThanX =""
         self.ESLOCLessThanXinFunc = ""
         self.LocalizationOfVar = "" 
-    ##########################################This will be moved to precompiled file###############################################    
+      
     # Check if there is a commented line (SLOC Metric)
     def checkNumOfComments(self):
         self.SLOC = len(self.rawCodeList)
@@ -174,17 +174,9 @@ class myParser2():
         #generates the output
         self.calcFileStats()
         self.genOutput()
-    ##This creates a string of the xml
+    ##Creates the xml string.
     def createXMLString(self):
-        tree =  ElementTree.ElementTree(self.root)
-        f = open("prac.xml",'wb')
-        tree.write(f)
-
-        f.close()
-        f = open("prac.xml")
-        stringXml = f.read()
-        self.strXML = stringXml
-        print(self.strXML)
+        self.strXML = xml2.tostring(self.root, 'unicode')
         return 0
 
 
@@ -325,7 +317,7 @@ class myParser2():
                 type_name = sourceElement.type.name.value
             self.variableCounter(type_name)
 
-            variableSE = xml2.SubElement(variableElement, "")
+            variableSE = xml2.SubElement(variableElement, "variable")
             variableSE.text = type_name + ' ' + sourceElement.variable.name
 
 
@@ -366,7 +358,7 @@ class myParser2():
         p = Parser()
         tree = p.parse_file(self.actFilePath)
 
-        print('declared types:')
+        
         for type_decl in tree.type_declarations:
             ### This is where I'll get the class names
             classElement = xml2.Element(type_decl.name)
@@ -394,8 +386,7 @@ class myParser2():
 
 
 
-            print
-            print('methods:')
+
             
             methodsElement = xml2.Element("Methods")
             classElement.append(methodsElement)
@@ -410,7 +401,7 @@ class myParser2():
                     #count the params
                     self.numPassParams +=1
                     
-                    parameterSE = xml2.SubElement(parametersElement,"")
+                    parameterSE = xml2.SubElement(parametersElement,"parameter")
                     if type(param.type) is str:
                         param_strings.append(param.type + ' ' + param.variable.name)
 
@@ -432,7 +423,7 @@ class myParser2():
                         
                         if type(statement) is m.VariableDeclaration:
 
-                            variableSE = xml2.SubElement(variablesElement,"")
+                            variableSE = xml2.SubElement(variablesElement,"Variable")
                             for var_decl in statement.variable_declarators:
 
                                 
