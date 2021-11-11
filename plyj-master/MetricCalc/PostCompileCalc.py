@@ -411,6 +411,7 @@ class myParser2():
                         param_strings.append(param.type.name.value + ' ' + param.variable.name)
                         
                         parameterSE.text = param.type.name.value + ' ' + param.variable.name
+                        
 
                 print('    ' + method_decl.name + '(' + ', '.join(param_strings) + ')')
 

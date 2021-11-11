@@ -21,12 +21,15 @@ class metricFormC(qtw.QWidget):
 
         def displaytree(a, s):
             for child in s:
-                branch = qtw.QTreeWidgetItem([child.tag])
-                a.addChild(branch)
-                displaytree(branch, child)
-            if s.text is not None:
-                content = s.text
-                a.addChild(qtw.QTreeWidgetItem([content]))
+                if child.text == None:
+                    branch = qtw.QTreeWidgetItem([child.tag])
+                    a.addChild(branch)
+                    displaytree(branch, child)
+                else:
+                    branch = qtw.QTreeWidgetItem([child.text])
+                    a.addChild(branch)
+           
+            
 
 
 
