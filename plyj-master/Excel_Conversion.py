@@ -7,7 +7,8 @@ from Measurement_Histories_Draft.MeasurementHistorian import MeasurementHistoria
 # Will grab from sql database.
 
 class ExcelConverter:
-
+    def __init__(self) -> None:
+        pass
     # Will convert analysis report for files to an Excel workbook.
     # Has 3 parameters.
     # conn is the dataconnection object, which we can create through Measurement Historian.
@@ -31,7 +32,7 @@ class ExcelConverter:
         row = 0
         col = 0
         # Column header names. Need to change to grab from sql in the future.
-        columnnames = ["id","filename", "timestamp", "size", "LastAnalyzed", "ESLOC", "SLOCnoComm", "SLOCComm", "BlankLines", "FullCommLines","Semicolons", "FunctionCalls","NumPassedParam",
+        columnnames = ["id","filename", "timestamp", "datasize", "DateAnalyzed", "ESLOC", "SLOCnoComm", "SLOCComm", "BlankLines", "FullCommLines","Semicolons", "FunctionCalls","NumPassedParam",
                         "McCabeCyclComp","Halstead","MaxNest","ESLOCMaxNest","SwitchComp","NumForLoop","NumWhileLoop","NumRepeatLoop","NumInts","NumFloat",
                         "NumChar","NumString","NumUserDef","NumStruct","NumArray","Num3Char","Num3thru9Char","Num10thru19Char","Num20Char",
                         "PreambleFilename","PreambleAuthor","PreamblePurpose","PreambleInterface","PreambleAssumptions","PreambleChangeLog",
@@ -47,6 +48,7 @@ class ExcelConverter:
 
         # For every file we need to send to excel, grab the data from its report and save it to the workbook.
         # Each row in workbook is one analysis report.
+        inExcel = []
         for file in filelist:
             
             cur.execute("SELECT * FROM AnalysisReports WHERE filename=?", (file,))
@@ -54,10 +56,22 @@ class ExcelConverter:
             # Saving all reports.
             for entry in data:
                 i = 0
+                
+                if (entry[0] in inExcel):
+                    i = 1000
+                    
+                else:
+                    inExcel.append(entry[0])
+                
+                    
+                
 
                 # Saving one report.
                 while i < 50:
-                    worksheet.write(row, col, entry[i])
+                    try:
+                        worksheet.write(row, col, entry[i])
+                    except IndexError:
+                        print(i)
                     col +=1
                     i+=1
                 row += 1

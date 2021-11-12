@@ -4,7 +4,7 @@
 # import all components
 # from the tkinter library
 import sys
-from xml.etree.ElementTree import tostring
+from xml.etree.ElementTree import SubElement, tostring
 
 sys.path.append(".")
 import os
@@ -13,7 +13,7 @@ import datetime
 #parsar stuff
 import PLYJ.model as m
 from PLYJ.parser import Parser
-
+from datetime import datetime
 import xml.etree.ElementTree as xml2
 from xml.etree import ElementTree
 
@@ -34,7 +34,7 @@ class myParser2():
         self.filePath = ""
         self.root = xml2.Element("File")
         self.strXML =""
-
+        self.dataSize = ""
         
         #function calls
         self.functionCalls = 0
@@ -60,9 +60,9 @@ class myParser2():
         self.currNestingLevel = 0
         self.ESLOCatMaxLevel = 0
         self.SwitchComplexity = 0
+        self.MethodVarList = []
 
-        ##
-        self.localizationDict = {}
+        
 
         ##Count loops:
         self.numForLoops = 0
@@ -84,8 +84,8 @@ class myParser2():
         self.Num10thru19Char =0
         self.Num20Char = 0
         self.PreambleFilename = ""
-        self.PreambleAuthor = 0
-        self.PreamblePurpose ="",
+        self.PreambleAuthor = ""
+        self.PreamblePurpose = ""
         self.PreambleInterface = ""
         self.PreambleAssumptions = ""
         self.PreambleChangeLog = ""
@@ -101,7 +101,7 @@ class myParser2():
         self.NestingLessThanX =""
         self.ESLOCLessThanXinFunc = ""
         self.LocalizationOfVar = "" 
-    ##########################################This will be moved to precompiled file###############################################    
+      
     # Check if there is a commented line (SLOC Metric)
     def checkNumOfComments(self):
         self.SLOC = len(self.rawCodeList)
@@ -114,7 +114,11 @@ class myParser2():
                     while( not stripLine.endswith('*/')):
                         x += 1
                         lineno += 1
-                        stripLine = self.rawCodeList[lineno].strip()
+                        try:
+                            stripLine = self.rawCodeList[lineno].strip()
+                        except IndexError:
+                            print(self.actFilePath)
+                            break
                 x += 1
             elif(stripLine.startswith('//')):
                 x = x + 1 
@@ -126,28 +130,19 @@ class myParser2():
         
         self.fullCommentLines = x
         
-    def programClarity(self):
-
-        for lineNo in range (0,self.SLOC):
-            words = self.rawCodeList[lineNo].split(" ")
-            for x in words:
-                
-                if (len(x) >= self.minCharsLong):
-                     self.varsAtleastXCharsLong += 1
-                elif (self.maxCharsLong >= x):
-                    self.varsNoLongerThanXChars += 1
+            
             
 
 
 
-
-
-    def getTimeStamp(self):
+    #Calc the stats of the file like timestamp and filesize in KB
+    def calcFileStats(self):
         p = Path(self.actFilePath)
         stats = p.stat()
         time = stats.st_mtime
-        self.timeStamp = datetime.datetime.fromtimestamp(time).strftime('%c')
-        return self.timeStamp
+        self.timeStamp = datetime.fromtimestamp(time).strftime('%c')
+        self.dataSize = str(float(stats.st_size)/1000) + " kB"
+        
         
 
 ##################################precompiled class######################################
@@ -170,98 +165,69 @@ class myParser2():
         self.compileThisFile()
         self.createXMLString()
         #generates the output
+        self.calcFileStats()
         self.genOutput()
-    ##This creates a string of the xml
+    ##Creates the xml string.
     def createXMLString(self):
-        tree =  ElementTree.ElementTree(self.root)
-        f = open("prac.xml",'wb')
-        tree.write(f)
-
-        f.close()
-        f = open("prac.xml")
-        stringXml = f.read()
-        self.strXML = stringXml
-        print(self.strXML)
+        self.strXML = xml2.tostring(self.root, 'unicode')
         return 0
 
-        
-        
-        """ id integer PRIMARY KEY,
-        0 filename text NOT NULL,
-        1 timestamp text,
-        2 ESLOC integer,
-        3 SLOCnoComm integer,
-        4 SLOCComm integer,
-        5 BlankLines integer,
-        6 FullCommLines integer,
-        7 Semicolons integer,
-        8 FunctionCalls integer,
-        9 NumPassedParam integer,
-        10 McCabeCyclComp integer,
-        11 Halstead integer,
-        12 MaxNest integer,
-        ESLOCMaxNest integer,
-        SwitchComp text,
-        NumForLoop integer,
-        NumWhileLoop integer,
-        NumRepeatLoop integer,
-        NumInts integer,
-        NumFloat integer,
-        NumChar integer,
-        NumString integer,
-        NumUserDef integer,
-        NumStruct integer,
-        NumArray integer,
-        Num3Char integer,
-        Num3thru9Char integer,
-        Num10thru19Char integer,
-        Num20Char integer,
-        PreambleFilename text,
-        PreambleAuthor text,
-        PreamblePurpose text,
-        PreambleInterface text,
-        PreambleAssumptions text,
-        PreambleChangeLog text,
-        NoGoTo text,
-        OneEntry text,
-        OneExit text,
-        RecursionStatus text,
-        VariableNamesAtLeastXChar text,
-        VariableNamesNoLongXChar text,
-        DefineParamAllCAPS text,
-        VarNamesNotAllCAPS text,
-        McCabeLessThanX text,
-        NestingLessThanX text,
-        ESLOCLessThanXinFunc text,
-        LocalizationOfVar text  
- """
+
+ 
     #this generates a list that contains all the metrics. This should be move to calc interface.
     def genOutput(self):
-        self.output.append(self.filePath)
-        self.output.append(self.getTimeStamp())
+        self.output.append(self.filePath)#1
+        self.output.append(self.timeStamp)
+        self.output.append(self.dataSize)
+        now = datetime.now()
+        self.output.append(now.strftime("%c"))#5
         self.output.append(self.SLOC)
         self.output.append(self.SLOCnoComm)
         self.output.append(self.SLOCwiComm)
         self.output.append(self.blankLines)
-        self.output.append(self.fullCommentLines)
+        self.output.append(self.fullCommentLines)#10
         self.output.append(self.numSemiColons)
         self.output.append(self.functionCalls)
         self.output.append(self.numPassParams)
         self.output.append(self.calcMcCabe())
-        self.output.append(self.halstead)
+        self.output.append(self.halstead)#15
         self.output.append(self.maxNestingLevel)
         self.output.append(self.ESLOCatMaxLevel)
         self.output.append(self.SwitchComplexity)
         self.output.append(self.numForLoops)
-        self.output.append(self.numWhileLoops)
+        self.output.append(self.numWhileLoops)#20
         self.output.append(self.numDoWhileLoops)
         self.output.append(self.numInt)
         self.output.append(self.numFloat)
         self.output.append(self.numChar)
-        self.output.append(self.numString)
+        self.output.append(self.numString)#25
         self.output.append(self.numUserDefined)
         self.output.append(0)#<----------NO STRUCTS
         self.output.append(self.numArrays)
+        self.output.append(self.Num3Char)
+        self.output.append(self.Num3thru9Char)#30
+        self.output.append(self.Num10thru19Char)
+        self.output.append(self.Num20Char)
+        self.output.append(self.PreambleFilename)
+        self.output.append(self.PreambleAuthor)
+        self.output.append(self.PreamblePurpose)#35
+        self.output.append(self.PreambleInterface)
+        self.output.append(self.PreambleAssumptions)
+        self.output.append(self.PreambleChangeLog)
+        self.output.append(self.NoGoTo)
+        self.output.append(self.OneEntry)#40
+        self.output.append(self.OneExit)
+        self.output.append(self.RecursionStatus)
+        self.output.append(self.VariableNamesAtLeastXChar)
+        self.output.append(self.VariableNamesNoLongXChar)
+        self.output.append(self.DefineParamAllCAPS)#45
+        self.output.append(self.VarNamesNotAllCAPS)
+        self.output.append(self.McCabeLessThanX)
+        self.output.append(self.NestingLessThanX)
+        self.output.append(self.ESLOCLessThanXinFunc)
+        self.output.append(self.strXML)#50
+
+        
         return 0  
         
 
@@ -282,13 +248,13 @@ class myParser2():
         return out
     
     ##Calculate metric
-    def calMetric(self, sourceElement, variableElement:xml2.Element):
+    def calMetric(self, sourceElement):
         
         if(type(sourceElement) is m.IfThenElse):
             self.node +=2
             self.edge += 4
 
-            self.calMetric(sourceElement.if_true, variableElement)
+            self.calMetric(sourceElement.if_true)
             self.currNestingLevel += 1
             if sourceElement.if_false is None:
                 
@@ -297,7 +263,7 @@ class myParser2():
                 self.currNestingLevel -= 1
                 if type(sourceElement.if_false is m.For):
                     self.testingVariable += 1
-                self.calMetric(sourceElement.if_false, variableElement)
+                self.calMetric(sourceElement.if_false)
                 
         elif type(sourceElement) is m.While:
             ## Count the while loops here
@@ -306,8 +272,7 @@ class myParser2():
             self.edge +=3
             ## count the while
             self.numWhileLoops += 1
-            for line in sourceElement.body:
-                self.calMetric(line, variableElement)
+            self.calMetric(sourceElement.body)
         elif(type(sourceElement) is m.For):
             self.currNestingLevel += 1 
             self.node += 2
@@ -315,7 +280,7 @@ class myParser2():
 
             self.numForLoops += 1
            
-            self.calMetric(sourceElement.body, variableElement)
+            self.calMetric(sourceElement.body)
             
 
         elif(type(sourceElement)is m.DoWhile):
@@ -324,7 +289,7 @@ class myParser2():
             self.edge += 3
 
             self.numDoWhileLoops += 1
-            self.calMetric(sourceElement.body, variableElement)
+            self.calMetric(sourceElement.body)
             
         elif type(sourceElement) is m.Switch:
             numSwitches = len(sourceElement.switch_cases)
@@ -332,20 +297,39 @@ class myParser2():
 
             for switch in sourceElement.switch_cases:
                 for line in switch.body:
-                    self.calMetric(line, variableElement)
+                    self.calMetric(line)
 
         elif type(sourceElement) is m.VariableDeclaration:
-            self.node += 1
 
                         
-            if type(sourceElement.type) is str:
-                type_name = sourceElement.type
-            else:
-                type_name = sourceElement.type.name.value
-            self.variableCounter(type_name)
+            for var_decl in sourceElement.variable_declarators:
 
-            variableSE = xml2.SubElement(variableElement, "")
-            variableSE.text = type_name + ' ' + sourceElement.variable.name
+                    
+                if type(sourceElement.type) is str:
+                    type_name = sourceElement.type
+                    self.variableCounter(type_name)
+                else:
+                    
+                    dim = sourceElement.type.dimensions
+                    
+                    
+                    ##IF ITs an array.
+                    if(dim > 0):
+                        type_name = "Array"
+                        self.variableCounter(type_name)
+                        type_name = str(sourceElement.type.name)
+                        for b in range(0,dim):
+                            type_name = type_name + '[]'
+
+                    else:
+                        type_name = sourceElement.type.name.value
+                        self.variableCounter(type_name)
+                        
+            
+                self.MethodVarList.append (type_name + ' ' + var_decl.variable.name)
+            
+
+
 
 
         elif type(sourceElement) is m.Break or type(sourceElement) is m.Return:
@@ -356,7 +340,18 @@ class myParser2():
             for line in sourceElement.statements:
                 if(type(line) is m.For):
                     self.testingVariable +=1
-                self.calMetric(line,variableElement)
+                self.calMetric(line)
+
+
+        elif type(sourceElement) is list:
+            for block in sourceElement:
+                self.calMetric(block)
+        elif sourceElement._fields.__contains__("body"):
+            self.calMetric(sourceElement.body)
+        elif sourceElement._fields.__contains__("block"):
+            self.calMetric(sourceElement.block)
+
+            
 ###############################################################
     #counts the variables 
     def variableCounter(self,type):
@@ -372,20 +367,28 @@ class myParser2():
             self.numFloat += 1
         elif type == "byte" or type == "double" or type == "boolean" or type == "short" or type == "long":
             return
+    
         else:
             self.numUserDefined +=1
 
         return
 
-    #This Compiles the file and calculates
+    #This Compiles the file and calculates metrics like McCabe
     def compileThisFile(self):
 
         # Change label contents
 
         p = Parser()
+        
+        
+        
+        
+        
         tree = p.parse_file(self.actFilePath)
+        
 
-        print('declared types:')
+
+        
         for type_decl in tree.type_declarations:
             ### This is where I'll get the class names
             classElement = xml2.Element(type_decl.name)
@@ -413,8 +416,7 @@ class myParser2():
 
 
 
-            print
-            print('methods:')
+
             
             methodsElement = xml2.Element("Methods")
             classElement.append(methodsElement)
@@ -429,7 +431,7 @@ class myParser2():
                     #count the params
                     self.numPassParams +=1
                     
-                    parameterSE = xml2.SubElement(parametersElement,"")
+                    parameterSE = xml2.SubElement(parametersElement,"parameter")
                     if type(param.type) is str:
                         param_strings.append(param.type + ' ' + param.variable.name)
 
@@ -439,42 +441,55 @@ class myParser2():
                         param_strings.append(param.type.name.value + ' ' + param.variable.name)
                         
                         parameterSE.text = param.type.name.value + ' ' + param.variable.name
+                        
 
                 print('    ' + method_decl.name + '(' + ', '.join(param_strings) + ')')
 
-
+                #TODO Test if they send in a blank method.
                 if method_decl.body is not None:
                     variablesElement = xml2.Element("Variables")
+                    self.MethodVarList = []
+                    print(type(method_decl.body))
+                    self.calMetric(method_decl.body)
+                    for var in self.MethodVarList:
+                        variableSub = xml2.Element("Variable")
+                        variableSub.text = var
+                        variablesElement.append(variableSub)
+                        
                     method.append(variablesElement)
-                    for statement in method_decl.body:
-                        
-                        
-                        if type(statement) is m.VariableDeclaration:
 
-                            variableSE = xml2.SubElement(variablesElement,"")
-                            for var_decl in statement.variable_declarators:
+"""     def method(self):
+        
+        
+        for statement in method_decl.body:
+            
+            
+            if type(statement) is m.VariableDeclaration:
 
-                                
-                                if type(statement.type) is str:
-                                    type_name = statement.type
-                                else:
-                                    ##This is where it's an array type
-                                    dim = statement.type.dimensions
-                                    
-                                    type_name = str(statement.type.name)
-                                    if(dim > 0):
-                                        type_name = "Array"
-                                    else:
-                                        type_name = statement.type.name.value
-                                    
-                                self.variableCounter(type_name)
-                                variableSE.text = type_name + ' ' + var_decl.variable.name
+                variableSE = xml2.SubElement(variablesElement,"Variable")
+                for var_decl in statement.variable_declarators:
+
+                    
+                    if type(statement.type) is str:
+                        type_name = statement.type
+                    else:
+                        ##This is where it's an array type
+                        dim = statement.type.dimensions
                         
+                        type_name = str(statement.type.name)
+                        if(dim > 0):
+                            type_name = "Array"
                         else:
-                            self.currNestingLevel = 0
-                            self.calMetric(statement, variablesElement)
-                            if self.currNestingLevel > self.maxNestingLevel:
-                                self.maxNestingLevel = self.currNestingLevel
+                            type_name = statement.type.name.value
+                        
+                    self.variableCounter(type_name)
+                    variableSE.text = type_name + ' ' + var_decl.variable.name
+            
+            else:
+                self.currNestingLevel = 0
+                self.calMetric(statement, variablesElement)
+                if self.currNestingLevel > self.maxNestingLevel:
+                    self.maxNestingLevel = self.currNestingLevel """
 
 if __name__ == '__main__':
         fn = "JavaTest\dev.java"
@@ -484,9 +499,7 @@ if __name__ == '__main__':
         print(tree) """
         p = myParser2()
         p.actFilePath = fn
-        p.compileThisFile()
-        p.createXMLString()
-        
-        
+        p.calcFileStats()
+        #p.genOutput()
 
 

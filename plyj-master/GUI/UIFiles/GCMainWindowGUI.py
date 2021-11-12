@@ -35,6 +35,8 @@ class Ui_MainWindow(object):
         self.JavaTableView.setFont(font)
         self.JavaTableView.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.JavaTableView.setAlternatingRowColors(True)
+        self.JavaTableView.setSelectionMode(QtWidgets.QAbstractItemView.SingleSelection)
+        self.JavaTableView.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
         self.JavaTableView.setObjectName("JavaTableView")
         self.gridLayout.addWidget(self.JavaTableView, 1, 0, 1, 1)
         self.groupBox = QtWidgets.QGroupBox(self.centralwidget)
