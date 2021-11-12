@@ -1,9 +1,10 @@
 from typing import IO
+from xml.etree.ElementTree import parse
 from PyQt5 import QtWidgets as qtw
 # Imported the following to connect a button to a function?
 # vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 import os
-
+from pathlib import Path
 
 from PyQt5.QtWidgets import QDialogButtonBox, QFileDialog, QListWidgetItem, QMessageBox, QTableView
 
@@ -34,7 +35,7 @@ class FileSubmitForm(qtw.QDialog):
         ## Add remove.
         self.uiForm.addBtn.clicked.connect(self.fileExplorer)
         self.uiForm.removeButton.clicked.connect(self.removeItem)
-
+        self.uiForm.pushButton.clicked.connect(self.findDirectory)
         self.uiForm.SubmitFileLink.clicked.connect(self.submit)
         self.uiForm.cancel.clicked.connect(self.close)
         return 0
@@ -92,30 +93,48 @@ class FileSubmitForm(qtw.QDialog):
             
         uncompiled=self.ari.getUncompiled()
         
-        if(uncompiled is not ""):
+        for uc in uncompiled:
             dlg = QMessageBox()
             
-            dlg.setText("Pathway, "+ str(uncompiled) + ", wasn't abled to be compiled")
-            dlg.setInformativeText("Please remove the forementioned path and try again.")
+            dlg.setText("Pathway, "+ str(uc) + ", wasn't abled to be compiled")
+            dlg.setInformativeText("The others were able to be added unless noted")
             dlg.setIcon(3)
             dlg.exec_()
-            return
+            
         
         self.close()
 
-        
+    #This method finds and recurses a directory adding it to the Qwidget list
+    def findDirectory(self):
+            
+            #TODO add
+            dir= QFileDialog.getExistingDirectory(self, "Choose your directory",
+            'C:/Users/Jonathan Lewis/IdeaProjects'
+            )
+            listPath = []
+            if dir != '':
+                for path in Path(dir).rglob("*.java"):
+                    resolvePathStr = str(path.resolve)
+                    listResolvePath = resolvePathStr.split("\'")
+                    
+                    listPath.append(str(listResolvePath[1]))
+
+                self.uiForm.filePathList.addItems(listPath)
+
 
 
 # Testing purposes
 if __name__ == '__main__':
-    import sys
-  
-    a = ARI()
-    app = qtw.QApplication(sys.argv)
-    widget = FileSubmitForm()
-    widget.setARI(a)
-    w = qtw.QWidget()
+    dir = 'C:\\Users\\Jonathan Lewis\\IdeaProjects'
+    listPath = []
+    for path in Path(dir).rglob("*.java"):
+        resolvePathStr = str(path.resolve)
+        listResolvePath = resolvePathStr.split("\'")
 
-    widget.show()
 
-    sys, exit(app.exec_())
+        
+
+    
+        
+
+        

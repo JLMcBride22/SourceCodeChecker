@@ -123,19 +123,19 @@ class ARI():
         return 0
     #This takes the filepath to the compiler
     def takeFileList(self, filePathList: list):
-        self.uncompilable = ""
+        self.uncompilable = []
         listOfOutputs = []
         for filePath in filePathList:
             pars = myParser2()
 
             try:
                 pars.findMetrics(filePath)
+                listOfOutputs.append(pars.output)
             except AttributeError:
-                self.uncompilable = filePath
-                return
+                self.uncompilable.append(filePath)
             
 
-            listOfOutputs.append(pars.output)
+            
             
             #record = pars.getRecord()
             #print(record.isGenerated(1))

@@ -4,7 +4,7 @@
 # import all components
 # from the tkinter library
 import sys
-from xml.etree.ElementTree import tostring
+from xml.etree.ElementTree import SubElement, tostring
 
 sys.path.append(".")
 import os
@@ -60,9 +60,9 @@ class myParser2():
         self.currNestingLevel = 0
         self.ESLOCatMaxLevel = 0
         self.SwitchComplexity = 0
+        self.MethodVarList = []
 
-        ##
-        self.localizationDict = {}
+        
 
         ##Count loops:
         self.numForLoops = 0
@@ -114,7 +114,11 @@ class myParser2():
                     while( not stripLine.endswith('*/')):
                         x += 1
                         lineno += 1
-                        stripLine = self.rawCodeList[lineno].strip()
+                        try:
+                            stripLine = self.rawCodeList[lineno].strip()
+                        except IndexError:
+                            print(self.actFilePath)
+                            break
                 x += 1
             elif(stripLine.startswith('//')):
                 x = x + 1 
@@ -126,29 +130,18 @@ class myParser2():
         
         self.fullCommentLines = x
         
-    def programClarity(self):
-
-        for lineNo in range (0,self.SLOC):
-            words = self.rawCodeList[lineNo].split(" ")
-            for x in words:
-                
-                if (len(x) >= self.minCharsLong):
-                     self.varsAtleastXCharsLong += 1
-                elif (self.maxCharsLong >= x):
-                    self.varsNoLongerThanXChars += 1
             
             
-        
 
 
 
-
+    #Calc the stats of the file like timestamp and filesize in KB
     def calcFileStats(self):
         p = Path(self.actFilePath)
         stats = p.stat()
         time = stats.st_mtime
         self.timeStamp = datetime.fromtimestamp(time).strftime('%c')
-        self.dataSize = str(float(stats.st_size)/100) + " MB"
+        self.dataSize = str(float(stats.st_size)/1000) + " kB"
         
         
 
@@ -255,13 +248,13 @@ class myParser2():
         return out
     
     ##Calculate metric
-    def calMetric(self, sourceElement, variableElement:xml2.Element):
+    def calMetric(self, sourceElement):
         
         if(type(sourceElement) is m.IfThenElse):
             self.node +=2
             self.edge += 4
 
-            self.calMetric(sourceElement.if_true, variableElement)
+            self.calMetric(sourceElement.if_true)
             self.currNestingLevel += 1
             if sourceElement.if_false is None:
                 
@@ -270,7 +263,7 @@ class myParser2():
                 self.currNestingLevel -= 1
                 if type(sourceElement.if_false is m.For):
                     self.testingVariable += 1
-                self.calMetric(sourceElement.if_false, variableElement)
+                self.calMetric(sourceElement.if_false)
                 
         elif type(sourceElement) is m.While:
             ## Count the while loops here
@@ -279,8 +272,7 @@ class myParser2():
             self.edge +=3
             ## count the while
             self.numWhileLoops += 1
-            for line in sourceElement.body:
-                self.calMetric(line, variableElement)
+            self.calMetric(sourceElement.body)
         elif(type(sourceElement) is m.For):
             self.currNestingLevel += 1 
             self.node += 2
@@ -288,7 +280,7 @@ class myParser2():
 
             self.numForLoops += 1
            
-            self.calMetric(sourceElement.body, variableElement)
+            self.calMetric(sourceElement.body)
             
 
         elif(type(sourceElement)is m.DoWhile):
@@ -297,7 +289,7 @@ class myParser2():
             self.edge += 3
 
             self.numDoWhileLoops += 1
-            self.calMetric(sourceElement.body, variableElement)
+            self.calMetric(sourceElement.body)
             
         elif type(sourceElement) is m.Switch:
             numSwitches = len(sourceElement.switch_cases)
@@ -305,20 +297,39 @@ class myParser2():
 
             for switch in sourceElement.switch_cases:
                 for line in switch.body:
-                    self.calMetric(line, variableElement)
+                    self.calMetric(line)
 
         elif type(sourceElement) is m.VariableDeclaration:
-            self.node += 1
 
                         
-            if type(sourceElement.type) is str:
-                type_name = sourceElement.type
-            else:
-                type_name = sourceElement.type.name.value
-            self.variableCounter(type_name)
+            for var_decl in sourceElement.variable_declarators:
 
-            variableSE = xml2.SubElement(variableElement, "variable")
-            variableSE.text = type_name + ' ' + sourceElement.variable.name
+                    
+                if type(sourceElement.type) is str:
+                    type_name = sourceElement.type
+                    self.variableCounter(type_name)
+                else:
+                    
+                    dim = sourceElement.type.dimensions
+                    
+                    
+                    ##IF ITs an array.
+                    if(dim > 0):
+                        type_name = "Array"
+                        self.variableCounter(type_name)
+                        type_name = str(sourceElement.type.name)
+                        for b in range(0,dim):
+                            type_name = type_name + '[]'
+
+                    else:
+                        type_name = sourceElement.type.name.value
+                        self.variableCounter(type_name)
+                        
+            
+                self.MethodVarList.append (type_name + ' ' + var_decl.variable.name)
+            
+
+
 
 
         elif type(sourceElement) is m.Break or type(sourceElement) is m.Return:
@@ -329,7 +340,18 @@ class myParser2():
             for line in sourceElement.statements:
                 if(type(line) is m.For):
                     self.testingVariable +=1
-                self.calMetric(line,variableElement)
+                self.calMetric(line)
+
+
+        elif type(sourceElement) is list:
+            for block in sourceElement:
+                self.calMetric(block)
+        elif sourceElement._fields.__contains__("body"):
+            self.calMetric(sourceElement.body)
+        elif sourceElement._fields.__contains__("block"):
+            self.calMetric(sourceElement.block)
+
+            
 ###############################################################
     #counts the variables 
     def variableCounter(self,type):
@@ -345,18 +367,26 @@ class myParser2():
             self.numFloat += 1
         elif type == "byte" or type == "double" or type == "boolean" or type == "short" or type == "long":
             return
+    
         else:
             self.numUserDefined +=1
 
         return
 
-    #This Compiles the file and calculates
+    #This Compiles the file and calculates metrics like McCabe
     def compileThisFile(self):
 
         # Change label contents
 
         p = Parser()
+        
+        
+        
+        
+        
         tree = p.parse_file(self.actFilePath)
+        
+
 
         
         for type_decl in tree.type_declarations:
@@ -415,39 +445,51 @@ class myParser2():
 
                 print('    ' + method_decl.name + '(' + ', '.join(param_strings) + ')')
 
-
+                #TODO Test if they send in a blank method.
                 if method_decl.body is not None:
                     variablesElement = xml2.Element("Variables")
+                    self.MethodVarList = []
+                    print(type(method_decl.body))
+                    self.calMetric(method_decl.body)
+                    for var in self.MethodVarList:
+                        variableSub = xml2.Element("Variable")
+                        variableSub.text = var
+                        variablesElement.append(variableSub)
+                        
                     method.append(variablesElement)
-                    for statement in method_decl.body:
-                        
-                        
-                        if type(statement) is m.VariableDeclaration:
 
-                            variableSE = xml2.SubElement(variablesElement,"Variable")
-                            for var_decl in statement.variable_declarators:
+"""     def method(self):
+        
+        
+        for statement in method_decl.body:
+            
+            
+            if type(statement) is m.VariableDeclaration:
 
-                                
-                                if type(statement.type) is str:
-                                    type_name = statement.type
-                                else:
-                                    ##This is where it's an array type
-                                    dim = statement.type.dimensions
-                                    
-                                    type_name = str(statement.type.name)
-                                    if(dim > 0):
-                                        type_name = "Array"
-                                    else:
-                                        type_name = statement.type.name.value
-                                    
-                                self.variableCounter(type_name)
-                                variableSE.text = type_name + ' ' + var_decl.variable.name
+                variableSE = xml2.SubElement(variablesElement,"Variable")
+                for var_decl in statement.variable_declarators:
+
+                    
+                    if type(statement.type) is str:
+                        type_name = statement.type
+                    else:
+                        ##This is where it's an array type
+                        dim = statement.type.dimensions
                         
+                        type_name = str(statement.type.name)
+                        if(dim > 0):
+                            type_name = "Array"
                         else:
-                            self.currNestingLevel = 0
-                            self.calMetric(statement, variablesElement)
-                            if self.currNestingLevel > self.maxNestingLevel:
-                                self.maxNestingLevel = self.currNestingLevel
+                            type_name = statement.type.name.value
+                        
+                    self.variableCounter(type_name)
+                    variableSE.text = type_name + ' ' + var_decl.variable.name
+            
+            else:
+                self.currNestingLevel = 0
+                self.calMetric(statement, variablesElement)
+                if self.currNestingLevel > self.maxNestingLevel:
+                    self.maxNestingLevel = self.currNestingLevel """
 
 if __name__ == '__main__':
         fn = "JavaTest\dev.java"

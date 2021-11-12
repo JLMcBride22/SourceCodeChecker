@@ -12,10 +12,10 @@ class metricFormC(qtw.QWidget):
         self.uiForm = Ui_Form()
         self.uiForm.setupUi(self)
         self.tree = None
-    #converts string to xml tree.
+    #converts string to xml tree. and prints the content of the xml file to the TreeWidget
     def strToXml(self, xmlStr):
         self.tree = et.fromstring(xmlStr)
-        self.uiForm.treeWidget.setColumnCount(1)
+        
         treeElement = qtw.QTreeWidgetItem([self.tree.tag])
         self.uiForm.treeWidget.addTopLevelItem(treeElement)
 
@@ -35,6 +35,11 @@ class metricFormC(qtw.QWidget):
 
         displaytree(treeElement, self.tree)
 
+
+    #Find items then removes it
+    def findItemRemoves(self):
+        return
+        
 
 
     

@@ -64,7 +64,7 @@ class MainWindow(qtw.QMainWindow):
         self.ui.JavaTableView.resizeColumnsToContents()
         #self.ui.JavaTableView.hideColumn(0)
 
-        self.actionMetric = self.popUpMenu.addAction("View Metrics")
+        self.actionMetric = self.popUpMenu.addAction("View Function/Classes Reports")
         self.actionHistory=self.popUpMenu.addAction("View History")
         self.actionHistory.triggered.connect(self.viewHistory)
         self.actionMetric.triggered.connect(self.viewMetrics)
@@ -156,6 +156,7 @@ class MainWindow(qtw.QMainWindow):
         row = self.getSelectedRowFromDB()
         xmlStr =self.ari.getCellContentFromDataBase(row, "LocalizationOfVar")
         met.strToXml(xmlStr)
+        met.findItemRemoves()
         met.setVisible(True)
         met.setWindowFlag(True)
         met.show()

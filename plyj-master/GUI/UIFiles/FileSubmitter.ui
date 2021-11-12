@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>660</width>
-    <height>850</height>
+    <height>624</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -59,6 +59,9 @@
      <property name="layoutDirection">
       <enum>Qt::LeftToRight</enum>
      </property>
+     <property name="alternatingRowColors">
+      <bool>true</bool>
+     </property>
      <property name="resizeMode">
       <enum>QListView::Adjust</enum>
      </property>
@@ -86,6 +89,13 @@
      </property>
      <property name="text">
       <string>Add Files</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="pushButton">
+     <property name="text">
+      <string>Add a Directory</string>
      </property>
     </widget>
    </item>
@@ -676,9 +686,9 @@
       <widget class="QTabWidget" name="StandardTabs">
        <property name="geometry">
         <rect>
-         <x>0</x>
+         <x>10</x>
          <y>0</y>
-         <width>981</width>
+         <width>971</width>
          <height>391</height>
         </rect>
        </property>
