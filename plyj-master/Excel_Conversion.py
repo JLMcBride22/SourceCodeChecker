@@ -51,7 +51,7 @@ class ExcelConverter:
         inExcel = []
         for file in filelist:
             
-            cur.execute("SELECT * FROM AnalysisReports WHERE filename=?", (file,))
+            #cur.execute("SELECT * FROM AnalysisReports WHERE filename=?", (file,))
             data = cur.fetchall()
             # Saving all reports.
             for entry in data:

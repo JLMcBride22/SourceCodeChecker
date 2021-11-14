@@ -10,9 +10,10 @@ sys.path.append("./GUI")
 
 
 from PyQt5 import QtWidgets as qtw
-from PyQt5.QtWidgets import QFileDialog, QMenu, QTableView
+from PyQt5.QtWidgets import QFileDialog, QMenu, QTableView, QMessageBox
 
 from PyQt5.QtSql import QSqlQuery, QSqlTableModel
+
 from PyQt5.QtCore import QEvent, QItemSelection, QItemSelectionModel, Qt, QModelIndex
 
 from FileSubmitForm import FileSubmitForm
@@ -124,8 +125,16 @@ class MainWindow(qtw.QMainWindow):
     def getSelectedRowFromDB(self):
         selectionIndexes = self.ui.JavaTableView.selectedIndexes()
         
+        if(len(selectionIndexes) > 0):
+            index = selectionIndexes[0]
             
-        index = selectionIndexes[0]
+        else:
+            dlg = QMessageBox()
+            dlg.setText("You haven't selected a file")
+            dlg.setInformativeText("Please select a file to view details.")
+            dlg.setIcon(3)
+            dlg.exec_()
+            return None
         
         id= index.row() +1
     
@@ -153,14 +162,17 @@ class MainWindow(qtw.QMainWindow):
     def viewMetrics(self):
         
         met = metricFormC(self)
+
         row = self.getSelectedRowFromDB()
-        xmlStr =self.ari.getCellContentFromDataBase(row, "LocalizationOfVar")
-        met.strToXml(xmlStr)
-        met.findItemRemoves()
-        met.setVisible(True)
-        met.setWindowFlag(True)
-        met.show()
-        met.showNormal()
+        if(row != None):
+            xmlStr =self.ari.getCellContentFromDataBase(row, "LocalizationOfVar")
+            met.strToXml(xmlStr)
+            met.findItemRemoves()
+            met.setVisible(True)
+            met.setWindowFlag(True)
+            met.show()
+            met.showNormal()
+        return
         
 
 
