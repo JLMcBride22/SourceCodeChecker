@@ -27,6 +27,7 @@ from xml.etree import ElementTree
 class myParser2():
     
     def __init__(self) -> None:
+        self.listOfMetrics = []
         self.output = []
         self.timeStamp = 0
         self.hash = 0
@@ -152,7 +153,8 @@ class myParser2():
 
     
     ## This function should be used when starting the
-    def findMetrics(self, filepath: str):
+    def findMetrics(self, filepath: str, listOfMetrics:list):
+        self.listOfMetrics = listOfMetrics
         self.actFilePath = filepath
         print(filepath)
         filepathL = filepath.split('/')
@@ -445,7 +447,7 @@ class myParser2():
 
                 print('    ' + method_decl.name + '(' + ', '.join(param_strings) + ')')
 
-                #TODO Test if they send in a blank method.
+                
                 if method_decl.body is not None:
                     variablesElement = xml2.Element("Variables")
                     self.MethodVarList = []

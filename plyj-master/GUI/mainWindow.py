@@ -75,7 +75,7 @@ class MainWindow(qtw.QMainWindow):
 
     def setARI(self, ariPARAM: ARI):
         self.ari = ariPARAM
-        
+        self.ari.setTable(self.ui.JavaTableView)
         self.populate_table()
         
 
@@ -175,7 +175,7 @@ class MainWindow(qtw.QMainWindow):
         return
         
 
-
+    
 
 
 
