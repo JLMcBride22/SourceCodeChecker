@@ -50,8 +50,11 @@ class ExcelConverter:
         # Each row in workbook is one analysis report.
         inExcel = []
         for file in filelist:
-            
-            #cur.execute("SELECT * FROM AnalysisReports WHERE filename=?", (file,))
+            try:
+                cur.execute("SELECT * FROM AnalysisReports WHERE filename=?", (file,))
+            except sqlite3.OperationalError:
+                workbook.close()
+                return
             data = cur.fetchall()
             # Saving all reports.
             for entry in data:
