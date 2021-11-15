@@ -76,7 +76,12 @@ class MainWindow(qtw.QMainWindow):
     def setARI(self, ariPARAM: ARI):
         self.ari = ariPARAM
         self.ari.setTable(self.ui.JavaTableView)
+        self.ari.setEmptyLabel(self.ui.label)
+        if(not self.ari.isEmpty):
+            self.ui.label.setHidden(True)
+        
         self.populate_table()
+        
         
 
     # Opens the dialog for help

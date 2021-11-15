@@ -111,6 +111,7 @@ class FileSubmitForm(qtw.QDialog):
         for box in boxes:
             if box.isChecked():
                 self.listOfCheckedMetrics.append(box.text())
+                print("\t\t\telif metric == "+"\"" +box.text()+"\"" + ":\n\t\t\t\tpass")
         return self.listOfCheckedMetrics
 
     #This method finds and recurses a directory adding it to the Qwidget list

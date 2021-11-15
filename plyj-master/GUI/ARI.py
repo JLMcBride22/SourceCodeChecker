@@ -23,6 +23,7 @@ class ARI():
     
     def __init__(self):
         self.tableView =None
+        self.emptyLabel = None
         self.uncompilable = []
         ##This sets up the database for the QSQlDatabase
         self.db =  QSqlDatabase.addDatabase('QSQLITE')
@@ -94,10 +95,15 @@ class ARI():
 
         ##creating the model for the tableview
         self.dbModel = QSqlTableModel()
+        
         #these two lines connect the database to the model
         self.dbModel.setTable("AnalysisReports")
         self.dbModel.select()
-        
+        self.isEmpty = False
+        if self.dbModel.rowCount() == 0:
+            self.isEmpty = True
+            
+
         #you have to manually submit your changes. by you using model.submitAll()
         self.dbModel.setEditStrategy(QSqlTableModel.OnManualSubmit)
         
@@ -120,13 +126,16 @@ class ARI():
         ## -1 means inserted at the bottem
         self.dbModel.insertRecord(-1, self.record)
         self.tableView.resizeColumnsToContents()
-        
+    #Allows ARI to control the fit the columns
     def setTable(self , tableView:QTableView):
         self.tableView = tableView
 
             
 
         return 0
+
+    def setEmptyLabel(self, emptyLabelIn):
+        self.emptyLabel = emptyLabelIn
     #This takes the filepath to the compiler
     def takeFileList(self, filePathList: list, listOfCheckedMetrics : list):
         self.uncompilable = []
@@ -160,6 +169,9 @@ class ARI():
 
         #Submits them all from the model to the database
         self.dbModel.submitAll()
+        if self.isEmpty:
+            self.emptyLabel.setHidden(True)
+            self.isEmpty = False
 
     #This sends back a list of uncompilable file path ways.  
     def getUncompiled(self):

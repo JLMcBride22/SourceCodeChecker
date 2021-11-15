@@ -353,6 +353,98 @@ class myParser2():
         elif sourceElement._fields.__contains__("block"):
             self.calMetric(sourceElement.block)
 
+    def createsMethodXMLElement(self):
+        for metric in self.listOfMetrics:
+            if metric == "Source Lines of Code with Comments":
+                pass
+            elif metric == "Number of Semicolons":
+                pass
+            elif metric == "Source Lines of Code without Comments":
+                pass
+            elif metric == "Number of Function Calls":
+                pass
+            elif metric == "Blank Lines":
+                pass
+            elif metric == "Full Comment Lines":
+                pass
+            elif metric == "Number of Passed Parameters":
+                pass
+            elif metric == "Switch Complexity":
+                pass
+            elif metric == "McCabe's Cyclomatic Complexity":
+                pass
+            elif metric == "Maximum Nesting Level":
+                pass
+            elif metric == "ESLOC at Max Nesting Level":
+                pass
+            elif metric == "Halstead's Software Science Primitives":
+                pass
+            elif metric == "Number of For Loops":
+                pass
+            elif metric == "Number of While Loops":
+                pass
+            elif metric == "Number of Do-While Loops":
+                pass
+            elif metric == "User Defined Variable":
+                pass
+            elif metric == "Total Number of Variables":
+                pass
+            elif metric == "Float":
+                pass
+            elif metric == "Array":
+                pass
+            elif metric == "Integer":
+                pass
+            elif metric == "String":
+                pass
+            elif metric == "Character":
+                pass
+            elif metric == "Structure":
+                pass
+            elif metric == "Names Less Than 3 Characters":
+                pass
+            elif metric == "Names 20 or More Characters":
+                pass
+            elif metric == "Names More Than 3 but Less Than 10 Characters":
+                pass
+            elif metric == "Names 10 or More but Less than 20 Characters":
+                pass
+            elif metric == "Assumptions":
+                pass
+            elif metric == "Purpose":
+                pass
+            elif metric == "Filename":
+                pass
+            elif metric == "Change Log":
+                pass
+            elif metric == "Interface":
+                pass
+            elif metric == "Author":
+                pass
+            elif metric == "Presence of GoTo's":
+                pass
+            elif metric == "Singular Entry Point":
+                pass
+            elif metric == "Singular Exit Point":
+                pass
+            elif metric == "Presence of Recursion":
+                pass
+            elif metric == "All Variable Names at Least X Characters Long":
+                pass
+            elif metric == "All Variable Names Not Longer than X Characters":
+                pass
+            elif metric == "All #define Parameters in All Capitals":
+                pass
+            elif metric == "No Variable Names in All Capitals":
+                pass
+            elif metric == "McCabe's Cyclomatic Complexity Less Than X":
+                pass
+            elif metric == "Maximum Nesting Level Less Than X":
+                pass
+            elif metric == "Localization of Variables":
+                pass
+            elif metric == "ESLOC Less Than X Within Functions":
+                pass
             
 ###############################################################
     #counts the variables 
