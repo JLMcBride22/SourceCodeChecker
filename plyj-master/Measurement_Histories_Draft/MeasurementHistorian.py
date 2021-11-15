@@ -289,6 +289,23 @@ class MeasurementHistorian:
 
     #***********************************
 
+    # Experimental function to search a database for all filenames that contain a given substring.
+    # Based on the fact that we shouldn't expect a user to always give the exact filepath.
+    # Likely to be used in searching the archive for past reports, where file might not be on disk.
+    # Needs to be improved so that we aren't just
+    def search_archive_filename_substring(self, conn, filename):
+        IdList = []
+        cur = conn.cursor()
+        rows = cur .execute("SELECT * FROM AnalysisReports")
+        for row in rows:
+            if filename in row[1]:
+                IdList.append(row[0])
+        
+        return IdList
+
+
+    #***********************************
+
 
     # Will check if an entry exists based on the stored filename. Takes a filename as input.
     # Returns true if an entry exists, false if not.
@@ -360,8 +377,8 @@ if __name__ == '__main__':
         #tempList = mhist.search_archive_filename(mhist, dataconn, "Java")
         #for Id in tempList:
             #   print(Id)
-        dateList = mhist.pullHistory(mhist, dataconn, "Test")
-        print(dateList)
+        idList = mhist.search_archive_filename_substring(mhist, dataconn, "He")
+        print(idList)
 
 
 
