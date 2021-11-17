@@ -357,6 +357,18 @@ class MeasurementHistorian:
         else:
             return False
 
+    # This function will check if a file has been changed at all since analysis.
+    # Requires the filepath and timestamp of input file.
+    # For use on detecting whether to go forward with analysis or not.
+    def checkIfChanged(self, conn, filename, timestamp):
+        cur = conn.cursor()
+        rows = cur.execute("SELECT * FROM AnalysisReports WHERE filename = ? AND timestamp = ? ", (filename, timestamp,))
+        if len[rows] == 0:
+            return True
+        else:
+            return False
+        
+
 if __name__ == '__main__':
     mhist = MeasurementHistorian
     dataconn = mhist.create_connection("testHistory.db")
