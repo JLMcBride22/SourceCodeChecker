@@ -26,7 +26,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Submit your .java file(s)</string>
+   <string>File Submission Window</string>
   </property>
   <property name="toolTip">
    <string>Please enter open your files</string>
@@ -108,7 +108,7 @@
       </sizepolicy>
      </property>
      <property name="text">
-      <string>Remove Files</string>
+      <string>Remove File</string>
      </property>
     </widget>
    </item>
