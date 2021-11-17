@@ -36,6 +36,7 @@ class myParser2():
         self.root = xml2.Element("File")
         self.strXML =""
         self.dataSize = ""
+        self.currMethodName = ""
         
         #function calls
         self.functionCalls = 0
@@ -55,6 +56,8 @@ class myParser2():
         self.node = 0
         self.edge = 0
         self.P = 0
+        self.methodMcCabe = 0
+        self.classMcCabe = 0
         ################################
         self.halstead = 0
         self.maxNestingLevel = 0
@@ -152,7 +155,7 @@ class myParser2():
         return self.output
 
     
-    ## This function should be used when starting the
+    ## This function should be used when starting the calculation process.
     def findMetrics(self, filepath: str, listOfMetrics:list):
         self.listOfMetrics = listOfMetrics
         self.actFilePath = filepath
@@ -245,7 +248,7 @@ class myParser2():
             return True
     
     def calcMcCabe(self):
-        out = self.edge - self.node  + 2
+        out = self.edge - self.node  + 2*self.P
 
         return out
     
@@ -253,32 +256,24 @@ class myParser2():
     def calMetric(self, sourceElement):
         
         if(type(sourceElement) is m.IfThenElse):
-            self.node +=2
-            self.edge += 4
 
+            self.methodMcCabe += 1
             self.calMetric(sourceElement.if_true)
-            self.currNestingLevel += 1
-            if sourceElement.if_false is None:
-                
-                self.edge-=1
-            else:
-                self.currNestingLevel -= 1
-                if type(sourceElement.if_false is m.For):
-                    self.testingVariable += 1
-                self.calMetric(sourceElement.if_false)
+            
+            
+            if(sourceElement.if_false is not None):
+               self.calMetric(sourceElement.if_false)
                 
         elif type(sourceElement) is m.While:
             ## Count the while loops here
-            self.currNestingLevel += 1
-            self.node +=2
-            self.edge +=3
+            
+            self.methodMcCabe += 1
             ## count the while
             self.numWhileLoops += 1
             self.calMetric(sourceElement.body)
         elif(type(sourceElement) is m.For):
-            self.currNestingLevel += 1 
-            self.node += 2
-            self.edge +=3
+            
+            self.methodMcCabe +=1       
 
             self.numForLoops += 1
            
@@ -286,16 +281,15 @@ class myParser2():
             
 
         elif(type(sourceElement)is m.DoWhile):
-            self.currNestingLevel += 1
-            self.node += 2
-            self.edge += 3
+            
+            self.methodMcCabe +=1
 
             self.numDoWhileLoops += 1
             self.calMetric(sourceElement.body)
             
         elif type(sourceElement) is m.Switch:
-            numSwitches = len(sourceElement.switch_cases)
-            self.edge += 2* numSwitches
+            self.methodMcCabe += len(sourceElement.switch_cases)
+            
 
             for switch in sourceElement.switch_cases:
                 for line in switch.body:
@@ -319,7 +313,11 @@ class myParser2():
                     if(dim > 0):
                         type_name = "Array"
                         self.variableCounter(type_name)
-                        type_name = str(sourceElement.type.name)
+                        try:
+                            type_name = str(sourceElement.type.name.value)
+                        except AttributeError:
+                            type_name = str(sourceElement.type.name)
+
                         for b in range(0,dim):
                             type_name = type_name + '[]'
 
@@ -330,6 +328,13 @@ class myParser2():
             
                 self.MethodVarList.append (type_name + ' ' + var_decl.variable.name)
             
+        elif type(sourceElement) is m.ExpressionStatement:
+            if type(sourceElement.expression) is m.MethodInvocation:
+                # Count Function.
+                self.functionCalls += 1
+                if(self.currMethodName == sourceElement.expression.name):
+                    sourceElement.expression.arguments
+
 
 
 
@@ -340,21 +345,25 @@ class myParser2():
         elif type(sourceElement) is m.Block:
 
             for line in sourceElement.statements:
-                if(type(line) is m.For):
-                    self.testingVariable +=1
                 self.calMetric(line)
 
-
         elif type(sourceElement) is list:
+
             for block in sourceElement:
                 self.calMetric(block)
+
         elif sourceElement._fields.__contains__("body"):
             self.calMetric(sourceElement.body)
+
         elif sourceElement._fields.__contains__("block"):
             self.calMetric(sourceElement.block)
 
+    #This creates a xmlElement for method measurements.
     def createsMethodXMLElement(self):
+        output = xml2.Element("Measurements")
         for metric in self.listOfMetrics:
+            measurement = xml2.Element("Measurement")
+            measurement.text = metric
             if metric == "Source Lines of Code with Comments":
                 pass
             elif metric == "Number of Semicolons":
@@ -372,7 +381,7 @@ class myParser2():
             elif metric == "Switch Complexity":
                 pass
             elif metric == "McCabe's Cyclomatic Complexity":
-                pass
+                measurement.text = metric + "   "+ str(self.methodMcCabe)
             elif metric == "Maximum Nesting Level":
                 pass
             elif metric == "ESLOC at Max Nesting Level":
@@ -445,7 +454,12 @@ class myParser2():
                 pass
             elif metric == "ESLOC Less Than X Within Functions":
                 pass
-            
+            output.append(measurement)
+        return output
+    #resets the method stats
+    def resetMethodVariables(self):
+        self.methodMcCabe = 0
+        self.MethodVarList = []
 ###############################################################
     #counts the variables 
     def variableCounter(self,type):
@@ -482,20 +496,17 @@ class myParser2():
         
 
 
-        
+        classesElement = xml2.Element("Classes")
+        self.root.append(classesElement)
         for type_decl in tree.type_declarations:
             ### This is where I'll get the class names
             classElement = xml2.Element(type_decl.name)
-            self.root.append(classElement)
-            print(type_decl.name)
+            
+            
+            classesElement.append(classElement)
+            
 
-            if type_decl.extends is not None:
-                print(' -> extending ' + type_decl.extends.name.value)
-            if len(type_decl.implements) is not 0:
-                print(' -> implementing ' + ', '.join([type.name.value for type in type_decl.implements]))
-            print
-            ## This where I'll get the fields
-            print('fields:')
+
             fieldElement = xml2.Element("Field")
             classElement.append(fieldElement)
             for field_decl in [decl for decl in type_decl.body if type(decl) is m.FieldDeclaration]:
@@ -526,6 +537,7 @@ class myParser2():
                     self.numPassParams +=1
                     
                     parameterSE = xml2.SubElement(parametersElement,"parameter")
+                    #TODO test arrays work as parameters
                     if type(param.type) is str:
                         param_strings.append(param.type + ' ' + param.variable.name)
 
@@ -544,6 +556,12 @@ class myParser2():
                     variablesElement = xml2.Element("Variables")
                     self.MethodVarList = []
                     print(type(method_decl.body))
+
+
+                    ##Reset the node and edge variable for McCabe
+                    self.edge = 0
+                    self.node = 0
+                    self.P = 0
                     self.calMetric(method_decl.body)
                     for var in self.MethodVarList:
                         variableSub = xml2.Element("Variable")
@@ -551,6 +569,7 @@ class myParser2():
                         variablesElement.append(variableSub)
                         
                     method.append(variablesElement)
+                    method.append(self.createsMethodXMLElement())
 
 """     def method(self):
         

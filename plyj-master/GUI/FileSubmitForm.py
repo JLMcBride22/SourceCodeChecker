@@ -104,14 +104,16 @@ class FileSubmitForm(qtw.QDialog):
         
         self.close()
     
-    #This functions returns of a list of strings of the name of checked boxes
+    #This functions returns of a list of strings of the name of checked boxes for fil
     def getMetricsFromBoxes(self):
         boxes = self.uiForm.buttonGroup.buttons()
         
         for box in boxes:
             if box.isChecked():
+                
                 self.listOfCheckedMetrics.append(box.text())
-                print("\t\t\telif metric == "+"\"" +box.text()+"\"" + ":\n\t\t\t\tpass")
+
+                #print("\t\t\telif metric == "+"\"" +box.text()+"\"" + ":\n\t\t\t\tpass")
         return self.listOfCheckedMetrics
 
     #This method finds and recurses a directory adding it to the Qwidget list

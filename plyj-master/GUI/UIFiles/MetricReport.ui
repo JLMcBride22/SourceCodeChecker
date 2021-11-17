@@ -49,24 +49,15 @@
          </property>
         </spacer>
        </item>
-       <item row="0" column="2">
-        <widget class="QLabel" name="label_2">
-         <property name="font">
-          <font>
-           <pointsize>14</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Localization Of Variables</string>
-         </property>
-        </widget>
-       </item>
       </layout>
      </item>
      <item row="1" column="0">
       <layout class="QGridLayout" name="gridLayout">
        <item row="1" column="0">
         <widget class="QTreeWidget" name="treeWidget">
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
          <property name="editTriggers">
           <set>QAbstractItemView::NoEditTriggers</set>
          </property>
@@ -75,53 +66,10 @@
          </property>
          <column>
           <property name="text">
-           <string notr="true">1</string>
+           <string notr="true">Filename</string>
           </property>
          </column>
         </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QLabel" name="label_3">
-         <property name="font">
-          <font>
-           <pointsize>14</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Measurement Table</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="2">
-        <widget class="QTreeWidget" name="treeWidget_2">
-         <property name="editTriggers">
-          <set>QAbstractItemView::NoEditTriggers</set>
-         </property>
-         <property name="alternatingRowColors">
-          <bool>true</bool>
-         </property>
-         <column>
-          <property name="text">
-           <string notr="true">1</string>
-          </property>
-         </column>
-        </widget>
-       </item>
-       <item row="3" column="0" colspan="3">
-        <widget class="QTableWidget" name="tableWidget"/>
-       </item>
-       <item row="1" column="1">
-        <spacer name="horizontalSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
        </item>
       </layout>
      </item>
@@ -134,7 +82,7 @@
      </item>
     </layout>
    </item>
-   <item row="1" column="0">
+   <item row="1" column="0" alignment="Qt::AlignRight">
     <widget class="QToolButton" name="toolButton">
      <property name="text">
       <string>...</string>

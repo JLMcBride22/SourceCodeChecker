@@ -83,6 +83,8 @@ public class AddDialog extends JDialog implements ActionListener {
         if(e.getSource() == oKB) {
 
             Object[]options = {"Yes", "no"};
+            String[] noIst;
+            String[] ist = {"dfs","adfad"};
             String itemStr = itemNameTF.getText();
            int n = JOptionPane.showOptionDialog(this, "Are you sure you want to add " +itemStr+"?", "Confirm", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options,options[1]);
             if(n == 0) {
