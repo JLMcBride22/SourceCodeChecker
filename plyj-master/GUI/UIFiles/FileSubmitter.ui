@@ -26,7 +26,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Submit your .java file(s)</string>
+   <string>File Submission Window</string>
   </property>
   <property name="toolTip">
    <string>Please enter open your files</string>
@@ -37,11 +37,78 @@
   <property name="windowFilePath">
    <string extracomment="HEY"/>
   </property>
-  <layout class="QGridLayout" name="gridLayout_10">
-   <item row="2" column="1">
-    <widget class="QGroupBox" name="groupBox_2">
-     <property name="title">
-      <string/>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="sizeConstraint">
+    <enum>QLayout::SetNoConstraint</enum>
+   </property>
+   <item>
+    <widget class="QLabel" name="label_6">
+     <property name="text">
+      <string>File Name(s)</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QListWidget" name="filePathList">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
+     <property name="alternatingRowColors">
+      <bool>true</bool>
+     </property>
+     <property name="resizeMode">
+      <enum>QListView::Adjust</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="addBtn">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>84</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="text">
+      <string>Add Files</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="pushButton">
+     <property name="text">
+      <string>Add a Directory</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="removeButton">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="text">
+      <string>Remove File</string>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
@@ -105,10 +172,10 @@
      </layout>
     </widget>
    </item>
-   <item row="3" column="0" colspan="2">
+   <item>
     <widget class="QTabWidget" name="MeasurementTabs">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="MeasurementTab">
       <attribute name="title">
@@ -117,10 +184,10 @@
       <widget class="QTabWidget" name="InnerTab">
        <property name="geometry">
         <rect>
-         <x>-10</x>
+         <x>0</x>
          <y>0</y>
-         <width>641</width>
-         <height>177</height>
+         <width>1631</width>
+         <height>431</height>
         </rect>
        </property>
        <property name="toolTip">
@@ -133,480 +200,542 @@
         <attribute name="title">
          <string>Code Size</string>
         </attribute>
-        <layout class="QGridLayout" name="gridLayout_5">
-         <item row="0" column="0">
-          <widget class="QCheckBox" name="SLOCwCBox">
-           <property name="acceptDrops">
-            <bool>false</bool>
-           </property>
-           <property name="toolTip">
-            <string>Count the number of lines of code including comments.</string>
-           </property>
-           <property name="autoFillBackground">
-            <bool>false</bool>
-           </property>
-           <property name="text">
-            <string>Source Lines of Code with Comments</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QCheckBox" name="SemicolonBox">
-           <property name="toolTip">
-            <string>Count the number of semicolons.</string>
-           </property>
-           <property name="text">
-            <string>Number of Semicolons</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QCheckBox" name="SLOCwoCBox">
-           <property name="toolTip">
-            <string>Count the number of lines of code not including comments</string>
-           </property>
-           <property name="text">
-            <string>Source Lines of Code without Comments</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <widget class="QCheckBox" name="FunctionCallBox">
-           <property name="toolTip">
-            <string>Count the number of function calls.</string>
-           </property>
-           <property name="text">
-            <string>Number of Function Calls</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-         <item row="2" column="0">
-          <widget class="QCheckBox" name="BlankLineBox">
-           <property name="toolTip">
-            <string>Count the number of blank lines.</string>
-           </property>
-           <property name="text">
-            <string>Blank Lines</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-         <item row="3" column="0">
-          <widget class="QCheckBox" name="CommentLinesBox">
-           <property name="toolTip">
-            <string>Count the number of lines in the code that are only comments.</string>
-           </property>
-           <property name="text">
-            <string>Full Comment Lines</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-        </layout>
+        <widget class="QCheckBox" name="SLOCwCBox">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>20</y>
+           <width>265</width>
+           <height>40</height>
+          </rect>
+         </property>
+         <property name="acceptDrops">
+          <bool>false</bool>
+         </property>
+         <property name="toolTip">
+          <string>Count the number of lines of code including comments.</string>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="text">
+          <string>Source Lines of Code with Comments</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="SLOCwoCBox">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>70</y>
+           <width>265</width>
+           <height>40</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Count the number of lines of code not including comments</string>
+         </property>
+         <property name="text">
+          <string>Source Lines of Code without Comments</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="FunctionCallBox">
+         <property name="geometry">
+          <rect>
+           <x>400</x>
+           <y>70</y>
+           <width>265</width>
+           <height>40</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Count the number of function calls.</string>
+         </property>
+         <property name="text">
+          <string>Number of Function Calls</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="SemicolonBox">
+         <property name="geometry">
+          <rect>
+           <x>400</x>
+           <y>20</y>
+           <width>265</width>
+           <height>40</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Count the number of semicolons.</string>
+         </property>
+         <property name="text">
+          <string>Number of Semicolons</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="CommentLinesBox">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>170</y>
+           <width>265</width>
+           <height>40</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Count the number of lines in the code that are only comments.</string>
+         </property>
+         <property name="text">
+          <string>Full Comment Lines</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="BlankLineBox">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>120</y>
+           <width>265</width>
+           <height>40</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Count the number of blank lines.</string>
+         </property>
+         <property name="text">
+          <string>Blank Lines</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
        </widget>
        <widget class="QWidget" name="ComplexityTab">
         <attribute name="title">
          <string>Code Complexity</string>
         </attribute>
-        <layout class="QGridLayout" name="gridLayout_4">
-         <item row="0" column="0">
-          <widget class="QCheckBox" name="PassedParamBox">
-           <property name="toolTip">
-            <string>Count the number of parameters that are passed.</string>
-           </property>
-           <property name="text">
-            <string>Number of Passed Parameters</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QCheckBox" name="SwitchComplexityBox">
-           <property name="enabled">
-            <bool>true</bool>
-           </property>
-           <property name="toolTip">
-            <string>Determine switch complexity</string>
-           </property>
-           <property name="text">
-            <string>Switch Complexity</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-           <property name="tristate">
-            <bool>false</bool>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QCheckBox" name="McCabeCompBox">
-           <property name="toolTip">
-            <string>Calculate McCab's Cyclomatic Complexity</string>
-           </property>
-           <property name="text">
-            <string>McCabe's Cyclomatic Complexity</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-         <item row="3" column="0" colspan="2">
-          <widget class="QCheckBox" name="MaxNestingBox">
-           <property name="toolTip">
-            <string>Determine the maximum nesting level within the source code</string>
-           </property>
-           <property name="text">
-            <string>Maximum Nesting Level</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <widget class="QCheckBox" name="ESLOCatMaxNestBox">
-           <property name="toolTip">
-            <string>Count the executable source lines of code at the maximum nesting level</string>
-           </property>
-           <property name="text">
-            <string>ESLOC at Max Nesting Level</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-         <item row="2" column="0">
-          <widget class="QCheckBox" name="HalsteadCompBox">
-           <property name="toolTip">
-            <string>Calculate Halstead's Software Science Primitives</string>
-           </property>
-           <property name="text">
-            <string>Halstead's Software Science Primitives</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-        </layout>
+        <widget class="QCheckBox" name="PassedParamBox">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>20</y>
+           <width>265</width>
+           <height>40</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Count the number of parameters that are passed.</string>
+         </property>
+         <property name="text">
+          <string>Number of Passed Parameters</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="SwitchComplexityBox">
+         <property name="geometry">
+          <rect>
+           <x>400</x>
+           <y>20</y>
+           <width>265</width>
+           <height>40</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Determine switch complexity</string>
+         </property>
+         <property name="text">
+          <string>Switch Complexity</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="ESLOCatMaxNestBox">
+         <property name="geometry">
+          <rect>
+           <x>400</x>
+           <y>70</y>
+           <width>265</width>
+           <height>40</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Count the executable source lines of code at the maximum nesting level</string>
+         </property>
+         <property name="text">
+          <string>ESLOC at Max Nesting Level</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="MaxNestingBox">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>170</y>
+           <width>265</width>
+           <height>40</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Determine the maximum nesting level within the source code</string>
+         </property>
+         <property name="text">
+          <string>Maximum Nesting Level</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="HalsteadCompBox">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>120</y>
+           <width>265</width>
+           <height>40</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Calculate Halstead's Software Science Primitives</string>
+         </property>
+         <property name="text">
+          <string>Halstead's Software Science Primitives</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="McCabeCompBox">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>70</y>
+           <width>265</width>
+           <height>40</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Calculate McCab's Cyclomatic Complexity</string>
+         </property>
+         <property name="text">
+          <string>McCabe's Cyclomatic Complexity</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
        </widget>
        <widget class="QWidget" name="LoopTab">
         <attribute name="title">
          <string>Loop Types</string>
         </attribute>
-        <layout class="QGridLayout" name="gridLayout_3">
-         <item row="0" column="0">
-          <widget class="QCheckBox" name="ForLoopBox">
-           <property name="toolTip">
-            <string>Count the number of for loops</string>
-           </property>
-           <property name="text">
-            <string>Number of For Loops</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QCheckBox" name="WhileLoopBox">
-           <property name="toolTip">
-            <string>count the number of while loops</string>
-           </property>
-           <property name="text">
-            <string>Number of While Loops</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-         <item row="2" column="0">
-          <widget class="QCheckBox" name="DoWhileLoopBox">
-           <property name="toolTip">
-            <string>count the number of repeat loops</string>
-           </property>
-           <property name="text">
-            <string>Number of Do-While Loops</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-        </layout>
+        <widget class="QCheckBox" name="ForLoopBox">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>20</y>
+           <width>265</width>
+           <height>40</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Count the number of for loops</string>
+         </property>
+         <property name="text">
+          <string>Number of For Loops</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="WhileLoopBox">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>70</y>
+           <width>265</width>
+           <height>40</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>count the number of while loops</string>
+         </property>
+         <property name="text">
+          <string>Number of While Loops</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="DoWhileLoopBox">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>120</y>
+           <width>265</width>
+           <height>40</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>count the number of repeat loops</string>
+         </property>
+         <property name="text">
+          <string>Number of Do-While Loops</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
        </widget>
        <widget class="QWidget" name="VariableTab">
         <attribute name="title">
          <string>Number of Variables by type</string>
         </attribute>
-        <layout class="QGridLayout" name="gridLayout">
-         <item row="0" column="1">
-          <widget class="QCheckBox" name="UserDefBox">
-           <property name="toolTip">
-            <string>Count the total number of user defined variables in the code</string>
-           </property>
-           <property name="text">
-            <string>User Defined Variable</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QCheckBox" name="TotalVarBox">
-           <property name="toolTip">
-            <string>Count the total number of variables in the code</string>
-           </property>
-           <property name="text">
-            <string>Total Number of Variables</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-         <item row="4" column="0">
-          <widget class="QCheckBox" name="FloatBox">
-           <property name="toolTip">
-            <string>Count the total number of float variables in the code</string>
-           </property>
-           <property name="text">
-            <string>Float</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-         <item row="6" column="0">
-          <widget class="QCheckBox" name="ArrayBox">
-           <property name="toolTip">
-            <string>Count the number of arrays in the code</string>
-           </property>
-           <property name="text">
-            <string>Array</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-         <item row="3" column="0">
-          <widget class="QCheckBox" name="IntegerBox">
-           <property name="toolTip">
-            <string>Count the total number of integer variables in the code</string>
-           </property>
-           <property name="text">
-            <string>Integer</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-         <item row="0" column="0">
-          <widget class="QCheckBox" name="StringBox">
-           <property name="toolTip">
-            <string>Count the total number of string variables in the code</string>
-           </property>
-           <property name="text">
-            <string>String</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-         <item row="5" column="0">
-          <widget class="QCheckBox" name="CharacterBox">
-           <property name="toolTip">
-            <string>Count the total number of character variables in the code</string>
-           </property>
-           <property name="text">
-            <string>Character</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <widget class="QCheckBox" name="StructBox">
-           <property name="toolTip">
-            <string>Count the number of structures in the code</string>
-           </property>
-           <property name="text">
-            <string>Structure</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-        </layout>
+        <widget class="QCheckBox" name="TotalVarBox">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>20</y>
+           <width>265</width>
+           <height>40</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Count the total number of variables in the code</string>
+         </property>
+         <property name="text">
+          <string>Total Number of Variables</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="IntegerBox">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>70</y>
+           <width>265</width>
+           <height>40</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Count the total number of integer variables in the code</string>
+         </property>
+         <property name="text">
+          <string>Integer</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="FloatBox">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>120</y>
+           <width>265</width>
+           <height>40</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Count the total number of float variables in the code</string>
+         </property>
+         <property name="text">
+          <string>Float</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="CharacterBox">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>170</y>
+           <width>265</width>
+           <height>40</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Count the total number of character variables in the code</string>
+         </property>
+         <property name="text">
+          <string>Character</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="StringBox">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>220</y>
+           <width>265</width>
+           <height>40</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Count the total number of string variables in the code</string>
+         </property>
+         <property name="text">
+          <string>String</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="UserDefBox">
+         <property name="geometry">
+          <rect>
+           <x>400</x>
+           <y>20</y>
+           <width>265</width>
+           <height>40</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Count the total number of user defined variables in the code</string>
+         </property>
+         <property name="text">
+          <string>User Defined Variable</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="StructBox">
+         <property name="geometry">
+          <rect>
+           <x>400</x>
+           <y>70</y>
+           <width>265</width>
+           <height>40</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Count the number of structures in the code</string>
+         </property>
+         <property name="text">
+          <string>Structure</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="checkBox_23">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>355</y>
+           <width>265</width>
+           <height>40</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Count the number of arrays in the code</string>
+         </property>
+         <property name="text">
+          <string>Array</string>
+         </property>
+        </widget>
        </widget>
        <widget class="QWidget" name="NameLengthTab">
         <attribute name="title">
          <string>Name Length</string>
         </attribute>
-        <layout class="QGridLayout" name="gridLayout_2">
-         <item row="0" column="0">
-          <widget class="QCheckBox" name="LessThan3Box">
-           <property name="toolTip">
-            <string>Count the number of variables with names that are less than 3 characters</string>
-           </property>
-           <property name="text">
-            <string>Names Less Than 3 Characters</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QCheckBox" name="MoreThan20Box">
-           <property name="toolTip">
-            <string>Count the number of variables with names mor than 20 characters</string>
-           </property>
-           <property name="text">
-            <string>Names 20 or More Characters</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QCheckBox" name="MoreThan3LessThan10Box">
-           <property name="toolTip">
-            <string>Count the number of variables with names more than 3 characters but less than 10 characters</string>
-           </property>
-           <property name="text">
-            <string>Names More Than 3 but Less Than 10 Characters</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-         <item row="2" column="0">
-          <widget class="QCheckBox" name="MoreThan10LessThan20Box">
-           <property name="toolTip">
-            <string>Count the number of variables with names more than 10 characters but less than 20 characters</string>
-           </property>
-           <property name="text">
-            <string>Names 10 or More but Less than 20 Characters</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-        </layout>
+        <widget class="QCheckBox" name="LessThan3Box">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>20</y>
+           <width>265</width>
+           <height>40</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Count the number of variables with names that are less than 3 characters</string>
+         </property>
+         <property name="text">
+          <string>Names Less Than 3 Characters</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="MoreThan3LessThan10Box">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>70</y>
+           <width>281</width>
+           <height>40</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Count the number of variables with names more than 3 characters but less than 10 characters</string>
+         </property>
+         <property name="text">
+          <string>Names More Than 3 but Less Than 10 Characters</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="MoreThan10LessThan20Box">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>120</y>
+           <width>281</width>
+           <height>40</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Count the number of variables with names more than 10 characters but less than 20 characters</string>
+         </property>
+         <property name="text">
+          <string>Names 10 or More but Less than 20 Characters</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="MoreThan20Box">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>170</y>
+           <width>265</width>
+           <height>40</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Count the number of variables with names mor than 20 characters</string>
+         </property>
+         <property name="text">
+          <string>Names 20 or More Characters</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
        </widget>
       </widget>
      </widget>
@@ -614,13 +743,13 @@
       <attribute name="title">
        <string>Coding Standards</string>
       </attribute>
-      <widget class="QTabWidget" name="tabWidget">
+      <widget class="QTabWidget" name="StandardTabs">
        <property name="geometry">
         <rect>
          <x>10</x>
          <y>0</y>
-         <width>631</width>
-         <height>191</height>
+         <width>971</width>
+         <height>391</height>
         </rect>
        </property>
        <property name="currentIndex">
@@ -630,420 +759,491 @@
         <attribute name="title">
          <string>User Preamble</string>
         </attribute>
-        <layout class="QGridLayout" name="gridLayout_7">
-         <item row="0" column="1">
-          <widget class="QCheckBox" name="AssumptionsBox">
-           <property name="toolTip">
-            <string>Check for the presence of assumptions in the user preamble</string>
-           </property>
-           <property name="text">
-            <string>Assumptions</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-         <item row="2" column="0" colspan="2">
-          <widget class="QCheckBox" name="PurposeBox">
-           <property name="toolTip">
-            <string>Check for the presence of purpose in the user preamble</string>
-           </property>
-           <property name="text">
-            <string>Purpose</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-         <item row="0" column="0">
-          <widget class="QCheckBox" name="FileNameBox">
-           <property name="toolTip">
-            <string>Check for the presence of filename in the user preamble</string>
-           </property>
-           <property name="text">
-            <string>Filename</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <widget class="QCheckBox" name="ChangeLogBox">
-           <property name="toolTip">
-            <string>Check for the presence of a change log in the user preamble</string>
-           </property>
-           <property name="text">
-            <string>Change Log</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-         <item row="3" column="0" colspan="2">
-          <widget class="QCheckBox" name="InterfaceBox">
-           <property name="toolTip">
-            <string>Check for the presence of interface in the user preamble</string>
-           </property>
-           <property name="text">
-            <string>Interface</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QCheckBox" name="AuthorBox">
-           <property name="toolTip">
-            <string>Check for the presence of author in the user preamble</string>
-           </property>
-           <property name="text">
-            <string>Author</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-        </layout>
+        <widget class="QCheckBox" name="FileNameBox">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>20</y>
+           <width>265</width>
+           <height>40</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Check for the presence of filename in the user preamble</string>
+         </property>
+         <property name="text">
+          <string>Filename</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="AuthorBox">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>70</y>
+           <width>265</width>
+           <height>40</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Check for the presence of author in the user preamble</string>
+         </property>
+         <property name="text">
+          <string>Author</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="PurposeBox">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>120</y>
+           <width>265</width>
+           <height>40</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Check for the presence of purpose in the user preamble</string>
+         </property>
+         <property name="text">
+          <string>Purpose</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="InterfaceBox">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>170</y>
+           <width>265</width>
+           <height>40</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Check for the presence of interface in the user preamble</string>
+         </property>
+         <property name="text">
+          <string>Interface</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="ChangeLogBox">
+         <property name="geometry">
+          <rect>
+           <x>250</x>
+           <y>70</y>
+           <width>265</width>
+           <height>40</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Check for the presence of a change log in the user preamble</string>
+         </property>
+         <property name="text">
+          <string>Change Log</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="AssumptionsBox">
+         <property name="geometry">
+          <rect>
+           <x>250</x>
+           <y>20</y>
+           <width>265</width>
+           <height>40</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Check for the presence of assumptions in the user preamble</string>
+         </property>
+         <property name="text">
+          <string>Assumptions</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
        </widget>
        <widget class="QWidget" name="FlowControlTab">
         <attribute name="title">
          <string>Flow Control</string>
         </attribute>
-        <layout class="QGridLayout" name="gridLayout_8">
-         <item row="0" column="0">
-          <widget class="QCheckBox" name="GotoBox">
-           <property name="toolTip">
-            <string>Check for the presence of GoTo statements</string>
-           </property>
-           <property name="text">
-            <string>Presence of GoTo's</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QCheckBox" name="SingleEntryBox">
-           <property name="toolTip">
-            <string>Check that the code has only one entry point</string>
-           </property>
-           <property name="text">
-            <string>Singular Entry Point</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-         <item row="2" column="0">
-          <widget class="QCheckBox" name="SingleExitBox">
-           <property name="toolTip">
-            <string>Check that the code has only one exit point</string>
-           </property>
-           <property name="text">
-            <string>Singular Exit Point</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-         <item row="3" column="0">
-          <widget class="QCheckBox" name="RecursionBox">
-           <property name="toolTip">
-            <string>Check for the presence of recursion</string>
-           </property>
-           <property name="text">
-            <string>Presence of Recursion</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-        </layout>
+        <widget class="QCheckBox" name="GotoBox">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>20</y>
+           <width>265</width>
+           <height>40</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Check for the presence of GoTo statements</string>
+         </property>
+         <property name="text">
+          <string>Presence of GoTo's</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="SingleEntryBox">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>70</y>
+           <width>265</width>
+           <height>40</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Check that the code has only one entry point</string>
+         </property>
+         <property name="text">
+          <string>Singular Entry Point</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="SingleExitBox">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>120</y>
+           <width>265</width>
+           <height>40</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Check that the code has only one exit point</string>
+         </property>
+         <property name="text">
+          <string>Singular Exit Point</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="RecursionBox">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>170</y>
+           <width>265</width>
+           <height>40</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Check for the presence of recursion</string>
+         </property>
+         <property name="text">
+          <string>Presence of Recursion</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
        </widget>
        <widget class="QWidget" name="ClarityTab">
         <attribute name="title">
          <string>Program Clarity</string>
         </attribute>
-        <layout class="QGridLayout" name="gridLayout_9">
-         <item row="0" column="0">
-          <widget class="QCheckBox" name="checkBox_38">
-           <property name="toolTip">
-            <string>Check that all variables are longer than the number &quot;X&quot; entered</string>
-           </property>
-           <property name="text">
-            <string>All Variable Names at Least X Characters Long</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-         <item row="0" column="1" alignment="Qt::AlignRight">
-          <widget class="QLabel" name="label_3">
-           <property name="text">
-            <string>Mininum Variable Length</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="2">
-          <widget class="QSpinBox" name="minVarLenBox">
-           <property name="minimum">
-            <number>3</number>
-           </property>
-           <property name="maximum">
-            <number>20</number>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QCheckBox" name="VariableNameLessThanXBox">
-           <property name="toolTip">
-            <string>Check that all variables are not longer than the number &quot;X&quot; entered</string>
-           </property>
-           <property name="text">
-            <string>All Variable Names Not Longer than X Characters</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-         <item row="1" column="1" alignment="Qt::AlignRight">
-          <widget class="QLabel" name="label">
-           <property name="text">
-            <string>Maximum Variable Length</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="2">
-          <widget class="QSpinBox" name="maxVarLenBox">
-           <property name="minimum">
-            <number>5</number>
-           </property>
-           <property name="maximum">
-            <number>20</number>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="0">
-          <widget class="QCheckBox" name="DefineParamBox">
-           <property name="toolTip">
-            <string>Check that all #define parameters are in all capital letters</string>
-           </property>
-           <property name="text">
-            <string>All #define Parameters in All Capitals</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-         <item row="3" column="0">
-          <widget class="QCheckBox" name="VariableAllCapsBox">
-           <property name="toolTip">
-            <string>Check that no standard variables are in all capital letters</string>
-           </property>
-           <property name="text">
-            <string>No Variable Names in All Capitals</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-        </layout>
+        <widget class="QCheckBox" name="checkBox_38">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>20</y>
+           <width>281</width>
+           <height>40</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Check that all variables are longer than the number &quot;X&quot; entered</string>
+         </property>
+         <property name="text">
+          <string>All Variable Names at Least X Characters Long</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="VariableNameLessThanXBox">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>70</y>
+           <width>281</width>
+           <height>40</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Check that all variables are not longer than the number &quot;X&quot; entered</string>
+         </property>
+         <property name="text">
+          <string>All Variable Names Not Longer than X Characters</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="DefineParamBox">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>120</y>
+           <width>265</width>
+           <height>40</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Check that all #define parameters are in all capital letters</string>
+         </property>
+         <property name="text">
+          <string>All #define Parameters in All Capitals</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="VariableAllCapsBox">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>170</y>
+           <width>265</width>
+           <height>40</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Check that no standard variables are in all capital letters</string>
+         </property>
+         <property name="text">
+          <string>No Variable Names in All Capitals</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_3">
+         <property name="geometry">
+          <rect>
+           <x>350</x>
+           <y>32</y>
+           <width>151</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Mininum Variable Length</string>
+         </property>
+        </widget>
+        <widget class="QSpinBox" name="minVarLenBox">
+         <property name="geometry">
+          <rect>
+           <x>500</x>
+           <y>32</y>
+           <width>37</width>
+           <height>20</height>
+          </rect>
+         </property>
+         <property name="minimum">
+          <number>3</number>
+         </property>
+         <property name="maximum">
+          <number>20</number>
+         </property>
+         <property name="value">
+          <number>4</number>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label">
+         <property name="geometry">
+          <rect>
+           <x>350</x>
+           <y>83</y>
+           <width>151</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Maximum Variable Length</string>
+         </property>
+        </widget>
+        <widget class="QSpinBox" name="maxVarLenBox">
+         <property name="geometry">
+          <rect>
+           <x>500</x>
+           <y>82</y>
+           <width>37</width>
+           <height>20</height>
+          </rect>
+         </property>
+         <property name="minimum">
+          <number>5</number>
+         </property>
+         <property name="maximum">
+          <number>20</number>
+         </property>
+        </widget>
        </widget>
        <widget class="QWidget" name="ComplexityStandardTab">
         <attribute name="title">
          <string>Complexity</string>
         </attribute>
-        <layout class="QGridLayout" name="gridLayout_6">
-         <item row="0" column="0">
-          <widget class="QCheckBox" name="McCabesLessThanXBox">
-           <property name="toolTip">
-            <string>Determine if the given source code's cyclomatic coplexity is less than the number &quot;X&quot; entered</string>
-           </property>
-           <property name="text">
-            <string>McCabe's Cyclomatic Complexity Less Than X</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QCheckBox" name="MaxNestingLessThanXBox">
-           <property name="toolTip">
-            <string>Determine if the source code's maximum nesting level is less than the number &quot;X&quot; entered</string>
-           </property>
-           <property name="text">
-            <string>Maximum Nesting Level Less Than X</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-         <item row="1" column="2">
-          <widget class="QSpinBox" name="nestLevBox">
-           <property name="minimum">
-            <number>1</number>
-           </property>
-           <property name="maximum">
-            <number>25</number>
-           </property>
-           <property name="displayIntegerBase">
-            <number>10</number>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="0">
-          <widget class="QCheckBox" name="LocalizationBox">
-           <property name="toolTip">
-            <string>Check for localization of variables</string>
-           </property>
-           <property name="text">
-            <string>Localization of Variables</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-         <item row="2" column="0">
-          <widget class="QCheckBox" name="ESLOCLessThanXInFunctionBox">
-           <property name="toolTip">
-            <string>Determine if the number of executable source lines of code within functions is less than the number &quot;X&quot; entered</string>
-           </property>
-           <property name="text">
-            <string>ESLOC Less Than X Within Functions</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-         <item row="0" column="2">
-          <widget class="QSpinBox" name="mcAbeBox">
-           <property name="minimum">
-            <number>1</number>
-           </property>
-           <property name="maximum">
-            <number>40</number>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1" alignment="Qt::AlignRight">
-          <widget class="QLabel" name="label_5">
-           <property name="text">
-            <string>Nesting Level</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1" alignment="Qt::AlignRight">
-          <widget class="QLabel" name="label_4">
-           <property name="text">
-            <string>McCabe's Complexity</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
+        <widget class="QCheckBox" name="McCabesLessThanXBox">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>20</y>
+           <width>300</width>
+           <height>40</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Determine if the given source code's cyclomatic coplexity is less than the number &quot;X&quot; entered</string>
+         </property>
+         <property name="text">
+          <string>McCabe's Cyclomatic Complexity Less Than X</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="MaxNestingLessThanXBox">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>70</y>
+           <width>265</width>
+           <height>40</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Determine if the source code's maximum nesting level is less than the number &quot;X&quot; entered</string>
+         </property>
+         <property name="text">
+          <string>Maximum Nesting Level Less Than X</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="ESLOCLessThanXInFunctionBox">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>120</y>
+           <width>265</width>
+           <height>40</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Determine if the number of executable source lines of code within functions is less than the number &quot;X&quot; entered</string>
+         </property>
+         <property name="text">
+          <string>ESLOC Less Than X Within Functions</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="LocalizationBox">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>170</y>
+           <width>265</width>
+           <height>40</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Check for localization of variables</string>
+         </property>
+         <property name="text">
+          <string>Localization of Variables</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_4">
+         <property name="geometry">
+          <rect>
+           <x>350</x>
+           <y>32</y>
+           <width>131</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>McCabe's Complexity</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_5">
+         <property name="geometry">
+          <rect>
+           <x>350</x>
+           <y>80</y>
+           <width>131</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Nesting Level</string>
+         </property>
+        </widget>
+        <widget class="QSpinBox" name="nestLevBox">
+         <property name="geometry">
+          <rect>
+           <x>480</x>
+           <y>80</y>
+           <width>37</width>
+           <height>20</height>
+          </rect>
+         </property>
+         <property name="minimum">
+          <number>1</number>
+         </property>
+         <property name="maximum">
+          <number>25</number>
+         </property>
+         <property name="displayIntegerBase">
+          <number>10</number>
+         </property>
+        </widget>
+        <widget class="QSpinBox" name="mcAbeBox">
+         <property name="geometry">
+          <rect>
+           <x>480</x>
+           <y>32</y>
+           <width>37</width>
+           <height>20</height>
+          </rect>
+         </property>
+         <property name="minimum">
+          <number>1</number>
+         </property>
+         <property name="maximum">
+          <number>40</number>
+         </property>
+        </widget>
        </widget>
       </widget>
      </widget>
     </widget>
    </item>
-   <item row="0" column="0">
-    <widget class="QLabel" name="label_6">
-     <property name="text">
-      <string>File Name(s)</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="0" colspan="2">
-    <widget class="QListWidget" name="filePathList">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="layoutDirection">
-      <enum>Qt::LeftToRight</enum>
-     </property>
-     <property name="alternatingRowColors">
-      <bool>true</bool>
-     </property>
-     <property name="resizeMode">
-      <enum>QListView::Adjust</enum>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="1">
+   <item>
     <widget class="QGroupBox" name="groupBox">
      <property name="minimumSize">
       <size>
@@ -1056,26 +1256,7 @@
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item alignment="Qt::AlignRight">
        <widget class="QCommandLinkButton" name="SubmitFileLink">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
         <property name="maximumSize">
          <size>
           <width>640</width>
@@ -1096,7 +1277,7 @@
         </property>
        </widget>
       </item>
-      <item alignment="Qt::AlignRight">
+      <item>
        <widget class="QCommandLinkButton" name="cancel">
         <property name="autoFillBackground">
          <bool>true</bool>
@@ -1113,41 +1294,8 @@
      </layout>
     </widget>
    </item>
-   <item row="4" column="0">
-    <spacer name="horizontalSpacer_2">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>40</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="2" column="0">
-    <spacer name="horizontalSpacer_4">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>40</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
   </layout>
  </widget>
  <resources/>
  <connections/>
- <buttongroups>
-  <buttongroup name="buttonGroup">
-   <property name="exclusive">
-    <bool>false</bool>
-   </property>
-  </buttongroup>
- </buttongroups>
 </ui>
