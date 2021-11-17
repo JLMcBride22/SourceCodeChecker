@@ -20,7 +20,7 @@ class FileSubmitForm(qtw.QDialog):
         super(FileSubmitForm, self).__init__(*args, **kwargs)
 
         self.uiForm.setupUi(self)
-        
+        self.listOfCheckedMetrics =[]
         
         self.connectActions()
         #self.setEnabled(True)
@@ -89,7 +89,7 @@ class FileSubmitForm(qtw.QDialog):
                     return
                     
 
-        self.ari.takeFileList(listPaths)
+        self.ari.takeFileList(listPaths,self.getMetricsFromBoxes())
             
         uncompiled=self.ari.getUncompiled()
         
@@ -103,6 +103,16 @@ class FileSubmitForm(qtw.QDialog):
             
         
         self.close()
+    
+    #This functions returns of a list of strings of the name of checked boxes
+    def getMetricsFromBoxes(self):
+        boxes = self.uiForm.buttonGroup.buttons()
+        
+        for box in boxes:
+            if box.isChecked():
+                self.listOfCheckedMetrics.append(box.text())
+                print("\t\t\telif metric == "+"\"" +box.text()+"\"" + ":\n\t\t\t\tpass")
+        return self.listOfCheckedMetrics
 
     #This method finds and recurses a directory adding it to the Qwidget list
     def findDirectory(self):
