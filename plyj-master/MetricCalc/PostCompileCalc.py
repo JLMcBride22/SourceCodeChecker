@@ -291,7 +291,7 @@ class myParser2():
             output.typeVar = type_name
             return output
 
-    def paramID(self, param: m.FormalParameter):
+    def paramID(self, param: m.FormalParameter) -> variableObject:
         output = variableObject()
         varElement = param
         type_name = ""
@@ -371,7 +371,7 @@ class myParser2():
         elif type(sourceElement) is m.VariableDeclaration:
 
 
-            self.currMethod.variables.append(self.variableID(sourceElement))
+            self.currMethod.addVariable(self.variableID(sourceElement))
                         
             
                 
@@ -574,7 +574,7 @@ class myParser2():
                 for param in method_decl.parameters:
                     
                     parVar = self.paramID(param)
-                    self.currMethod.parameters.append(parVar)
+                    self.currMethod.addParameter(parVar)
 
                         
 

@@ -27,6 +27,7 @@ class methodObject():
         self.switchCompl = 0
 
         ##Number of variables
+        self.totalVar = 0
         self.noInt = 0
         self.noFloat = 0
         self.noChar = 0
@@ -44,6 +45,37 @@ class methodObject():
         
     def setMetricDict(self, dictin):
         self.dictOfMetric = dictin
+
+    def variableTypeCounter(self, var:variableObject):
+        self.totalVar += 1
+        if(var.dims > 0):
+            self.noArrays += 1
+            return
+        varType = var.typeVar
+        if(varType =='String'):
+            self.noString += 1
+        elif(varType == 'int'):
+            self.noInt += 1
+        elif(varType == "char"):
+            self.noChar += 1
+        elif(varType =="float"):
+            self.noFloat += 1
+        elif varType == "byte" or type == "double" or type == "boolean" or type == "short" or type == "long":
+            return
+        else:
+            self.userDefined +=1
+    
+    
+    ##The next two functions counts the variable by type(for now) and adds them to their respective list.
+    def addParameter(self, par: variableObject):
+        self.variableTypeCounter(par)
+        self.parameters.append(par)
+        return
+
+    def addVariable(self, var:variableObject):
+        self.variableTypeCounter(var)
+        self.variables.append(var)
+        return
     
     def measurementXML(self)-> xml2.Element:
         output =xml2.Element("Metrics")
@@ -100,24 +132,29 @@ class methodObject():
                         subEle.text = subEleText
                         element.append(subEle)
             elif k == "VariableTab":
+                element = xml2.Element("VariableTypes")
+                output.append(element)
                 for box in v:
+                    subEle = xml2.Element("variableCount")
+                    subEleText = ""
                     if box == "Total Number of Variables":
-                        pass
+                        subEleText = box + " = "+ str(self.totalVar)
                     elif box == "Float":
-                        pass
+                        subEleText = box + " = "+ str(self.noFloat)
                     elif box == "Array":
-                        pass
+                        subEleText = box + " = "+ str(self.noArrays)
                     elif box == "Integer":
-                        pass
+                        subEleText = box + " = "+ str(self.noInt)
                     elif box == "User Defined Variable":
-                        pass
+                        subEleText = box + " = "+ str(self.userDefined)
                     elif box == "String":
-                        pass
-                    elif box == "Structure":
-                        pass
+                        subEleText = box + " = "+ str(self.noString)
                     elif box == "Character":
-                        pass
-
+                        subEleText = box + " = "+ str(self.noChar)
+                    
+                    if subEleText is not "":
+                        subEle.text = subEleText
+                        element.append(subEle)
 
             elif k == "NameLengthTab":
                 for box in v:

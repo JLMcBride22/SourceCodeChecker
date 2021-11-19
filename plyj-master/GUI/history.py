@@ -13,5 +13,6 @@ class historyForm(qtw.QWidget):
         self.uiForm.setupUi(self)
         self.uiForm.pushButton.clicked.connect(self.close)
         self.uiForm.tableWidget.insertRow(3)
+
         
         
