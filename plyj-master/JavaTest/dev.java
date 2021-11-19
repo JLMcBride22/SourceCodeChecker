@@ -1,9 +1,28 @@
 public class namme{
+    private int x;
+    private static int [] arrayField;
+    private ArrayList<String> cars = new ArrayList<String>();
+    private ArrayList<Integer> alInt;
+    private String name;
+    public void jeep(ArrayList<Integer[]>test){
+        int x = 0;
+        if (x > 5){
+            jeep(x/5);
+        }
+        else{
+            return;
+        }
+
+    }
+    private void jon(int[] x ){
+        return;
+    }
 
 }
 public class CyclomaticComplexityDemo {
     //https://dev.to/designpuddle/coding-concepts---cyclomatic-complexity-3blk
     //McCabe score of 11.
+
        public static void main(String[] args) {
        /**
        HEy
@@ -20,7 +39,13 @@ public class CyclomaticComplexityDemo {
        while(x < 100){
            if(A[x] % 2 == 0){
                p = 0;
-           }else{
+
+           }
+           else if(true){
+               x  = 'p';
+               int po = 4;
+           }
+           else{
                p = 1;
            }
            switch(p){
@@ -33,7 +58,7 @@ public class CyclomaticComplexityDemo {
                default:
                System.out.println("not good");
                break;
-//jjj
+//jjj       
 
            }
 

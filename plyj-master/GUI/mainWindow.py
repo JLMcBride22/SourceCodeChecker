@@ -95,8 +95,10 @@ class MainWindow(qtw.QMainWindow):
     
     def excelOpen(self):
         dlg = QFileDialog.getSaveFileName(self, 'Save File',filter='xlsx(*.xlsx)',directory='ExcelTest')
-        self.ari.generateExcelsAll(dlg[0])
         
+        if(dlg[0] != ""):
+            self.ari.generateExcelsAll(dlg[0])
+            
 
     def refresh(self):
         self.ui.JavaTableView.resizeColumnsToContents()

@@ -1,8 +1,8 @@
-from PyQt5 import QtWidgets as qtw
+from PyQt5 import QtGui, QtWidgets as qtw
 
 
 from UIFiles.GCHistory import Ui_HistoryForm
-
+from PyQt5 import QtGui
 from UIFiles.GCFileSubGUI import Ui_FileSubForm
 class historyForm(qtw.QWidget):
     
@@ -12,4 +12,6 @@ class historyForm(qtw.QWidget):
         super(historyForm, self).__init__(*args, **kwargs)
         self.uiForm.setupUi(self)
         self.uiForm.pushButton.clicked.connect(self.close)
+        self.uiForm.tableWidget.insertRow(3)
+        
         
