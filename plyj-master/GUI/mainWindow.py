@@ -167,7 +167,9 @@ class MainWindow(qtw.QMainWindow):
                 historyList = []
                 historyList =  mhist.pullHistory(mhist, tempconn, fileName)
                 print(historyList)
-
+                htableList = []
+                htableList = mhist.pullHistoryContent(mhist, tempconn, historyList)
+                print(htableList)
     
 
                 # NEED TO FIGURE OUT HOW TO GET A LIST PASSED INTO THIS WINDOW.
