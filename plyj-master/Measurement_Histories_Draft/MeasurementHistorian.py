@@ -367,7 +367,32 @@ class MeasurementHistorian:
             return True
         else:
             return False
-        
+
+    def pullHistoryContent(self, conn, IDList):
+        cur = conn.cursor()
+        contentList = []
+        i = 0
+        for ID in IDList:
+            rows = cur.execute("SELECT * FROM AnalysisReports WHERE ID = ?", (IDList[i],))
+            for row in rows:
+                j = 0
+                rowList = []
+                while j < 49:
+
+                    # This is a messy, quick step to skip grabbing the filename.
+                    # Need to change later.
+                    if j != 1:
+                        rowList.append(row[j])
+                    # This is a messy, quick step to skip grabbing the filename.
+                    #
+                    j+=1
+                contentList.append(rowList)
+                    
+                
+            i+=1
+        return contentList
+
+            
 
 if __name__ == '__main__':
     mhist = MeasurementHistorian

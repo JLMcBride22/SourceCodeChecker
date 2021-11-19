@@ -16,6 +16,8 @@ from PyQt5.QtSql import QSqlQuery, QSqlTableModel
 
 from PyQt5.QtCore import QEvent, QItemSelection, QItemSelectionModel, Qt, QModelIndex
 
+from Measurement_Histories_Draft.MeasurementHistorian import MeasurementHistorian
+
 from FileSubmitForm import FileSubmitForm
 from history import historyForm
 from metricReport import metricFormC
@@ -159,6 +161,18 @@ class MainWindow(qtw.QMainWindow):
                 fileName = self.ari.getCellContentFromDataBase(id,"filename")
 
                 
+                # DATABASE NAME HARDCODED. FIX LATER VGDSHBCHAWNSHRGDCRJFDSHJBCHBSHDCHSBCHJBSJBCHJSBCHJBSHBCBZSKBCJHZBCBZSHBCHZBKHSCBJZHSCBHSZBCJHZBJCBZBBCJSZBCHJBZJCBZHJBCJZBCHJBZJCBHZJBCHJZBCJZBCBHJZCBJZBCMZBCJBZJBH
+                mhist = MeasurementHistorian
+                tempconn = mhist.create_connection("test3.db")
+                historyList = []
+                historyList =  mhist.pullHistory(mhist, tempconn, fileName)
+                print(historyList)
+                htableList = []
+                htableList = mhist.pullHistoryContent(mhist, tempconn, historyList)
+                print(htableList)
+    
+
+                # NEED TO FIGURE OUT HOW TO GET A LIST PASSED INTO THIS WINDOW.
                 hist = historyForm(self)
                 hist.setWindowTitle(fileName + " \'s History")
                 
