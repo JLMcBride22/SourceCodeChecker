@@ -19,6 +19,7 @@ from PyQt5.QtCore import QEvent, QItemSelection, QItemSelectionModel, Qt, QModel
 from FileSubmitForm import FileSubmitForm
 from history import historyForm
 from metricReport import metricFormC
+from UserHelp import userHelpC
 
 
 from UIFiles.GCMainWindowGUI import Ui_MainWindow
@@ -86,13 +87,11 @@ class MainWindow(qtw.QMainWindow):
 
     # Opens the dialog for help
     def openHelp(self):
-        dlg = QDialog()
-        dlg.setWindowTitle("Help")
-        label = QLabel(dlg)
-        label.setText("Help\n instructions: \nThis program does stuff. Figure it out for yourself")
-        label.adjustSize()
-        label.move(100, 60)
-        dlg.exec_()
+        help = userHelpC(self)
+        help.setWindowTitle("Help")
+                
+        help.setWindowFlag(True)
+        help.show()
     
     def excelOpen(self):
         dlg = QFileDialog.getSaveFileName(self, 'Save File',filter='xlsx(*.xlsx)',directory='ExcelTest')
