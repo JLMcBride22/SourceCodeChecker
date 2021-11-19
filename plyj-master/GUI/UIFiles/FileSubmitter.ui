@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>660</width>
+    <width>723</width>
     <height>624</height>
    </rect>
   </property>
@@ -26,7 +26,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>File Submission Window</string>
+   <string>Submit your .java file(s)</string>
   </property>
   <property name="toolTip">
    <string>Please enter open your files</string>
@@ -37,6 +37,7 @@
   <property name="windowFilePath">
    <string extracomment="HEY"/>
   </property>
+<<<<<<< HEAD
 <<<<<<< HEAD
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="sizeConstraint">
@@ -111,12 +112,17 @@
      <property name="text">
       <string>Remove File</string>
 =======
+=======
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
   <layout class="QGridLayout" name="gridLayout_10">
    <item row="2" column="1">
     <widget class="QGroupBox" name="groupBox_2">
      <property name="title">
       <string/>
+<<<<<<< HEAD
 >>>>>>> b4164908aa10e244747df862c96d82d9e8a72992
+=======
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
@@ -133,6 +139,7 @@
        </spacer>
       </item>
       <item>
+<<<<<<< HEAD
        <widget class="QPushButton" name="removeButton">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -146,6 +153,8 @@
        </widget>
       </item>
       <item>
+=======
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
        <widget class="QPushButton" name="addBtn">
         <property name="enabled">
          <bool>true</bool>
@@ -171,6 +180,22 @@
        </widget>
       </item>
       <item>
+<<<<<<< HEAD
+=======
+       <widget class="QPushButton" name="removeButton">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Remove Files</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
        <widget class="QPushButton" name="pushButton">
         <property name="text">
          <string>Add a Directory</string>
@@ -209,6 +234,7 @@
          <string>Code Size</string>
         </attribute>
         <layout class="QGridLayout" name="gridLayout_5">
+<<<<<<< HEAD
          <item row="0" column="0">
           <widget class="QCheckBox" name="SLOCwCBox">
            <property name="acceptDrops">
@@ -222,10 +248,20 @@
            </property>
            <property name="text">
             <string>Source Lines of Code with Comments</string>
+=======
+         <item row="3" column="0">
+          <widget class="QCheckBox" name="CommentLinesBox">
+           <property name="toolTip">
+            <string>Count the number of lines in the code that are only comments.</string>
+           </property>
+           <property name="text">
+            <string>Full Comment Lines</string>
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
            </property>
            <property name="checked">
             <bool>true</bool>
            </property>
+<<<<<<< HEAD
            <attribute name="buttonGroup">
             <string notr="true">buttonGroup</string>
            </attribute>
@@ -238,10 +274,22 @@
            </property>
            <property name="text">
             <string>Number of Semicolons</string>
+=======
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QCheckBox" name="FunctionCallBox">
+           <property name="toolTip">
+            <string>Count the number of function calls.</string>
+           </property>
+           <property name="text">
+            <string>Number of Function Calls</string>
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
            </property>
            <property name="checked">
             <bool>true</bool>
            </property>
+<<<<<<< HEAD
            <attribute name="buttonGroup">
             <string notr="true">buttonGroup</string>
            </attribute>
@@ -254,10 +302,22 @@
            </property>
            <property name="text">
             <string>Source Lines of Code without Comments</string>
+=======
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QCheckBox" name="BlankLineBox">
+           <property name="toolTip">
+            <string>Count the number of blank lines.</string>
+           </property>
+           <property name="text">
+            <string>Blank Lines</string>
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
            </property>
            <property name="checked">
             <bool>true</bool>
            </property>
+<<<<<<< HEAD
            <attribute name="buttonGroup">
             <string notr="true">buttonGroup</string>
            </attribute>
@@ -270,10 +330,22 @@
            </property>
            <property name="text">
             <string>Number of Function Calls</string>
+=======
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QCheckBox" name="SemicolonBox">
+           <property name="toolTip">
+            <string>Count the number of semicolons.</string>
+           </property>
+           <property name="text">
+            <string>Number of Semicolons</string>
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
            </property>
            <property name="checked">
             <bool>true</bool>
            </property>
+<<<<<<< HEAD
            <attribute name="buttonGroup">
             <string notr="true">buttonGroup</string>
            </attribute>
@@ -286,10 +358,28 @@
            </property>
            <property name="text">
             <string>Blank Lines</string>
+=======
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QCheckBox" name="SLOCwCBox">
+           <property name="acceptDrops">
+            <bool>false</bool>
+           </property>
+           <property name="toolTip">
+            <string>Count the number of lines of code including comments.</string>
+           </property>
+           <property name="autoFillBackground">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>Source Lines of Code with Comments</string>
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
            </property>
            <property name="checked">
             <bool>true</bool>
            </property>
+<<<<<<< HEAD
            <attribute name="buttonGroup">
             <string notr="true">buttonGroup</string>
            </attribute>
@@ -302,13 +392,27 @@
            </property>
            <property name="text">
             <string>Full Comment Lines</string>
+=======
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QCheckBox" name="SLOCwoCBox">
+           <property name="toolTip">
+            <string>Count the number of lines of code not including comments</string>
+           </property>
+           <property name="text">
+            <string>Source Lines of Code without Comments</string>
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
            </property>
            <property name="checked">
             <bool>true</bool>
            </property>
+<<<<<<< HEAD
            <attribute name="buttonGroup">
             <string notr="true">buttonGroup</string>
            </attribute>
+=======
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
           </widget>
          </item>
         </layout>
@@ -329,9 +433,12 @@
            <property name="checked">
             <bool>true</bool>
            </property>
+<<<<<<< HEAD
            <attribute name="buttonGroup">
             <string notr="true">buttonGroup</string>
            </attribute>
+=======
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
           </widget>
          </item>
          <item row="0" column="1">
@@ -351,9 +458,12 @@
            <property name="tristate">
             <bool>false</bool>
            </property>
+<<<<<<< HEAD
            <attribute name="buttonGroup">
             <string notr="true">buttonGroup</string>
            </attribute>
+=======
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
           </widget>
          </item>
          <item row="1" column="0">
@@ -367,9 +477,12 @@
            <property name="checked">
             <bool>true</bool>
            </property>
+<<<<<<< HEAD
            <attribute name="buttonGroup">
             <string notr="true">buttonGroup</string>
            </attribute>
+=======
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
           </widget>
          </item>
          <item row="3" column="0" colspan="2">
@@ -383,9 +496,12 @@
            <property name="checked">
             <bool>true</bool>
            </property>
+<<<<<<< HEAD
            <attribute name="buttonGroup">
             <string notr="true">buttonGroup</string>
            </attribute>
+=======
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
           </widget>
          </item>
          <item row="1" column="1">
@@ -399,9 +515,12 @@
            <property name="checked">
             <bool>true</bool>
            </property>
+<<<<<<< HEAD
            <attribute name="buttonGroup">
             <string notr="true">buttonGroup</string>
            </attribute>
+=======
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
           </widget>
          </item>
          <item row="2" column="0">
@@ -415,9 +534,12 @@
            <property name="checked">
             <bool>true</bool>
            </property>
+<<<<<<< HEAD
            <attribute name="buttonGroup">
             <string notr="true">buttonGroup</string>
            </attribute>
+=======
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
           </widget>
          </item>
         </layout>
@@ -438,9 +560,12 @@
            <property name="checked">
             <bool>true</bool>
            </property>
+<<<<<<< HEAD
            <attribute name="buttonGroup">
             <string notr="true">buttonGroup</string>
            </attribute>
+=======
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
           </widget>
          </item>
          <item row="1" column="0">
@@ -454,9 +579,12 @@
            <property name="checked">
             <bool>true</bool>
            </property>
+<<<<<<< HEAD
            <attribute name="buttonGroup">
             <string notr="true">buttonGroup</string>
            </attribute>
+=======
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
           </widget>
          </item>
          <item row="2" column="0">
@@ -470,18 +598,22 @@
            <property name="checked">
             <bool>true</bool>
            </property>
+<<<<<<< HEAD
            <attribute name="buttonGroup">
             <string notr="true">buttonGroup</string>
            </attribute>
+=======
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
           </widget>
          </item>
         </layout>
        </widget>
        <widget class="QWidget" name="VariableTab">
         <attribute name="title">
-         <string>Variables</string>
+         <string>Number of Variables by type</string>
         </attribute>
         <layout class="QGridLayout" name="gridLayout">
+<<<<<<< HEAD
          <item row="0" column="1">
           <widget class="QCheckBox" name="UserDefBox">
            <property name="toolTip">
@@ -498,6 +630,8 @@
            </attribute>
           </widget>
          </item>
+=======
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
          <item row="1" column="0">
           <widget class="QCheckBox" name="TotalVarBox">
            <property name="toolTip">
@@ -509,9 +643,12 @@
            <property name="checked">
             <bool>true</bool>
            </property>
+<<<<<<< HEAD
            <attribute name="buttonGroup">
             <string notr="true">buttonGroup</string>
            </attribute>
+=======
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
           </widget>
          </item>
          <item row="4" column="0">
@@ -525,9 +662,12 @@
            <property name="checked">
             <bool>true</bool>
            </property>
+<<<<<<< HEAD
            <attribute name="buttonGroup">
             <string notr="true">buttonGroup</string>
            </attribute>
+=======
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
           </widget>
          </item>
          <item row="6" column="0">
@@ -541,9 +681,12 @@
            <property name="checked">
             <bool>true</bool>
            </property>
+<<<<<<< HEAD
            <attribute name="buttonGroup">
             <string notr="true">buttonGroup</string>
            </attribute>
+=======
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
           </widget>
          </item>
          <item row="3" column="0">
@@ -557,6 +700,7 @@
            <property name="checked">
             <bool>true</bool>
            </property>
+<<<<<<< HEAD
            <attribute name="buttonGroup">
             <string notr="true">buttonGroup</string>
            </attribute>
@@ -569,10 +713,22 @@
            </property>
            <property name="text">
             <string>String</string>
+=======
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QCheckBox" name="UserDefBox">
+           <property name="toolTip">
+            <string>Count the total number of user defined variables in the code</string>
+           </property>
+           <property name="text">
+            <string>User Defined Variable</string>
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
            </property>
            <property name="checked">
             <bool>true</bool>
            </property>
+<<<<<<< HEAD
            <attribute name="buttonGroup">
             <string notr="true">buttonGroup</string>
            </attribute>
@@ -585,13 +741,27 @@
            </property>
            <property name="text">
             <string>Character</string>
+=======
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QCheckBox" name="StringBox">
+           <property name="toolTip">
+            <string>Count the total number of string variables in the code</string>
+           </property>
+           <property name="text">
+            <string>String</string>
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
            </property>
            <property name="checked">
             <bool>true</bool>
            </property>
+<<<<<<< HEAD
            <attribute name="buttonGroup">
             <string notr="true">buttonGroup</string>
            </attribute>
+=======
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
           </widget>
          </item>
          <item row="1" column="1">
@@ -605,9 +775,25 @@
            <property name="checked">
             <bool>true</bool>
            </property>
+<<<<<<< HEAD
            <attribute name="buttonGroup">
             <string notr="true">buttonGroup</string>
            </attribute>
+=======
+          </widget>
+         </item>
+         <item row="5" column="0">
+          <widget class="QCheckBox" name="CharacterBox">
+           <property name="toolTip">
+            <string>Count the total number of character variables in the code</string>
+           </property>
+           <property name="text">
+            <string>Character</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
           </widget>
          </item>
         </layout>
@@ -628,9 +814,12 @@
            <property name="checked">
             <bool>true</bool>
            </property>
+<<<<<<< HEAD
            <attribute name="buttonGroup">
             <string notr="true">buttonGroup</string>
            </attribute>
+=======
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
           </widget>
          </item>
          <item row="0" column="1">
@@ -644,9 +833,12 @@
            <property name="checked">
             <bool>true</bool>
            </property>
+<<<<<<< HEAD
            <attribute name="buttonGroup">
             <string notr="true">buttonGroup</string>
            </attribute>
+=======
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
           </widget>
          </item>
          <item row="1" column="0">
@@ -660,9 +852,12 @@
            <property name="checked">
             <bool>true</bool>
            </property>
+<<<<<<< HEAD
            <attribute name="buttonGroup">
             <string notr="true">buttonGroup</string>
            </attribute>
+=======
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
           </widget>
          </item>
          <item row="2" column="0">
@@ -676,9 +871,12 @@
            <property name="checked">
             <bool>true</bool>
            </property>
+<<<<<<< HEAD
            <attribute name="buttonGroup">
             <string notr="true">buttonGroup</string>
            </attribute>
+=======
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
           </widget>
          </item>
         </layout>
@@ -699,7 +897,11 @@
         </rect>
        </property>
        <property name="currentIndex">
+<<<<<<< HEAD
         <number>1</number>
+=======
+        <number>3</number>
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
        </property>
        <widget class="QWidget" name="PreambleTab">
         <attribute name="title">
@@ -717,9 +919,12 @@
            <property name="checked">
             <bool>true</bool>
            </property>
+<<<<<<< HEAD
            <attribute name="buttonGroup">
             <string notr="true">buttonGroup</string>
            </attribute>
+=======
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
           </widget>
          </item>
          <item row="2" column="0" colspan="2">
@@ -733,9 +938,12 @@
            <property name="checked">
             <bool>true</bool>
            </property>
+<<<<<<< HEAD
            <attribute name="buttonGroup">
             <string notr="true">buttonGroup</string>
            </attribute>
+=======
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
           </widget>
          </item>
          <item row="0" column="0">
@@ -749,9 +957,12 @@
            <property name="checked">
             <bool>true</bool>
            </property>
+<<<<<<< HEAD
            <attribute name="buttonGroup">
             <string notr="true">buttonGroup</string>
            </attribute>
+=======
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
           </widget>
          </item>
          <item row="1" column="1">
@@ -765,9 +976,12 @@
            <property name="checked">
             <bool>true</bool>
            </property>
+<<<<<<< HEAD
            <attribute name="buttonGroup">
             <string notr="true">buttonGroup</string>
            </attribute>
+=======
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
           </widget>
          </item>
          <item row="3" column="0" colspan="2">
@@ -781,9 +995,12 @@
            <property name="checked">
             <bool>true</bool>
            </property>
+<<<<<<< HEAD
            <attribute name="buttonGroup">
             <string notr="true">buttonGroup</string>
            </attribute>
+=======
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
           </widget>
          </item>
          <item row="1" column="0">
@@ -797,9 +1014,12 @@
            <property name="checked">
             <bool>true</bool>
            </property>
+<<<<<<< HEAD
            <attribute name="buttonGroup">
             <string notr="true">buttonGroup</string>
            </attribute>
+=======
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
           </widget>
          </item>
         </layout>
@@ -820,9 +1040,12 @@
            <property name="checked">
             <bool>true</bool>
            </property>
+<<<<<<< HEAD
            <attribute name="buttonGroup">
             <string notr="true">buttonGroup</string>
            </attribute>
+=======
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
           </widget>
          </item>
          <item row="1" column="0">
@@ -836,9 +1059,12 @@
            <property name="checked">
             <bool>true</bool>
            </property>
+<<<<<<< HEAD
            <attribute name="buttonGroup">
             <string notr="true">buttonGroup</string>
            </attribute>
+=======
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
           </widget>
          </item>
          <item row="2" column="0">
@@ -852,9 +1078,12 @@
            <property name="checked">
             <bool>true</bool>
            </property>
+<<<<<<< HEAD
            <attribute name="buttonGroup">
             <string notr="true">buttonGroup</string>
            </attribute>
+=======
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
           </widget>
          </item>
          <item row="3" column="0">
@@ -868,9 +1097,12 @@
            <property name="checked">
             <bool>true</bool>
            </property>
+<<<<<<< HEAD
            <attribute name="buttonGroup">
             <string notr="true">buttonGroup</string>
            </attribute>
+=======
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
           </widget>
          </item>
         </layout>
@@ -891,9 +1123,12 @@
            <property name="checked">
             <bool>true</bool>
            </property>
+<<<<<<< HEAD
            <attribute name="buttonGroup">
             <string notr="true">buttonGroup</string>
            </attribute>
+=======
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
           </widget>
          </item>
          <item row="0" column="1" alignment="Qt::AlignRight">
@@ -924,9 +1159,12 @@
            <property name="checked">
             <bool>true</bool>
            </property>
+<<<<<<< HEAD
            <attribute name="buttonGroup">
             <string notr="true">buttonGroup</string>
            </attribute>
+=======
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
           </widget>
          </item>
          <item row="1" column="1" alignment="Qt::AlignRight">
@@ -957,13 +1195,22 @@
            <property name="checked">
             <bool>true</bool>
            </property>
+<<<<<<< HEAD
            <attribute name="buttonGroup">
             <string notr="true">buttonGroup</string>
            </attribute>
+=======
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
           </widget>
          </item>
          <item row="3" column="0">
           <widget class="QCheckBox" name="VariableAllCapsBox">
+<<<<<<< HEAD
+=======
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
            <property name="toolTip">
             <string>Check that no standard variables are in all capital letters</string>
            </property>
@@ -973,9 +1220,15 @@
            <property name="checked">
             <bool>true</bool>
            </property>
+<<<<<<< HEAD
            <attribute name="buttonGroup">
             <string notr="true">buttonGroup</string>
            </attribute>
+=======
+           <property name="tristate">
+            <bool>false</bool>
+           </property>
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
           </widget>
          </item>
         </layout>
@@ -996,9 +1249,12 @@
            <property name="checked">
             <bool>true</bool>
            </property>
+<<<<<<< HEAD
            <attribute name="buttonGroup">
             <string notr="true">buttonGroup</string>
            </attribute>
+=======
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
           </widget>
          </item>
          <item row="1" column="0">
@@ -1012,9 +1268,12 @@
            <property name="checked">
             <bool>true</bool>
            </property>
+<<<<<<< HEAD
            <attribute name="buttonGroup">
             <string notr="true">buttonGroup</string>
            </attribute>
+=======
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
           </widget>
          </item>
          <item row="1" column="2">
@@ -1041,9 +1300,12 @@
            <property name="checked">
             <bool>true</bool>
            </property>
+<<<<<<< HEAD
            <attribute name="buttonGroup">
             <string notr="true">buttonGroup</string>
            </attribute>
+=======
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
           </widget>
          </item>
          <item row="2" column="0">
@@ -1057,9 +1319,12 @@
            <property name="checked">
             <bool>true</bool>
            </property>
+<<<<<<< HEAD
            <attribute name="buttonGroup">
             <string notr="true">buttonGroup</string>
            </attribute>
+=======
+>>>>>>> 6bf34c6e5f357c5553dd48e98635006ff36445d0
           </widget>
          </item>
          <item row="0" column="2">
@@ -1181,7 +1446,7 @@
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>GUI/icons/red_x.png</normaloff>GUI/icons/red_x.png</iconset>
+          <normaloff>../../../../../../.designer/backup/GUI/icons/red_x.png</normaloff>../../../../../../.designer/backup/GUI/icons/red_x.png</iconset>
         </property>
        </widget>
       </item>
