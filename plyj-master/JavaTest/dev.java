@@ -1,5 +1,11 @@
 public class namme{
-    public void jeep(int x){
+    private int x;
+    private static int [] arrayField;
+    private ArrayList<String> cars = new ArrayList<String>();
+    private ArrayList<Integer> alInt;
+    private String name;
+    public void jeep(ArrayList<Integer[]>test){
+        int x = 0;
         if (x > 5){
             jeep(x/5);
         }

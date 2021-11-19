@@ -6,7 +6,7 @@ from PyQt5 import QtWidgets as qtw
 import os
 from pathlib import Path
 
-from PyQt5.QtWidgets import QDialogButtonBox, QFileDialog, QListWidgetItem, QMessageBox, QTableView
+from PyQt5.QtWidgets import QCheckBox, QDialogButtonBox, QFileDialog, QListWidgetItem, QMessageBox, QTabWidget, QTableView, QWidget
 
 ##Backend interface 
 from ARI import ARI
@@ -20,8 +20,9 @@ class FileSubmitForm(qtw.QDialog):
         super(FileSubmitForm, self).__init__(*args, **kwargs)
 
         self.uiForm.setupUi(self)
-        self.listOfCheckedMetrics =[]
-        
+        self.dictOfMetrics = {}
+
+        self.dictOfMetrics
         self.connectActions()
         #self.setEnabled(True)
         
@@ -104,17 +105,51 @@ class FileSubmitForm(qtw.QDialog):
         
         self.close()
     
-    #This functions returns of a list of strings of the name of checked boxes for fil
+    #This functions returns of a list of strings of the name of checked boxes for file level.
     def getMetricsFromBoxes(self):
-        boxes = self.uiForm.buttonGroup.buttons()
-        
-        for box in boxes:
-            if box.isChecked():
+        mts = 0
+        while mts < self.uiForm.MeasurementTabs.count():
+            w1 = self.uiForm.MeasurementTabs.widget(mts)
+            
+            for tab in w1.children():
                 
-                self.listOfCheckedMetrics.append(box.text())
+                noTab = tab.count()
+                tI = 0
+                while tI < noTab:
+                    w2 = tab.widget(tI)
+                
+                    listOfObjects =  []
+                    for obj in w2.children():
+                        
+                        if type(obj) is QCheckBox:
+                            if(obj.isChecked()):
+                                listOfObjects.append(obj.text())
+                    self.dictOfMetrics [w2.objectName()] = listOfObjects
+                    tI += 1
+                
 
-                #print("\t\t\telif metric == "+"\"" +box.text()+"\"" + ":\n\t\t\t\tpass")
-        return self.listOfCheckedMetrics
+
+
+            
+            mts+=1
+                
+            #TODO delete this.
+            for k, v in self.dictOfMetrics.items():
+                print("elif k == "+ "\""+k +"\":")
+                if type(v) is list:
+                    v:list
+                    print("\tfor box in v:")
+                    for box in v:
+                        print("\t\telif box == " +"\"" +box + "\":\n\t\t\tpass")
+
+        
+        return self.dictOfMetrics
+            
+
+                #print("\t\t\telif metric == "+"\c"" +box.text()+"\"" + ":\n\t\t\t\tpass")
+        
+
+    
 
     #This method finds and recurses a directory adding it to the Qwidget list
     def findDirectory(self):
