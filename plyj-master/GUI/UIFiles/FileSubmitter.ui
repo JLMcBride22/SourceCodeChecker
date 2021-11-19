@@ -108,7 +108,7 @@
    <item row="3" column="0" colspan="2">
     <widget class="QTabWidget" name="MeasurementTabs">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="MeasurementTab">
       <attribute name="title">
@@ -127,7 +127,7 @@
         <string/>
        </property>
        <property name="currentIndex">
-        <number>4</number>
+        <number>2</number>
        </property>
        <widget class="QWidget" name="SizeTab">
         <attribute name="title">
@@ -543,7 +543,7 @@
         </rect>
        </property>
        <property name="currentIndex">
-        <number>3</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="PreambleTab">
         <attribute name="title">
