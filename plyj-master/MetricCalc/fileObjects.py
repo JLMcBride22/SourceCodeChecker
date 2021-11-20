@@ -267,6 +267,7 @@ class classObject(methodObject):
         output = xml2.Element(self.name)
         fieldsElement = xml2.Element("Fields")
         output.append(fieldsElement)
+
         for field in self.fields:
             fieldElement = xml2.Element("field")
             
@@ -277,6 +278,7 @@ class classObject(methodObject):
         for method in self.methods:
             #method = methodObject(method)
             methodsElement.append(method.XMLElement())
+        output.append(self.measurementXML())
 
 
         return output
@@ -318,6 +320,7 @@ class classObject(methodObject):
 
 class fileObject(methodObject):
     def __init__(self, pathway:str) -> None:
+        super().__init__(pathway)
         self.pathWay = pathway
         self.classes = []
         self.filesize = ""
@@ -346,7 +349,7 @@ class fileObject(methodObject):
             #classObj = classObject(classObj)
             classesElement.append(classObj.XMLElement())
 
-        
+        fileElement.append(self.measurementXML())
 
         return xml2.tostring(fileElement, 'unicode')
         
