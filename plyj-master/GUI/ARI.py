@@ -146,12 +146,12 @@ class ARI():
             #This try catch is a crucial component in case of compliation failure.
             # In case of failure it just adds to the list of uncompilable pathways and
             # proceeds with the submission.
-            try:
-                pars.findMetrics(filePath,listOfCheckedMetrics)
+            #try:
+            pars.findMetrics(filePath,listOfCheckedMetrics)
                 #This is a list of a list lol!
-                listOfOutputs.append(pars.output)
-            except AttributeError:
-                self.uncompilable.append(filePath)
+            listOfOutputs.append(pars.output)
+            #except AttributeError:
+                #self.uncompilable.append(filePath)
             
 
             

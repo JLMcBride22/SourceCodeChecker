@@ -2019,7 +2019,7 @@ class Parser(object):
         
         self.lexer.input(code)
         for token in self.lexer:
-            print(token)
+            #print(token)
             self.dictLex.append(token)
 
         
@@ -2036,7 +2036,7 @@ class Parser(object):
         for line in _file:
             content += line
         self.tokenize_string(content)
-        return Parser.dictLex
+        return self.dictLex
 
     def parse_expression(self, code, debug=0, lineno=1):
         return self.parse_string(code, debug, lineno, prefix='--')

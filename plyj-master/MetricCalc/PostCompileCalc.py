@@ -30,13 +30,13 @@ class myParser2():
         self.metricDict = {}
         self.currMethod = None
         self.fileObj = None
-        self.listOfMetrics = []
+        self.listOfMetrics = None
         self.output = []
         self.timeStamp = 0
-        self.hash = 0
+       
         self.filesize = None
         self.filePath = ""
-        self.root = xml2.Element("File")
+        
         self.strXML =""
         self.dataSize = ""
         self.currMethodName = ""
@@ -67,7 +67,7 @@ class myParser2():
         self.currNestingLevel = 0
         self.ESLOCatMaxLevel = 0
         self.SwitchComplexity = 0
-        self.MethodVarList = []
+        
 
         
 
@@ -107,35 +107,39 @@ class myParser2():
         self.McCabeLessThanX =""
         self.NestingLessThanX =""
         self.ESLOCLessThanXinFunc = ""
-        self.LocalizationOfVar = "" 
+        #self.LocalizationOfVar = "" 
       
     # Check if there is a commented line (SLOC Metric)
     def checkNumOfComments(self):
-        self.SLOC = len(self.rawCodeList)
-        j = 0
-        x = 0
-        for lineno in range(0,self.SLOC):
+        self.fileObj.noLinesOfCode = len(self.rawCodeList)
+
+        for lineno in range(0,self.fileObj.noLinesOfCode):
             stripLine = self.rawCodeList[lineno].strip()
-            if(stripLine.startswith('/*')):
-                if(not stripLine.endswith('*/')):
-                    while( not stripLine.endswith('*/')):
-                        x += 1
+            if('/*' in stripLine):
+                if(not ('*/' in stripLine)):
+                    while( not '*/' in stripLine):
+                        self.fileObj.noFullCommentLines += 1
                         lineno += 1
                         try:
                             stripLine = self.rawCodeList[lineno].strip()
                         except IndexError:
                             print(self.actFilePath)
                             break
-                x += 1
+                
+                
             elif(stripLine.startswith('//')):
-                x = x + 1 
+                self.fileObj.noFullCommentLines += 1
             elif len(stripLine) is 0:
-                self.blankLines += 1
+                self.fileObj.noBlankLines += 1
             else:
-                if(';' in stripLine):
-                    self.numSemiColons += 1
+                if '//' in stripLine or '':
+                    self.fileObj.noSourceWComment +=1
+                else:
+                    self.fileObj.noSourceWOutComment += 1
+
+
         
-        self.fullCommentLines = x
+        
         
             
             
@@ -160,7 +164,7 @@ class myParser2():
     
     ## This function should be used when starting the calculation process.
     def findMetrics(self, filepath: str, listOfMetrics:list):
-        self.listOfMetrics = listOfMetrics
+        
         self.actFilePath = filepath
         self.fileObj = fileObject(filepath)
 
@@ -174,14 +178,11 @@ class myParser2():
         self.createCodeStringList(filepath)
         self.checkNumOfComments()
         self.compileThisFile()
-        self.createXMLString()
+        
         #generates the output
         self.calcFileStats()
         self.genOutput()
-    ##Creates the xml string.
-    def createXMLString(self):
-        self.strXML = xml2.tostring(self.root, 'unicode')
-        return 0
+    
 
 
  
@@ -314,7 +315,7 @@ class myParser2():
         output.typeVar = type_name
         return output
 
-    ##Calculate metric
+    ##Calculate metric checking for, max nesting level flow control and counts loops.
     def calMetric(self, sourceElement):
         
         if(type(sourceElement) is m.IfThenElse):
@@ -378,8 +379,8 @@ class myParser2():
             
         elif type(sourceElement) is m.ExpressionStatement:
             if type(sourceElement.expression) is m.MethodInvocation:
-                # Count Function.
-                self.functionCalls += 1
+                # Count Function. #TODO add a variable member for methodObject in the file "fileObject"
+                
                 if(self.currMethodName == sourceElement.expression.name):
                     sourceElement.expression.arguments
 
@@ -391,14 +392,18 @@ class myParser2():
             pass
 
         elif type(sourceElement) is m.Block:
-
+            self.currMethod.currNestingLevel += 1
+            self.currMethod.nestingLevelMaxFinder()
             for line in sourceElement.statements:
                 self.calMetric(line)
+            self.currMethod.currNestingLevel -=1
 
         elif type(sourceElement) is list:
-
+            self.currMethod.currNestingLevel += 1
+            self.currMethod.nestingLevelMaxFinder()
             for block in sourceElement:
                 self.calMetric(block)
+            self.currMethod.currNestingLevel -=1
 
         elif sourceElement._fields.__contains__("body"):
             self.calMetric(sourceElement.body)
@@ -408,108 +413,16 @@ class myParser2():
 
     #This creates a xmlElement for method measurements.
     def createsMethodXMLElement(self):
-        output = xml2.Element("Measurements")
-        for metric in self.listOfMetrics:
-            measurement = xml2.Element("Measurement")
-            measurement.text = metric
-            if metric == "Source Lines of Code with Comments":
-                pass
-            elif metric == "Number of Semicolons":
-                pass
-            elif metric == "Source Lines of Code without Comments":
-                pass
-            elif metric == "Number of Function Calls":
-                pass
-            elif metric == "Blank Lines":
-                pass
-            elif metric == "Full Comment Lines":
-                pass
-            elif metric == "Number of Passed Parameters":
-                pass
-            elif metric == "Switch Complexity":
-                pass
-            elif metric == "McCabe's Cyclomatic Complexity":
-                measurement.text = metric + "   "+ str(self.methodMcCabe)
-            elif metric == "Maximum Nesting Level":
-                pass
-            elif metric == "ESLOC at Max Nesting Level":
-                pass
-            elif metric == "Halstead's Software Science Primitives":
-                pass
-            elif metric == "Number of For Loops":
-                pass
-            elif metric == "Number of While Loops":
-                pass
-            elif metric == "Number of Do-While Loops":
-                pass
-            elif metric == "User Defined Variable":
-                pass
-            elif metric == "Total Number of Variables":
-                pass
-            elif metric == "Float":
-                pass
-            elif metric == "Array":
-                pass
-            elif metric == "Integer":
-                pass
-            elif metric == "String":
-                pass
-            elif metric == "Character":
-                pass
-            elif metric == "Structure":
-                pass
-            elif metric == "Names Less Than 3 Characters":
-                pass
-            elif metric == "Names 20 or More Characters":
-                pass
-            elif metric == "Names More Than 3 but Less Than 10 Characters":
-                pass
-            elif metric == "Names 10 or More but Less than 20 Characters":
-                pass
-            elif metric == "Assumptions":
-                pass
-            elif metric == "Purpose":
-                pass
-            elif metric == "Filename":
-                pass
-            elif metric == "Change Log":
-                pass
-            elif metric == "Interface":
-                pass
-            elif metric == "Author":
-                pass
-            elif metric == "Presence of GoTo's":
-                pass
-            elif metric == "Singular Entry Point":
-                pass
-            elif metric == "Singular Exit Point":
-                pass
-            elif metric == "Presence of Recursion":
-                pass
-            elif metric == "All Variable Names at Least X Characters Long":
-                pass
-            elif metric == "All Variable Names Not Longer than X Characters":
-                pass
-            elif metric == "All #define Parameters in All Capitals":
-                pass
-            elif metric == "No Variable Names in All Capitals":
-                pass
-            elif metric == "McCabe's Cyclomatic Complexity Less Than X":
-                pass
-            elif metric == "Maximum Nesting Level Less Than X":
-                pass
-            elif metric == "Localization of Variables":
-                pass
-            elif metric == "ESLOC Less Than X Within Functions":
-                pass
-            output.append(measurement)
+        
+       
+        output = None
         return output
     #resets the method stats
     
 ###############################################################
 
 
-    #counts the variables 
+    #counts the variables. BEEN replaced!!
     def variableCounter(self,type):
         if(type =='String'):
             self.numString += 1
@@ -538,34 +451,29 @@ class myParser2():
         
         tree = p.parse_file(self.actFilePath)
         
+        tokens = p.tokenize_file(self.actFilePath)
 
 
-        classesElement = xml2.Element("Classes")
-        self.root.append(classesElement)
+
         for type_decl in tree.type_declarations:
+
             ### This is where I'll get the class names
-            classElement = xml2.Element(type_decl.name)
             classObj = classObject(type_decl.name)
             classObj.setMetricDict(self.metricDict)
             
             
 
 
-            fieldElement = xml2.Element("Field")
             
             
+            #Loop find all the fields of the classobj
             for field_decl in [decl for decl in type_decl.body if type(decl) is m.FieldDeclaration]:
                 classObj.fields.append (self.variableID(field_decl))
 
-
-
-
             
-            
-            
-            
+            #loop that finds the methods
             for method_decl in [decl for decl in type_decl.body if type(decl) is m.MethodDeclaration]:
-                method = xml2.Element(method_decl.name)
+                
                 self.currMethod=methodObject(method_decl.name)
                 
                 
@@ -582,25 +490,22 @@ class myParser2():
 
                 
                 if method_decl.body is not None:
-                    variablesElement = xml2.Element("Variables")
-                    self.MethodVarList = []
+                    
+                    
                     #print(type(method_decl.body))
 
 
                     ##Reset the node and edge variable for McCabe
 
                     self.calMetric(method_decl.body)
-                    for var in self.MethodVarList:
-                        variableSub = xml2.Element("Variable")
-                        variableSub.text = var
-                        variablesElement.append(variableSub)
+                        
 
                     classObj.addMethod(self.currMethod)    
-                    method.append(variablesElement)
-                    method.append(self.createsMethodXMLElement())
+                    
+                    
             self.fileObj.addClass(classObj)
         
-        self.fileObj.genXMLString()
+        
 
 
 if __name__ == '__main__':
@@ -610,7 +515,7 @@ if __name__ == '__main__':
         tree = p.parse_file(fn)
         print(tree) """
         p = myParser2()
-        p.findMetrics(fn,[])
+        p.findMetrics(fn,{})
         p.compileThisFile()
         #p.genOutput()
 

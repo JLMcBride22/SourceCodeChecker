@@ -23,8 +23,10 @@ class methodObject():
         self.parameters = []
         self.numbParams = 0
         self.halstead = 0
+        self.currNestingLevel = 0
         self.maxNesting = 0
         self.switchCompl = 0
+        
 
         ##Number of variables
         self.totalVar = 0
@@ -46,6 +48,12 @@ class methodObject():
     def setMetricDict(self, dictin):
         self.dictOfMetric = dictin
 
+    #This function helps with finding the max nested level.
+    #Should be called after getting done with a block in the postCompileCalc file
+    def nestingLevelMaxFinder(self):
+        if(self.currNestingLevel > self.maxNesting):
+            self.maxNesting = self.currNestingLevel
+    #counts the variables by type
     def variableTypeCounter(self, var:variableObject):
         self.totalVar += 1
         if(var.dims > 0):
@@ -70,6 +78,7 @@ class methodObject():
     def addParameter(self, par: variableObject):
         self.variableTypeCounter(par)
         self.parameters.append(par)
+        self.numbParams += 1
         return
 
     def addVariable(self, var:variableObject):
@@ -78,7 +87,7 @@ class methodObject():
         return
     
     def measurementXML(self)-> xml2.Element:
-        output =xml2.Element("Metrics")
+        output =xml2.Element("Measurements")
         for k,v in self.dictOfMetric.items():
             """ if k == "SizeTab":
                 for box in v:
@@ -107,7 +116,7 @@ class methodObject():
                     elif box == "McCabe's Cyclomatic Complexity":
                         subEleText = box +" = "+ str(self.mcabe)
                     elif box == "Maximum Nesting Level":
-                        pass
+                        subEleText = box +" = " + str(self.maxNesting)
                     elif box == "ESLOC at Max Nesting Level":
                         pass
                     elif box == "Halstead's Software Science Primitives":
@@ -260,12 +269,13 @@ class classObject(methodObject):
 
     def addMethod(self, newMethod:methodObject):
         newMethod.setMetricDict(self.dictOfMetric)
-        newMethod.calcMetrics()
+        self.addObjectIn(newMethod)
         self.methods.append(newMethod)
 
     def XMLElement(self)->xml2.Element:
         output = xml2.Element(self.name)
         fieldsElement = xml2.Element("Fields")
+        
         output.append(fieldsElement)
 
         for field in self.fields:
@@ -283,45 +293,56 @@ class classObject(methodObject):
 
         return output
 
-    def calcMeasurements(self):
-
-
-        for method in self.methods:
+    #def calcMeasurements(self):
+        #for method in self.methods:
+            #self.addObjectIn(method)
             
-            method:methodObject
-            self.variables.extend(method.variables)
-            #self.returnType = ""
-            self.mcabe += method.mcabe
-            self.whileLoops += method.whileLoops
-            self.forLoops  += method.forLoops
-            self.doWhile += method.doWhile
-            self.isRecursion = self.isRecursion or method.isRecursion
-            self.parameters.extend(method.parameters)
-            
-            ##self.halstead = 0
-            ##self.maxNesting = 0
-            self.switchCompl += method.switchCompl
+    
+    def addObjectIn(self,method:methodObject):
+        
+        self.variables.extend(method.variables)
+        #self.returnType = ""
+        self.mcabe += method.mcabe
+        self.numbParams += method.numbParams
+        self.whileLoops += method.whileLoops
+        self.forLoops  += method.forLoops
+        self.doWhile += method.doWhile
+        self.isRecursion = self.isRecursion or method.isRecursion
+        self.parameters.extend(method.parameters)
 
-        ##Number of variables TODO we need to add fields to these.
-            self.noInt += method.noInt
-            self.noFloat += method.noFloat
-            self.noChar  += method.noChar
-            self.noString = method.noString
-            self.userDefined += method.userDefined
-            #self.noStruct += method.noStruct
-            self.noArrays += method.noArrays
+        
+        ##self.halstead = 0
+        if self.maxNesting < method.maxNesting:
+            self.maxNesting = method.maxNesting
+        self.switchCompl += method.switchCompl
 
-        #nameLengh LT= less than and MT = more than
+    ##Number of variables TODO we need to add fields to these.
+        self.totalVar += method.totalVar
+        self.noInt += method.noInt
+        self.noFloat += method.noFloat
+        self.noChar  += method.noChar
+        self.noString = method.noString
+        self.userDefined += method.userDefined
+        #self.noStruct += method.noStruct
+        self.noArrays += method.noArrays
+
+    #nameLengh LT= less than and MT = more than
         self.LT3char = 0
         self.MT3butLT10char = 0
         self.MT10butLT20 = 0
         self.MT20 = 0
-    
-
-class fileObject(methodObject):
+        
+class fileObject(classObject):
     def __init__(self, pathway:str) -> None:
         super().__init__(pathway)
         self.pathWay = pathway
+        self.noFullCommentLines = 0
+        # Calclated in checkNumOfComments method in parser.py
+        self.noLinesOfCode = 0
+        self.noSourceWComment = 0
+        self.noSourceWOutComment = 0
+        self.noBlankLines = 0
+
         self.classes = []
         self.filesize = ""
         self.dictOfMetric = {}
@@ -331,8 +352,9 @@ class fileObject(methodObject):
 
     def addClass(self, newClass:classObject):
         
-        newClass.calcMeasurements()
+        self.addObjectIn(newClass)
         self.classes.append(newClass)
+
 
 
 
