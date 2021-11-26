@@ -26,6 +26,7 @@ class methodObject():
         self.currNestingLevel = 0
         self.maxNesting = 0
         self.switchCompl = 0
+        self.noFunctionCalls = 0
         
 
         ##Number of variables
@@ -44,6 +45,8 @@ class methodObject():
         self.MT10butLT20 = 0
         self.MT20 = 0
         self.dictOfMetric = {}
+        self.noSemicolons = 0
+        
         
     def setMetricDict(self, dictin):
         self.dictOfMetric = dictin
@@ -266,12 +269,12 @@ class classObject(methodObject):
         self.fields = []
         
         self.methods = []
-
+    #this functions add the method and add the method's stats to the class stats.
     def addMethod(self, newMethod:methodObject):
         newMethod.setMetricDict(self.dictOfMetric)
         self.addObjectIn(newMethod)
         self.methods.append(newMethod)
-
+    #creates an xml element
     def XMLElement(self)->xml2.Element:
         output = xml2.Element(self.name)
         fieldsElement = xml2.Element("Fields")
@@ -309,6 +312,8 @@ class classObject(methodObject):
         self.doWhile += method.doWhile
         self.isRecursion = self.isRecursion or method.isRecursion
         self.parameters.extend(method.parameters)
+        self.noFunctionCalls += method.noFunctionCalls
+        self.noSemicolons += method.noSemicolons
 
         
         ##self.halstead = 0

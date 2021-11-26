@@ -132,7 +132,7 @@ class myParser2():
             elif len(stripLine) is 0:
                 self.fileObj.noBlankLines += 1
             else:
-                if '//' in stripLine or '':
+                if '//' in stripLine:
                     self.fileObj.noSourceWComment +=1
                 else:
                     self.fileObj.noSourceWOutComment += 1
@@ -193,13 +193,13 @@ class myParser2():
         self.output.append(self.dataSize)
         now = datetime.now()
         self.output.append(now.strftime("%c"))#5
-        self.output.append(self.SLOC)
-        self.output.append(self.SLOCnoComm)
-        self.output.append(self.SLOCwiComm)
-        self.output.append(self.blankLines)
-        self.output.append(self.fullCommentLines)#10
-        self.output.append(self.numSemiColons)
-        self.output.append(self.functionCalls)
+        self.output.append(self.fileObj.noLinesOfCode)
+        self.output.append(self.fileObj.noSourceWOutComment)
+        self.output.append(self.fileObj.noSourceWComment)#TODO
+        self.output.append(self.fileObj.noBlankLines)
+        self.output.append(self.fileObj.noFullCommentLines)#10
+        self.output.append(self.fileObj.noSemicolons)
+        self.output.append(self.fileObj.noFunctionCalls)
         self.output.append(self.fileObj.numbParams)
         self.output.append(self.fileObj.mcabe)
         self.output.append(self.halstead)#15
@@ -380,7 +380,7 @@ class myParser2():
         elif type(sourceElement) is m.ExpressionStatement:
             if type(sourceElement.expression) is m.MethodInvocation:
                 # Count Function. #TODO add a variable member for methodObject in the file "fileObject"
-                
+                self.currMethod.noFunctionCalls += 1
                 if(self.currMethodName == sourceElement.expression.name):
                     sourceElement.expression.arguments
 
@@ -452,7 +452,7 @@ class myParser2():
         tree = p.parse_file(self.actFilePath)
         
         tokens = p.tokenize_file(self.actFilePath)
-
+        self.lexCounter(tokens)
 
 
         for type_decl in tree.type_declarations:
@@ -505,7 +505,15 @@ class myParser2():
                     
             self.fileObj.addClass(classObj)
         
-        
+    def lexCounter(self, tokens:list):
+
+        for tok in tokens:
+            if(tok.type == ";"):
+                self.fileObj.noSemicolons += 1
+
+            
+
+        return
 
 
 if __name__ == '__main__':

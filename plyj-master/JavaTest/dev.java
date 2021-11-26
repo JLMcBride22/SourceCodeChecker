@@ -55,7 +55,7 @@ public class CyclomaticComplexityDemo {
            }
            else if(true){
                x  = 'p';
-               int po = 4;
+               int po = 4;//hey
            }
            else{
                p = 1;
