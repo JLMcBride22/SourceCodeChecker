@@ -200,22 +200,22 @@ class myParser2():
         self.output.append(self.fullCommentLines)#10
         self.output.append(self.numSemiColons)
         self.output.append(self.functionCalls)
-        self.output.append(self.numPassParams)
-        self.output.append(self.calcMcCabe())
+        self.output.append(self.fileObj.numbParams)
+        self.output.append(self.fileObj.mcabe)
         self.output.append(self.halstead)#15
-        self.output.append(self.maxNestingLevel)
+        self.output.append(self.fileObj.maxNesting)
         self.output.append(self.ESLOCatMaxLevel)
         self.output.append(self.SwitchComplexity)
-        self.output.append(self.numForLoops)
-        self.output.append(self.numWhileLoops)#20
-        self.output.append(self.numDoWhileLoops)
-        self.output.append(self.numInt)
-        self.output.append(self.numFloat)
-        self.output.append(self.numChar)
-        self.output.append(self.numString)#25
-        self.output.append(self.numUserDefined)
+        self.output.append(self.fileObj.forLoops)
+        self.output.append(self.fileObj.whileLoops)#20
+        self.output.append(self.fileObj.doWhile)
+        self.output.append(self.fileObj.noInt)
+        self.output.append(self.fileObj.noFloat)
+        self.output.append(self.fileObj.noChar)
+        self.output.append(self.fileObj.noString)#25
+        self.output.append(self.fileObj.userDefined)
         self.output.append(0)#<----------NO STRUCTS
-        self.output.append(self.numArrays)
+        self.output.append(self.fileObj.noArrays)
         self.output.append(self.Num3Char)
         self.output.append(self.Num3thru9Char)#30
         self.output.append(self.Num10thru19Char)

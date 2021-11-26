@@ -5,7 +5,6 @@ from PyQt5 import QtWidgets as qtw
 
 ##The create the interface
 a = ARI()
-S = ""
 
 
 ##creates the app and and main window
