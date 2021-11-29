@@ -81,7 +81,8 @@ class ARI():
                                         McCabeLessThanX text,
                                         NestingLessThanX text,
                                         ESLOCLessThanXinFunc text,
-                                        LocalizationOfVar text
+                                        LocalizationOfVar text,
+                                        longFileName text
 
                                     ) '''
         )
@@ -125,7 +126,9 @@ class ARI():
           
         ## -1 means inserted at the bottem
         self.dbModel.insertRecord(-1, self.record)
+        #This is where we resize the columns and reset the ID column width back to 0
         self.tableView.resizeColumnsToContents()
+        self.tableView.setColumnWidth(0,0)
     #Allows ARI to control the fit the columns
     def setTable(self , tableView:QTableView):
         self.tableView = tableView
@@ -146,12 +149,12 @@ class ARI():
             #This try catch is a crucial component in case of compliation failure.
             # In case of failure it just adds to the list of uncompilable pathways and
             # proceeds with the submission.
-            #try:
-            pars.findMetrics(filePath,listOfCheckedMetrics)
+            try:
+                pars.findMetrics(filePath,listOfCheckedMetrics)
                 #This is a list of a list lol!
-            listOfOutputs.append(pars.output)
-            #except AttributeError:
-                #self.uncompilable.append(filePath)
+                listOfOutputs.append(pars.output)
+            except AttributeError:
+                self.uncompilable.append(filePath)
             
 
             

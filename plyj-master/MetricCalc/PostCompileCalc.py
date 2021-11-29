@@ -5,7 +5,7 @@
 # from the tkinter library
 import sys
 from xml.etree.ElementTree import SubElement, tostring
-
+import re
 sys.path.append(".")
 import os
 from pathlib import Path
@@ -111,6 +111,8 @@ class myParser2():
       
     # Check if there is a commented line (SLOC Metric)
     def checkNumOfComments(self):
+        #multiCommentList =re.findall(r'\\*(.|[\r\n])*\'', self.rawCodeList, re.S)
+        #singleCommentList = re.findall(r'\\(.*?)\n', self.rawCodeList, re.S)
         self.fileObj.noLinesOfCode = len(self.rawCodeList)
 
         for lineno in range(0,self.fileObj.noLinesOfCode):
@@ -125,17 +127,32 @@ class myParser2():
                         except IndexError:
                             print(self.actFilePath)
                             break
-                
+                else:
+                    splitListEnd =stripLine.split("*/")
+                    splitListBegin = stripLine.split("/*")
+                    #if this is one this means it just a full comment line
+                    if(len(splitListEnd) == 1):
+                        self.fileObj.noFullCommentLines += 1
+                    else:
+                        # We search the split list for actual sourceCode
+                        for s in splitListEnd:
+                            s:str
+                            if(not s.startswith("/*") or not s.startswith("//")):
+                                self.fileObj.noSourceWComment += 1
+                                break
+                    
+                    #if this is greater than one this means it might have
+                    
                 
             elif(stripLine.startswith('//')):
                 self.fileObj.noFullCommentLines += 1
-            elif len(stripLine) is 0:
+            elif len(stripLine)== 0:
                 self.fileObj.noBlankLines += 1
             else:
                 if '//' in stripLine:
                     self.fileObj.noSourceWComment +=1
                 else:
-                    self.fileObj.noSourceWOutComment += 1
+                    self.fileObj.noSourceWOutComment += 1 
 
 
         
@@ -187,6 +204,7 @@ class myParser2():
 
  
     #this generates a list that contains all the metrics. This should be move to calc interface.
+    #Be aware of order here.
     def genOutput(self):
         self.output.append(self.filePath)#1
         self.output.append(self.timeStamp)
@@ -238,6 +256,7 @@ class myParser2():
         self.output.append(self.NestingLessThanX)
         self.output.append(self.ESLOCLessThanXinFunc)
         self.output.append(self.fileObj.genXMLString())#50
+        self.output.append(self.actFilePath)#51
 
         
         return 0  
@@ -283,14 +302,31 @@ class myParser2():
 
 
                     
-
-                    
-                    
-        
             
             output.name = var_decl.variable.name
             output.typeVar = type_name
             return output
+
+    #Determine the return type of a method
+    def returnTypeDeterminer(self, sourceElement)->str:
+        type_name =""
+        if type(sourceElement) is str:
+                type_name = sourceElement
+                
+        elif type(sourceElement.name) is str:
+                
+            dim = sourceElement.dimensions
+            
+            type_name = sourceElement.name
+            for b in range(0,dim):
+                type_name = type_name + '[]'
+        else:
+            type_name = str(sourceElement.name.value)
+            
+            if(sourceElement.type_arguments):
+                type_name = type_name + "<"+sourceElement.type_arguments[0].name.value +">"
+        
+        return type_name
 
     def paramID(self, param: m.FormalParameter) -> variableObject:
         output = variableObject()
@@ -475,6 +511,8 @@ class myParser2():
             for method_decl in [decl for decl in type_decl.body if type(decl) is m.MethodDeclaration]:
                 
                 self.currMethod=methodObject(method_decl.name)
+                
+                self.currMethod.returnType = self.returnTypeDeterminer (method_decl.return_type)
                 
                 
                 

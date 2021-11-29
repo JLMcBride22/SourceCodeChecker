@@ -42,7 +42,7 @@ class FileSubmitForm(qtw.QDialog):
         return 0
 
     ## Opens file explorer.
-    #TODO We need to add an settings function that gives the user selects its on default directory!
+    
     def fileExplorer(self):
         file_filter = 'Java File(*.java)'
         filePaths = QFileDialog.getOpenFileNames(
@@ -87,25 +87,30 @@ class FileSubmitForm(qtw.QDialog):
                     dlg.setInformativeText("Please remove forementioned path and try again.")
                     dlg.setIcon(3)
                     dlg.exec_()
-                    return
+                    #return
                     
 
         self.ari.takeFileList(listPaths,self.getMetricsFromBoxes())
             
         uncompiled=self.ari.getUncompiled()
         
-        for uc in uncompiled:
+        if len(uncompiled) > 0:
             dlg = QMessageBox()
             
-            dlg.setText("Pathway, "+ str(uc) + ", wasn't abled to be compiled")
+            dlg.setText("There were files that wasn't abled to be compiled")
             dlg.setInformativeText("The others were able to be added unless noted")
             dlg.setIcon(3)
             dlg.exec_()
+            self.uiForm.filePathList.clear()
+            self.uiForm.filePathList.addItems(uncompiled)
+
+            
+            return
             
         
         self.close()
     
-    #This functions returns of a list of strings of the name of checked boxes for file level.
+    #This functions returns of a dictionary of strings of the name of checked boxes.
     def getMetricsFromBoxes(self):
         mts = 0
         while mts < self.uiForm.MeasurementTabs.count():
@@ -133,14 +138,8 @@ class FileSubmitForm(qtw.QDialog):
             
             mts+=1
                 
-            #TODO delete this.
-            for k, v in self.dictOfMetrics.items():
-                print("elif k == "+ "\""+k +"\":")
-                if type(v) is list:
-                    v:list
-                    print("\tfor box in v:")
-                    for box in v:
-                        print("\t\telif box == " +"\"" +box + "\":\n\t\t\tpass")
+            
+
 
         
         return self.dictOfMetrics

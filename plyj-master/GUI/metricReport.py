@@ -28,6 +28,7 @@ class metricFormC(qtw.QWidget):
                 else:
                     branch = qtw.QTreeWidgetItem([child.text])
                     a.addChild(branch)
+                    displaytree(branch, child)
            
             
 

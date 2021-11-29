@@ -1,12 +1,11 @@
-/*Hey y'all*/ public class namme{/**//* */ /*/
-    hey
-    what's going on here. this is stupid.
-    */private int x;
+/*Hey y'all*/ public class namme{/**//* */ /*/*/
+  
+    private int x;
     private static int [] arrayField;
     private ArrayList<String> cars = new ArrayList<String>();
     private ArrayList<Integer> alInt;
     private String name;
-    public void jeep(ArrayList<Integer[]>test){
+    public int[] jeep(ArrayList<Integer[]>test){
         int x = 0;
         while(x < 0){/*
         */
@@ -26,7 +25,7 @@
         }
 
     }
-    private void jon(int[] x ){
+    private ArrayList<String> jon(int[] x ){
         return;
     }
 

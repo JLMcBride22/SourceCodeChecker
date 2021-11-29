@@ -14,7 +14,7 @@ from PyQt5.QtWidgets import QFileDialog, QMenu, QTableView, QMessageBox
 
 from PyQt5.QtSql import QSqlQuery, QSqlTableModel
 
-from PyQt5.QtCore import QEvent, QItemSelection, QItemSelectionModel, Qt, QModelIndex
+from PyQt5.QtCore import QEvent, QItemSelection, QItemSelectionModel, QSortFilterProxyModel, Qt, QModelIndex
 
 from Measurement_Histories_Draft.MeasurementHistorian import MeasurementHistorian
 
@@ -49,6 +49,8 @@ class MainWindow(qtw.QMainWindow):
         self.ui.actionInstruction.triggered.connect(self.openHelp)
         self.ui.actionSingle_file.triggered.connect(self.uploadFile_s)
         self.ui.actionExport_File.triggered.connect(self.excelOpen)
+
+        
         self.fileSubmit = None
         self.popUpMenu =QMenu()
         
@@ -62,10 +64,10 @@ class MainWindow(qtw.QMainWindow):
         self.ui.addFilesButton.clicked.connect(self.uploadFile_s)
         
     
-        self.ui.refreshAllButton.clicked.connect(self.refresh)
+        #self.ui.refreshAllButton.clicked.connect(self.refresh)
         self.ui.JavaTableView.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.ui.JavaTableView.installEventFilter(self)
-        self.ui.JavaTableView.resizeColumnsToContents()
+        #self.ui.JavaTableView.resizeColumnsToContents()
         #self.ui.JavaTableView.hideColumn(0)
 
         self.actionMetric = self.popUpMenu.addAction("View Function/Classes Reports")
@@ -131,6 +133,7 @@ class MainWindow(qtw.QMainWindow):
         
     #this gets the value of the selected row from SQL DB
     def getSelectedRowFromDB(self):
+        
         selectionIndexes = self.ui.JavaTableView.selectedIndexes()
         
         if(len(selectionIndexes) > 0):
@@ -143,8 +146,8 @@ class MainWindow(qtw.QMainWindow):
             dlg.setIcon(3)
             dlg.exec_()
             return None
-        
-        id= index.row() +1
+        index:QModelIndex
+        id= index.data(0)
     
         return id
 
@@ -186,7 +189,9 @@ class MainWindow(qtw.QMainWindow):
         row = self.getSelectedRowFromDB()
         if(row != None):
             xmlStr =self.ari.getCellContentFromDataBase(row, "LocalizationOfVar")
+            longFileName = self.ari.getCellContentFromDataBase(row, "longFileName")
             met.strToXml(xmlStr)
+            met.setWindowTitle(longFileName)
             met.findItemRemoves()
             met.setVisible(True)
             met.setWindowFlag(True)
@@ -201,26 +206,50 @@ class MainWindow(qtw.QMainWindow):
 
     ## Places the buttons in the table
     def populate_table(self):
-        self.dbModel = QSqlTableModel(self)
+        #self.dbModel = QSqlTableModel(self)
 
         
         
 
-        inModel = self.ari.getModel()
+        self.dbModel = self.ari.getModel()
         
 
 
+
+
         
-        self.ui.JavaTableView.setModel(inModel)
+        self.ui.JavaTableView.setModel(self.dbModel)
         self.ui.JavaTableView.resizeColumnsToContents()
         #hide columns
-        self.ui.JavaTableView.hideColumn(0)
+        #self.ui.JavaTableView.hideColumn(0)
+        self.ui.JavaTableView.setColumnWidth(0,0)
         self.ui.JavaTableView.hideColumn(48)
+        self.ui.JavaTableView.hideColumn(49)
+        self.ui.JavaTableView.hideColumn(50)
+
+        #sets the filter search bar
+
+
+        self.ui.SearchBar.textChanged.connect(self.search)
+
         self.ui.JavaTableView.setVisible(True)
         self.ui.JavaTableView.show()
 
-        
-
+    
+    def search(self):
+        annee = self.ui.SearchBar.text()
+        #behaviors SQL injection that would break the code
+        if "'" in annee:
+            annee = annee.replace("'", "''",-1)
+        if len(annee) == 0:
+            self.dbModel.setFilter("")
+        else:
+            
+            filt = "filename LIKE '%"+ annee +"%'"
+            print(filt)
+            self.dbModel.setFilter(filt)
+            #self.dbModel.select()
+            
 
 
 if __name__ == '__main__':

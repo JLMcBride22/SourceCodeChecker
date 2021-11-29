@@ -13,6 +13,7 @@ class variableObject():
 class methodObject():
     def __init__(self, inMethodName) -> None:
         self.name = inMethodName
+        
         self.variables = []
         self.returnType = ""
         self.mcabe = 0
@@ -227,8 +228,17 @@ class methodObject():
                         pass
         return output
             
-        
+    #this function returns the method with all its parameters in parathesises.    
+    def methodNameWithParams(self)->str:
 
+        param_strings = []
+        for param in self.parameters:
+            param:variableObject
+            param_strings.append(param.typeVar + " " +param.name)
+           
+        return self.returnType+ " "+ self.name + '(' + ', '.join(param_strings) + ')'
+        
+        
         
     def calcMetrics(self):
         self.numbParams = len(self.parameters)
@@ -237,6 +247,7 @@ class methodObject():
     def XMLElement(self) -> xml2.Element:
 
         output = xml2.Element(self.name)
+        output.text = self.methodNameWithParams()
         variablesElement  = xml2.Element("variables")
         output.append(variablesElement)
         for variable in self.variables:

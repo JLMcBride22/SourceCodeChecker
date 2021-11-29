@@ -71,7 +71,7 @@ class ExcelConverter:
                 
 
                 # Saving one report.
-                while i < 50:
+                while i < 49:
                     try:
                         worksheet.write(entry[0], col, entry[i])
                     except IndexError:
