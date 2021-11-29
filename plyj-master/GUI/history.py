@@ -2,6 +2,9 @@
 import PyQt5.QtGui as testing
 from PyQt5 import QtWidgets as qtw
 
+import os
+
+import sqlite3
 
 from UIFiles.GCHistory import Ui_HistoryForm
 
@@ -17,7 +20,6 @@ class historyForm(qtw.QWidget):
         super(historyForm, self).__init__(*args, **kwargs)
         
         self.uiForm.setupUi(self)
-        self.uiForm.pushButton.clicked.connect(self.close)
         j = 0
         while j < 45:
             self.uiForm.tableWidget.insertColumn(j)
@@ -69,16 +71,42 @@ class historyForm(qtw.QWidget):
                                         "LocalizationOfVar"])
         #mhist = MeasurementHistorian()
         #tempconn = mhist.create_connection(mhist, "test3.db")
-        historyList = [1,2,3]
+        historyList = []
+        #historyList =  mhist.pullHistory(mhist, tempconn, "Test")
+        if os.path.exists("tempList.txt"):
+            with open('tempList.txt', 'r') as f:
+                for line in f:
+                    historyList.append(line)
+                f.close()
+
+        
         #historyList =  mhist.pullHistory(mhist, tempconn, "Test")
         i = 0
-        
+        conn = sqlite3.connect("test3.db")
         for rowid in historyList:
-
+            cur = conn.cursor()
+            entry = cur.execute("SELECT * FROM AnalysisReports WHERE ID = ?", (rowid,))
+            
+            rowList = []
+            k = 2
+            for row in entry:
+                while k < 48:
+                    
+                    rowList.append(row[k])
+                    k += 1
             self.uiForm.tableWidget.insertRow(i)
             col = 0
+            
+            k = 0
             while col < 48:
-                self.uiForm.tableWidget.setItem(i, col, qtw.QTableWidgetItem("hello"))
+                tempstring = "hello"
+                
+                print(k)
+                print(len(rowList))
+                tempstring = str(rowList[k])
+                self.uiForm.tableWidget.setItem(i, col, qtw.QTableWidgetItem(tempstring))
+                if(k  < 45):
+                    k += 1
                 col += 1
             i +=1
         

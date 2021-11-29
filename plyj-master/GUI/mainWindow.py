@@ -164,16 +164,19 @@ class MainWindow(qtw.QMainWindow):
                 fileName = self.ari.getCellContentFromDataBase(id,"filename")
 
                 
-                # DATABASE NAME HARDCODED. FIX LATER VGDSHBCHAWNSHRGDCRJFDSHJBCHBSHDCHSBCHJBSJBCHJSBCHJBSHBCBZSKBCJHZBCBZSHBCHZBKHSCBJZHSCBHSZBCJHZBJCBZBBCJSZBCHJBZJCBZHJBCJZBCHJBZJCBHZJBCHJZBCJZBCBHJZCBJZBCMZBCJBZJBH
                 mhist = MeasurementHistorian
                 tempconn = mhist.create_connection("test3.db")
                 historyList = []
                 historyList =  mhist.pullHistory(mhist, tempconn, fileName)
-                print(historyList)
-                htableList = []
-                htableList = mhist.pullHistoryContent(mhist, tempconn, historyList)
-                print(htableList)
+                #print(historyList)
+                #htableList = []
+                #htableList = mhist.pullHistoryContent(mhist, tempconn, historyList)
+                #print(htableList)
     
+                with open('tempList.txt', 'w') as f:
+                    for item in historyList:
+                        f.write("%s\n" % item)
+                    f.close()
 
                 # NEED TO FIGURE OUT HOW TO GET A LIST PASSED INTO THIS WINDOW.
                 hist = historyForm(self)
@@ -181,6 +184,8 @@ class MainWindow(qtw.QMainWindow):
                 
                 hist.setWindowFlag(True)
                 hist.show()
+                if os.path.exists("tempList.txt"):
+                    os.remove("tempList.txt")
 
     def viewMetrics(self):
         
