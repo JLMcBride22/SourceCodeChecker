@@ -67,11 +67,12 @@ class ExcelConverter:
                 else:
                     inExcel.append(entry[0])
                 
-                    
+                print(len(entry))    
                 
 
                 # Saving one report.
-                while i < 49:
+                # Use lnegth of entry -1 to cut out the xml string.
+                while i < (len(entry)-1):
                     try:
                         worksheet.write(entry[0], col, entry[i])
                     except IndexError:
