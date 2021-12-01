@@ -15,4 +15,4 @@ widget.setARI(a)
 
 widget.show()
 
-sys, exit(app.exec_())
+sys, sys.exit(app.exec_())
