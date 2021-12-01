@@ -73,44 +73,30 @@ class historyForm(qtw.QWidget):
         #tempconn = mhist.create_connection(mhist, "test3.db")
         historyList = []
         #historyList =  mhist.pullHistory(mhist, tempconn, "Test")
-        if os.path.exists("tempList.txt"):
-            with open('tempList.txt', 'r') as f:
-                for line in f:
-                    historyList.append(line)
-                f.close()
+        
 
         
         #historyList =  mhist.pullHistory(mhist, tempconn, "Test")
+        
+        
+            
+
+    def loadHistTable(self, contentList):
         i = 0
-        conn = sqlite3.connect("test3.db")
-        for rowid in historyList:
-            cur = conn.cursor()
-            entry = cur.execute("SELECT * FROM AnalysisReports WHERE ID = ?", (rowid,))
+        for row in contentList:
             
-            rowList = []
-            k = 2
-            for row in entry:
-                while k < 48:
-                    
-                    rowList.append(row[k])
-                    k += 1
             self.uiForm.tableWidget.insertRow(i)
-            col = 0
             
-            k = 0
-            while col < 48:
-                tempstring = "hello"
+            col = 0
+            k = 1
+            while col < (len(row)-1):
                 
-                print(k)
-                print(len(rowList))
-                tempstring = str(rowList[k])
-                self.uiForm.tableWidget.setItem(i, col, qtw.QTableWidgetItem(tempstring))
-                if(k  < 45):
-                    k += 1
+                self.uiForm.tableWidget.setItem(i, col, qtw.QTableWidgetItem(str(row[k])))
+                
                 col += 1
-            i +=1
-        
-        
+                k+=1
+            i+=1
+
 
         
         
