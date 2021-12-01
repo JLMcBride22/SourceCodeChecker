@@ -169,23 +169,20 @@ class MainWindow(qtw.QMainWindow):
                 historyList = []
                 historyList =  mhist.pullHistory(mhist, tempconn, fileName)
                 #print(historyList)
-                #htableList = []
-                #htableList = mhist.pullHistoryContent(mhist, tempconn, historyList)
+                htableList = []
+                htableList = mhist.pullHistoryContent(mhist, tempconn, historyList)
                 #print(htableList)
     
-                with open('tempList.txt', 'w') as f:
-                    for item in historyList:
-                        f.write("%s\n" % item)
-                    f.close()
+                
 
                 # NEED TO FIGURE OUT HOW TO GET A LIST PASSED INTO THIS WINDOW.
                 hist = historyForm(self)
+                hist.loadHistTable(htableList)
                 hist.setWindowTitle(fileName + " \'s History")
                 
                 hist.setWindowFlag(True)
                 hist.show()
-                if os.path.exists("tempList.txt"):
-                    os.remove("tempList.txt")
+                
 
     def viewMetrics(self):
         
