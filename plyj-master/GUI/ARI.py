@@ -49,7 +49,7 @@ class ARI():
                                         id integer PRIMARY KEY,
                                         filename text NOT NULL,
                                         timestamp text,
-                                        datasize text,
+                                        Filesize text,
                                         DateAnalyzed text,
                                         ESLOC integer,
                                         SLOCnoComm integer,
@@ -132,7 +132,7 @@ class ARI():
     def getModel(self)->QSqlTableModel:
         return self.dbModel
 
-    #inserts a list of data intoa row of the table model.
+    #inserts a list of data in row into the table model.
     def insertData(self, inList:list):
         i = 1
         for item in inList:
@@ -145,6 +145,7 @@ class ARI():
         #This is where we resize the columns and reset the ID column width back to 0
         self.tableView.resizeColumnsToContents()
         self.tableView.setColumnWidth(0,0)
+        self.tableView.setEnabled(True)
     #Allows ARI to control the fit the columns
     def setTable(self , tableView:QTableView):
         self.tableView = tableView
@@ -158,7 +159,7 @@ class ARI():
     
 
 
-    #This method takes the sends the list control
+    #This method takes the sends the list and sends the filepath through the parser
     def takeFileList(self, filePathList: list, listOfCheckedMetrics : list):
         self.uncompilable = []
         listOfOutputs = []

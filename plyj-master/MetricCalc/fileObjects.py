@@ -57,6 +57,8 @@ class methodObject():
     def nestingLevelMaxFinder(self):
         if(self.currNestingLevel > self.maxNesting):
             self.maxNesting = self.currNestingLevel
+
+
     #counts the variables by type
     def variableTypeCounter(self, var:variableObject):
         self.totalVar += 1
@@ -92,6 +94,7 @@ class methodObject():
     
     def measurementXML(self)-> xml2.Element:
         output =xml2.Element("Measurements")
+        output.text = self.name +"'s "+ "Measurements"
         for k,v in self.dictOfMetric.items():
             """ if k == "SizeTab":
                 for box in v:

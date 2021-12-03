@@ -13,6 +13,7 @@ import datetime
 #parsar stuff
 import PLYJ.model as m
 from PLYJ.parser import Parser
+#Time
 from datetime import datetime
 import xml.etree.ElementTree as xml2
 from xml.etree import ElementTree
@@ -171,18 +172,27 @@ class myParser2():
     
     ## This function should be used when starting the calculation process.
     def findMetrics(self, filepath: str, listOfMetrics:list):
-        
+        filepathL = filepath.split('/')
+        numDir=len(filepathL)
+        if(numDir > 2):
+            self.filePath= '.../'+ filepathL[numDir-2] +'/'+ filepathL[numDir-1]
+        else:
+            self.filePath = filepath
+
         self.actFilePath = filepath
-        self.fileObj = fileObject(filepath)
+        
+        self.fileObj = fileObject(self.filePath)
 
         self.fileObj.setMetricDict(listOfMetrics)
         self.metricDict = listOfMetrics
-        filepathL = filepath.split('/')
-        numDir=len(filepathL)
-        self.filePath= '.../'+ filepathL[numDir-2] +'/'+ filepathL[numDir-1]
+
+
+        ##if the user gets a filepath that not big enough for this format
+
         
         ##creates the rawsource code
         self.createCodeStringList(filepath)
+        ##checks the num of comments by type.
         self.checkNumOfComments()
         self.compileThisFile()
         
@@ -286,9 +296,6 @@ class myParser2():
                 if(sourceElement.type.type_arguments):
                     type_name = type_name + "<"+sourceElement.type.type_arguments[0].name.value +">"
                     
-
-
-                    
             
             output.name = var_decl.variable.name
             output.typeVar = type_name
@@ -339,12 +346,12 @@ class myParser2():
         output.typeVar = type_name
         return output
 
+
     ##Calculate metric checking for, max nesting level flow control and counts loops.
     def calMetric(self, sourceElement):
         
         if(type(sourceElement) is m.IfThenElse):
 
-            
             self.currMethod.mcabe += 1
             self.calMetric(sourceElement.if_true)
             
@@ -358,7 +365,6 @@ class myParser2():
             
             self.currMethod.mcabe +=1
             self.currMethod.whileLoops += 1
-            ## count the while
             
             
             self.calMetric(sourceElement.body)
@@ -394,9 +400,7 @@ class myParser2():
 
 
             self.currMethod.addVariable(self.variableID(sourceElement))
-                        
-            
-                
+                          
             
         elif type(sourceElement) is m.ExpressionStatement:
             if type(sourceElement.expression) is m.MethodInvocation:
@@ -404,8 +408,6 @@ class myParser2():
                 self.currMethod.noFunctionCalls += 1
                 if(self.currMethodName == sourceElement.expression.name):
                     sourceElement.expression.arguments
-
-
 
 
 

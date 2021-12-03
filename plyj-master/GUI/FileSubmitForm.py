@@ -56,7 +56,24 @@ class FileSubmitForm(qtw.QDialog):
         self.uiForm.pushButton.clicked.connect(self.findDirectory)
         self.uiForm.SubmitFileLink.clicked.connect(self.submit)
         self.uiForm.cancel.clicked.connect(self.close)
+
+        self.uiForm.minVarLenBox.valueChanged.connect(self.compareSpinMinVarLen)
+        self.uiForm.maxVarLenBox.valueChanged.connect(self.compareSpinMaxVarLen)
         return 0
+
+
+    def compareSpinMinVarLen(self):
+        min = self.uiForm.minVarLenBox.value()
+        max = self.uiForm.maxVarLenBox.value()
+        if(min > max):
+            self.uiForm.maxVarLenBox.setValue(min)
+
+    def compareSpinMaxVarLen(self):
+        min = self.uiForm.minVarLenBox.value()
+        max = self.uiForm.maxVarLenBox.value()
+        if(min > max):
+            self.uiForm.minVarLenBox.setValue(max)
+    
 
     ## Opens file explorer.
     

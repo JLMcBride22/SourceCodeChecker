@@ -84,6 +84,8 @@ class MainWindow(qtw.QMainWindow):
         self.ari.setEmptyLabel(self.ui.label)
         if(not self.ari.isEmpty):
             self.ui.label.setHidden(True)
+        else:
+            self.ui.JavaTableView.setEnabled(False)
         
         self.populate_table()
         
@@ -194,7 +196,7 @@ class MainWindow(qtw.QMainWindow):
             longFileName = self.ari.getCellContentFromDataBase(row, "longFileName")
             met.strToXml(xmlStr)
             met.setWindowTitle(longFileName)
-            met.findItemRemoves()
+            #met.findItemRemoves()
             met.setVisible(True)
             met.setWindowFlag(True)
             met.show()
@@ -248,7 +250,7 @@ class MainWindow(qtw.QMainWindow):
         else:
             
             filt = "filename LIKE '%"+ annee +"%'"
-            print(filt)
+            #print(filt)
             self.dbModel.setFilter(filt)
             #self.dbModel.select()
             
