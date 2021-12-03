@@ -150,13 +150,14 @@ class FileSubmitForm(qtw.QDialog):
             
         uncompiled=self.ari.getUncompiled()
         
+        numSuccessAnal = len(listPaths) - len(uncompiled)
+
+
+
         if len(uncompiled) > 0:
             dlg = QMessageBox()
             
-            dlg.setText("Compilation failure:")
-            dlg.setInformativeText("The files highlighted in red failed to compile. Please correct the files and try again.")
-            dlg.setIcon(3)
-            dlg.exec_()
+
             self.uiForm.filePathList.clear()
             self.uiForm.filePathList.addItems(uncompiled)
             i = 0
@@ -164,10 +165,21 @@ class FileSubmitForm(qtw.QDialog):
                 self.uiForm.filePathList.item(i).setBackground(QColor('#f0027f'))
                 i += 1
 
-            
+            dlg.setText("Compilation failure:")
+            dlg.setInformativeText("The " +str(len(uncompiled))+ " file(s), highlighted in red, failed to compile. The other "+ str(numSuccessAnal) + " file(s) were able to be compiled.")
+            dlg.setIcon(2)
+            dlg.exec_()
             return
+
+        #All files  were successfully compiled   
+        dlg = QMessageBox()
             
-        
+        dlg.setText("Compilation Success:")
+        dlg.setInformativeText("ALL "+ str(numSuccessAnal) + " file(s) were able to be compiled.")
+        dlg.setIcon(1)
+        dlg.exec_()
+            
+
         self.close()
     
     #This functions returns of a dictionary of strings of the name of the checked boxes.
