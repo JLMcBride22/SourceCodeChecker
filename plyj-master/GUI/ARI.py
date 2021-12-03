@@ -41,8 +41,9 @@ class ARI():
 
         ##This sets up the database for the QSQlDatabase
         self.db =  QSqlDatabase.addDatabase('QSQLITE')
-        
-        self.db.setDatabaseName('test3.db')
+
+        self.db.setDatabaseName('CodeAnalysis.db')
+
         self.db.open()
         self.db.transaction()
         self.db.exec_(

@@ -122,7 +122,7 @@ class Ui_MainWindow(object):
         self.menuFile.setTitle(_translate("MainWindow", "File"))
         self.menuNew_File.setTitle(_translate("MainWindow", "New File"))
         self.menuHelp.setTitle(_translate("MainWindow", "Help"))
-        self.actionExport_File.setText(_translate("MainWindow", "Export to Excel"))
+        self.actionExport_File.setText(_translate("MainWindow", "Export to Spreadsheet"))
         self.actionSingle_file.setText(_translate("MainWindow", "Single file"))
         self.actionInstruction.setText(_translate("MainWindow", "Instruction"))
         self.actionDirectory.setText(_translate("MainWindow", "Directory"))
