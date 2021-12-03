@@ -42,16 +42,16 @@ class myParser2():
         self.currMethodName = ""
         
         #function calls
-        self.functionCalls = 0
         
-        self.blankLines = 0
+        
+    
         #sloc =source lines of code
-        self.SLOC = 0
-        self.SLOCnoComm = 0
-        self.SLOCwiComm = 0
-        self.fullCommentLines = 0
-        self.numSemiColons = 0
-        self.actualFilePath = ""
+        
+        
+        
+        
+        
+        
         #CodeComplexity
         self.numPassParams = 0
         self.mccabe =0
@@ -59,7 +59,7 @@ class myParser2():
         self.node = 0
         self.edge = 0
         self.P = 0
-        self.methodMcCabe = 0
+        
         self.classMcCabe = 0
         ################################
         self.halstead = 0
@@ -67,25 +67,15 @@ class myParser2():
         self.currNestingLevel = 0
         self.ESLOCatMaxLevel = 0
         self.SwitchComplexity = 0
-        
 
         
-
-        ##Count loops:
-        self.numForLoops = 0
-        self.numWhileLoops = 0
-        self.numDoWhileLoops = 0
-
-        #count Variables
-        self.numInt = 0
-        self.numFloat = 0
-        self.numChar = 0
-        self.numString = 0
-        self.numUserDefined = 0
+    
         
-        self.numArrays = 0
-
-        self.testingVariable = 0
+        
+        
+        
+        
+        
         self.Num3Char =0
         self.Num3thru9Char =0
         self.Num10thru19Char =0
@@ -267,16 +257,13 @@ class myParser2():
     ## Creates the raw source code in list format.
     def createCodeStringList(self, filePath)->bool:
             
-            file = open(filePath, 'r')
-            self.rawCodeList = file.readlines()
-            file.close()
+        file = open(filePath, 'r')
+        self.rawCodeList = file.readlines()
+        file.close()
 
-            return True
+        return True
     
-    def calcMcCabe(self):
-        out = self.edge - self.node  + 2*self.P
 
-        return out
     #This functions handles var declaration returns variable object(user defined)
     def variableID(self, sourceElement) -> variableObject:
         output = variableObject()
@@ -328,17 +315,18 @@ class myParser2():
         
         return type_name
 
+    #determines the type of parameters passed in.
     def paramID(self, param: m.FormalParameter) -> variableObject:
         output = variableObject()
         varElement = param
         type_name = ""
-        dim =0
+        
         if type(varElement.type) is str:
             type_name = varElement.type
         elif type(varElement.type.name) is str:
             type_name = varElement.type.name
-            dim = varElement.type.dimensions
-            for b in range(0,dim):
+            output.dims = varElement.type.dimensions
+            for b in range(0,output.dims):
                 type_name = type_name + '[]'
             
         
@@ -356,7 +344,7 @@ class myParser2():
         
         if(type(sourceElement) is m.IfThenElse):
 
-            self.methodMcCabe += 1
+            
             self.currMethod.mcabe += 1
             self.calMetric(sourceElement.if_true)
             
@@ -367,7 +355,7 @@ class myParser2():
         elif type(sourceElement) is m.While:
             ## Count the while loops here
             
-            self.methodMcCabe += 1
+            
             self.currMethod.mcabe +=1
             self.currMethod.whileLoops += 1
             ## count the while
@@ -375,8 +363,7 @@ class myParser2():
             
             self.calMetric(sourceElement.body)
         elif(type(sourceElement) is m.For):
-            self.numForLoops += 1
-            self.methodMcCabe +=1
+
 
             self.currMethod.mcabe += 1
             self.currMethod.forLoops += 1
@@ -387,16 +374,14 @@ class myParser2():
 
         elif(type(sourceElement)is m.DoWhile):
             
-            self.methodMcCabe +=1
 
-            self.numDoWhileLoops += 1
 
             self.currMethod.doWhile += 1
             self.currMethod.mcabe += 1
             self.calMetric(sourceElement.body)
             
         elif type(sourceElement) is m.Switch:
-            self.methodMcCabe += len(sourceElement.switch_cases)
+            
             self.currMethod.mcabe += len(sourceElement.switch_cases)
             self.currMethod.switchCompl += len(sourceElement.switch_cases)
             
@@ -458,25 +443,6 @@ class myParser2():
 ###############################################################
 
 
-    #counts the variables. BEEN replaced!!
-    def variableCounter(self,type):
-        if(type =='String'):
-            self.numString += 1
-        elif(type == 'int'):
-            self.numInt += 1
-        elif(type == "char"):
-            self.numChar +=1
-        elif(type =="Array"):
-            self.numArrays += 1
-        elif(type =="float"):
-            self.numFloat += 1
-        elif type == "byte" or type == "double" or type == "boolean" or type == "short" or type == "long":
-            return
-    
-        else:
-            self.numUserDefined +=1
-
-        return
 
     #This Compiles the file and calculates metrics like McCabe
     def compileThisFile(self):

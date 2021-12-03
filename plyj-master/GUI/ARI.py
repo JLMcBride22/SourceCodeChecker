@@ -1,8 +1,18 @@
-#######################################################################################
-#
-#
-#
-#######################################################################################
+"""
+======================================================================================
+*
+*
+* @name:      ARI.py(Analysis report Interface)
+* @author(s): Jonathan Lewis
+* @date:      12/01/2021
+* @purpose:   The purpose of this file manages the database and inserting the results of the parser
+*             into the database.
+*             
+*
+*
+=======================================================================================
+
+"""
 import sys
 sys.path.append(".")
 from PyQt5.QtWidgets import QTableView
@@ -18,13 +28,17 @@ from Excel_Conversion import ExcelConverter
 import Utilities.xlsxwriter
 from Measurement_Histories_Draft.MeasurementHistorian import MeasurementHistorian
 import os
-
+#The main objectives of the ari class is to interface the frontend with the backend of the program. It house the database and the model and it runs it to the parsar
 class ARI():
-    
+    #In the init of the ARI, we create the database(if one doesn't exist) and a model for the table.
+    #
     def __init__(self):
         self.tableView =None
+        #This is label that displays if the table is empty or not.
         self.emptyLabel = None
+        #The following is the list of uncompilables. 
         self.uncompilable = []
+
         ##This sets up the database for the QSQlDatabase
         self.db =  QSqlDatabase.addDatabase('QSQLITE')
         self.db.setDatabaseName('test3.db')
@@ -100,6 +114,8 @@ class ARI():
         #these two lines connect the database to the model
         self.dbModel.setTable("AnalysisReports")
         self.dbModel.select()
+
+        #The following code checks if the db is empty on intial open
         self.isEmpty = False
         if self.dbModel.rowCount() == 0:
             self.isEmpty = True
@@ -139,7 +155,10 @@ class ARI():
 
     def setEmptyLabel(self, emptyLabelIn):
         self.emptyLabel = emptyLabelIn
-    #This takes the filepath to the compiler
+    
+
+
+    #This method takes the sends the list control
     def takeFileList(self, filePathList: list, listOfCheckedMetrics : list):
         self.uncompilable = []
         listOfOutputs = []

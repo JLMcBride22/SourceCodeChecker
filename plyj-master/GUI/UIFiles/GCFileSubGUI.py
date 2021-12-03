@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'FileSubmitter.ui'
+# Form implementation generated from reading ui file 'FileSubmitter2.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_FileSubForm(object):
     def setupUi(self, FileSubForm):
         FileSubForm.setObjectName("FileSubForm")
-        FileSubForm.setWindowModality(QtCore.Qt.NonModal)
+        FileSubForm.setWindowModality(QtCore.Qt.WindowModal)
         FileSubForm.resize(723, 624)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -383,9 +383,9 @@ class Ui_FileSubForm(object):
         self.gridLayout_10.addItem(spacerItem3, 2, 0, 1, 1)
 
         self.retranslateUi(FileSubForm)
-        self.MeasurementTabs.setCurrentIndex(0)
-        self.InnerTab.setCurrentIndex(4)
-        self.tabWidget.setCurrentIndex(3)
+        self.MeasurementTabs.setCurrentIndex(1)
+        self.InnerTab.setCurrentIndex(2)
+        self.tabWidget.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(FileSubForm)
 
     def retranslateUi(self, FileSubForm):

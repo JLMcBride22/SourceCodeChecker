@@ -1,10 +1,27 @@
-from typing import IO
+"""
+======================================================================================
+*
+*
+* @name:      FileSubmitForm.py
+* @author(s): Jonathan Lewis, Isaiah Brooks, James T. Kirkland, Justin McBride
+* @date:      12/01/2021
+* @purpose:   This file is the window for the file analysis submitter. It creates a
+*             dictionary of metrics that the user selects that sends to the ARI.
+*             
+*             
+*
+*
+=======================================================================================
+
+"""
+#from typing import IO
 from xml.etree.ElementTree import parse
 from PyQt5 import QtWidgets as qtw
 # Imported the following to connect a button to a function?
 # vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 import os
 from pathlib import Path
+from PyQt5.QtGui import QColor
 
 from PyQt5.QtWidgets import QCheckBox, QDialogButtonBox, QFileDialog, QListWidgetItem, QMessageBox, QTabWidget, QTableView, QWidget
 
@@ -22,7 +39,7 @@ class FileSubmitForm(qtw.QDialog):
         self.uiForm.setupUi(self)
         self.dictOfMetrics = {}
 
-        self.dictOfMetrics
+
         self.connectActions()
         #self.setEnabled(True)
         
@@ -33,7 +50,7 @@ class FileSubmitForm(qtw.QDialog):
     
     ##Connects the actions to all the buttons in the dialog
     def connectActions(self):
-        ## Add remove.
+        
         self.uiForm.addBtn.clicked.connect(self.fileExplorer)
         self.uiForm.removeButton.clicked.connect(self.removeItem)
         self.uiForm.pushButton.clicked.connect(self.findDirectory)
@@ -97,12 +114,16 @@ class FileSubmitForm(qtw.QDialog):
         if len(uncompiled) > 0:
             dlg = QMessageBox()
             
-            dlg.setText("There were files that wasn't abled to be compiled")
-            dlg.setInformativeText("The others were able to be added unless noted")
+            dlg.setText("Compilation failure:")
+            dlg.setInformativeText("The files highlighted in red failed to compile. Please correct the files and try again.")
             dlg.setIcon(3)
             dlg.exec_()
             self.uiForm.filePathList.clear()
             self.uiForm.filePathList.addItems(uncompiled)
+            i = 0
+            while(i < len(uncompiled)):
+                self.uiForm.filePathList.item(i).setBackground(QColor('#f0027f'))
+                i += 1
 
             
             return
@@ -110,7 +131,7 @@ class FileSubmitForm(qtw.QDialog):
         
         self.close()
     
-    #This functions returns of a dictionary of strings of the name of checked boxes.
+    #This functions returns of a dictionary of strings of the name of the checked boxes.
     def getMetricsFromBoxes(self):
         mts = 0
         while mts < self.uiForm.MeasurementTabs.count():
@@ -138,14 +159,8 @@ class FileSubmitForm(qtw.QDialog):
             
             mts+=1
                 
-            
-
-
         
         return self.dictOfMetrics
-            
-
-                #print("\t\t\telif metric == "+"\c"" +box.text()+"\"" + ":\n\t\t\t\tpass")
         
 
     

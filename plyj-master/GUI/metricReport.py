@@ -37,9 +37,6 @@ class metricFormC(qtw.QWidget):
         displaytree(treeElement, self.tree)
 
 
-    
-    def findItemRemoves(self):
-        return
         
 
 
