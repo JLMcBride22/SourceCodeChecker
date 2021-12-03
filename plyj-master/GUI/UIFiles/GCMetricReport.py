@@ -39,7 +39,7 @@ class Ui_Form(object):
         self.treeWidget.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.treeWidget.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectItems)
         self.treeWidget.setObjectName("treeWidget")
-        self.treeWidget.headerItem().setText(0, "Filename")
+        self.treeWidget.headerItem().setText(0, "")
         self.gridLayout.addWidget(self.treeWidget, 1, 0, 1, 1)
         self.gridLayout_3.addLayout(self.gridLayout, 1, 0, 1, 1)
         self.line = QtWidgets.QFrame(Form)

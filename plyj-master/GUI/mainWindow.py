@@ -190,6 +190,10 @@ class MainWindow(qtw.QMainWindow):
         if(row != None):
             xmlStr =self.ari.getCellContentFromDataBase(row, "LocalizationOfVar")
             longFileName = self.ari.getCellContentFromDataBase(row, "longFileName")
+            shortFileName = self.ari.getCellContentFromDataBase(row, "filename")
+            splitList =shortFileName.split("/")
+            actualFilename = splitList[-1]
+            met.uiForm.label.setText(actualFilename)
             met.strToXml(xmlStr)
             met.setWindowTitle(longFileName)
             #met.findItemRemoves()
