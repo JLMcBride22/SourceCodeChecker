@@ -1,4 +1,10 @@
+# Excel_Conversion.py
+# Purpose: To convert the table in the main window to a .xlsx file.
+#          Does so with the help of xlsxwriter and sqlite.
+# Author: James T. Kinkead
+# Build Date: December 3, 2021
 
+#***************************************************
 import Utilities.xlsxwriter as xlsxwriter
 import sqlite3
 
@@ -85,24 +91,7 @@ class ExcelConverter:
         # Close the workbook when finished.
         workbook.close()
 
-
-
     
 
-#*****************************************************
-# Test main for this code
-#test1 = ExcelConverter
 
-#mhist = MeasurementHistorian
-
-# Create connection to our test database.
-#dataconn = mhist.create_connection("test3.db")
-# Here we have a hardcoded list, corresponding to our test db.
-# Last entry is not present in the db, used to test handling bad filenames.
-# If nothing is generated, make sure data is present in the db using sqlite and MeasurementHistorian
-
-#templist = ["Test", "Hello", "Java", "garbage"]
-# Using 
-#with dataconn:
-    #test1.reportToExcel(dataconn, templist, "Test.xlsx")
 
