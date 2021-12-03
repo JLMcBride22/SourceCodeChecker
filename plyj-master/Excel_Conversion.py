@@ -73,7 +73,7 @@ class ExcelConverter:
                 else:
                     inExcel.append(entry[0])
                 
-                print(len(entry))    
+                   
                 
 
                 # Saving one report.
