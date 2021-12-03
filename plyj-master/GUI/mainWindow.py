@@ -106,10 +106,6 @@ class MainWindow(qtw.QMainWindow):
             self.ari.generateExcelsAll(dlg[0])
             
 
-    def refresh(self):
-        self.ui.JavaTableView.resizeColumnsToContents()
-
-
 
     def eventFilter(self, source, event):
             if event.type() == QEvent.ContextMenu and source is self.ui.JavaTableView:

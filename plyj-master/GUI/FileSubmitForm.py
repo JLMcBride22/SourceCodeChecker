@@ -21,6 +21,7 @@ from PyQt5 import QtWidgets as qtw
 # vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 import os
 from pathlib import Path
+from datetime import datetime
 from PyQt5.QtGui import QColor
 
 from PyQt5.QtWidgets import QCheckBox, QDialogButtonBox, QFileDialog, QListWidgetItem, QMessageBox, QTabWidget, QTableView, QWidget
@@ -76,7 +77,6 @@ class FileSubmitForm(qtw.QDialog):
     
 
     ## Opens file explorer.
-    
     def fileExplorer(self):
         file_filter = 'Java File(*.java)'
         filePaths = QFileDialog.getOpenFileNames(
@@ -102,18 +102,40 @@ class FileSubmitForm(qtw.QDialog):
         if countPaths == 0:
             dlg = QMessageBox()
             dlg.setText("You haven't selected any files")
-            dlg.setInformativeText("Please select your file by clicking the \"Add File(s)\" button")
+            dlg.setInformativeText("Please select your file by clicking the \"Add File(s)\" button or add a directory")
             dlg.setIcon(3)
             dlg.exec_()
             return
         else:
+
             for i in range(0, countPaths):
                 
                 pathway = self.uiForm.filePathList.item(i).text()
+
+                #if the filepath is already in the table...
+
+
                 
                 try:
+                    
                     open(pathway, 'r')
-                    listPaths.append(pathway)
+
+                    p = Path(pathway)
+                    stats = p.stat()
+                    time = stats.st_mtime
+                    timeStamp = datetime.fromtimestamp(time).strftime('%c')
+
+                    if(self.ari.checkForRedundent(pathway, timeStamp)):
+                        qm = QMessageBox()
+
+                        ret  = qm.question(self,'', str(pathway) +"\nThis file has not been changed since last analysis. Are you sure you want to analyze the file again?", qm.Yes | qm.No)
+
+
+                        if ret == qm.Yes:
+                            listPaths.append(pathway)
+                    else:
+                        listPaths.append(pathway)
+
 
                 except IOError:
                     dlg = QMessageBox()

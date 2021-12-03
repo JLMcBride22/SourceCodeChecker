@@ -41,6 +41,7 @@ class ARI():
 
         ##This sets up the database for the QSQlDatabase
         self.db =  QSqlDatabase.addDatabase('QSQLITE')
+        
         self.db.setDatabaseName('test3.db')
         self.db.open()
         self.db.transaction()
@@ -159,30 +160,24 @@ class ARI():
     
 
 
-    #This method takes the sends the list and sends the filepath through the parser
+    #This method takes the sends the list and sends the filepath through the parser with the all the metrics that were checked.
     def takeFileList(self, filePathList: list, listOfCheckedMetrics : list):
         self.uncompilable = []
         listOfOutputs = []
         for filePath in filePathList:
             pars = myParser2()
+            
 
+            
             #This try catch is a crucial component in case of compliation failure.
             # In case of failure it just adds to the list of uncompilable pathways and
             # proceeds with the submission.
             try:
                 pars.findMetrics(filePath,listOfCheckedMetrics)
-                #This is a list of a list lol!
                 listOfOutputs.append(pars.output)
             except AttributeError:
                 self.uncompilable.append(filePath)
             
-
-            
-            
-            #record = pars.getRecord()
-            #print(record.isGenerated(1))
-            ##self.dbModel.insertRowIntoTable(record)
-            #self.dbModel.insertRecord(-1,record)
         
     
         for output in listOfOutputs:
@@ -195,6 +190,16 @@ class ARI():
         if self.isEmpty:
             self.emptyLabel.setHidden(True)
             self.isEmpty = False
+
+    #Returns true if the filePath is already in the table
+    def checkForRedundent(self, pathway, timestamp)-> bool:
+        q = QSqlQuery(self.db)
+        qStr = "Select * FROM AnalysisReports WHERE longFileName = \'" + str(pathway) +"\' AND timestamp = \'"+ timestamp+ "\';"
+        q.exec(qStr)
+        if q.next():
+            return True
+        else:
+            return False
 
     #This sends back a list of uncompilable file path ways.  
     def getUncompiled(self):
@@ -218,7 +223,7 @@ class ARI():
     def generateExcelsAll(self, fileDirectory):
         
         dbName = self.db.databaseName()
-        print(dbName)
+        
         mHist = MeasurementHistorian
         testConverter = ExcelConverter
         
@@ -235,7 +240,7 @@ class ARI():
         
         testConverter.reportToExcel(dataconn, listOfFilenames, fileDirectory)
 
-
+ 
 
 
 

@@ -180,7 +180,7 @@ class myParser2():
             self.filePath = filepath
 
         self.actFilePath = filepath
-        
+
         self.fileObj = fileObject(self.filePath)
 
         self.fileObj.setMetricDict(listOfMetrics)
@@ -403,11 +403,14 @@ class myParser2():
                           
             
         elif type(sourceElement) is m.ExpressionStatement:
+
             if type(sourceElement.expression) is m.MethodInvocation:
                 # Count Function. #TODO add a variable member for methodObject in the file "fileObject"
                 self.currMethod.noFunctionCalls += 1
-                if(self.currMethodName == sourceElement.expression.name):
-                    sourceElement.expression.arguments
+                if(self.currMethod.name == sourceElement.expression.name):
+                    #this might be true, but no gurantee due to overloading of methods.
+                    #Which is difficult due to the nature of the compiler.
+                    self.currMethod.isRecursion = True
 
 
 
@@ -434,15 +437,8 @@ class myParser2():
         elif sourceElement._fields.__contains__("block"):
             self.calMetric(sourceElement.block)
 
-    #This creates a xmlElement for method measurements.
-    def createsMethodXMLElement(self):
-        
-       
-        output = None
-        return output
-    #resets the method stats
+
     
-###############################################################
 
 
 
@@ -456,6 +452,8 @@ class myParser2():
         tree = p.parse_file(self.actFilePath)
         
         tokens = p.tokenize_file(self.actFilePath)
+        
+        #used to count the semicolons and calculate Halstead for
         self.lexCounter(tokens)
 
 
