@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'UIHelp.ui'
+# Form implementation generated from reading ui file 'c:\Users\JLMcB\OneDrive\Documents\GitHub\SourceCodeChecker\plyj-master\GUI\UIFiles\UIHelp.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.5
 #
@@ -57,7 +57,7 @@ class Ui_Form(object):
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:16pt; font-weight:600;\">About</span> </p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt;\">This program uses an open source Java parser written in Python to analyze Java source code, checking for various metrics and coding standards that are selected by the user. This document will provide a detailed guide on how to use the program, as well as explanations of other secondary features.</span> </p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt;\">This program analyzes Java source code, checking for various metrics and coding standards that are selected by the user. This document will provide a detailed guide on how to use the program, as well as explanations of other secondary features.</span> </p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt; font-weight:600;\"> </span> </p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:16pt; font-weight:600;\">Step-by-Step Use Guide</span> </p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt;\">1.</span><span style=\" font-family:\'Times New Roman\'; font-size:7pt;\">      </span><span style=\" font-size:12pt;\">Within the Analysis Report Window click on the “Add File” button, located in the upper right-hand corner of the screen. This will bring you to the File Submission window where you will select files to analyze.</span> </p>\n"
@@ -74,7 +74,7 @@ class Ui_Form(object):
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a name=\"_Hlk88051328\"></a><span style=\" font-size:16pt; font-weight:600;\">F</span><span style=\" font-size:16pt; font-weight:600;\">eature Help</span> </p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a name=\"_Hlk88051328\"></a><span style=\" font-size:16pt; font-weight:600;\">F</span><span style=\" font-size:16pt; font-weight:600;\">eature Dictionary</span> </p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:16pt; font-weight:600;\"> </span> </p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt; font-weight:600;\">Add Files (Analysis Report Window)</span> </p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Courier New\'; font-size:12pt;\">o</span><span style=\" font-family:\'Times New Roman\'; font-size:7pt;\">   </span><span style=\" font-size:12pt;\">Used by clicking the “Add Files” button in the Analysis Report Window.</span> </p>\n"
@@ -124,7 +124,7 @@ class Ui_Form(object):
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Courier New\'; font-size:12pt;\">o</span><span style=\" font-family:\'Times New Roman\'; font-size:7pt;\">   </span><span style=\" font-size:12pt;\">Located at the bottom of the File Submission Window.</span> </p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Courier New\'; font-size:12pt;\">o</span><span style=\" font-family:\'Times New Roman\'; font-size:7pt;\">   </span><span style=\" font-size:12pt;\">Submit Files when clicked will begin analysis of all files in the File Name List and return you to the Analysis Report Window when analysis is complete.</span> </p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Courier New\'; font-size:12pt;\">o</span><span style=\" font-family:\'Times New Roman\'; font-size:7pt;\">   </span><span style=\" font-size:12pt;\">Cancel will remove all selected files from the File Name list and return you to the Analysis Report Window.</span> </p></body></html>"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("Form", "Feature Help"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("Form", "Feature Dictionary"))
         self.textBrowser_3.setHtml(_translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
@@ -133,9 +133,9 @@ class Ui_Form(object):
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt;\">A dictionary explaining each metric/coding standard that this program will support.</span> </p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt;\"> </span> </p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt; font-weight:600;\">Code Size</span> </p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Symbol\'; font-size:16pt;\">·</span><span style=\" font-family:\'Times New Roman\'; font-size:7pt;\">       </span><span style=\" font-size:12pt;\">Source Lines of Code (SLOC) with Comments - Total amount of lines of source code in the file.</span> </p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Symbol\'; font-size:16pt;\">·</span><span style=\" font-family:\'Times New Roman\'; font-size:7pt;\">       </span><span style=\" font-size:12pt;\">Source Lines of Code with Comments - Total amount of lines of source code in the file.</span> </p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:16pt;\"> </span> </p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Symbol\'; font-size:16pt;\">·</span><span style=\" font-family:\'Times New Roman\'; font-size:7pt;\">       </span><span style=\" font-size:12pt;\">Source Lines of Code (SLOC) without Comments - Total amount of lines of source code, without counting comments. The number of compliable lines of code.</span> </p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Symbol\'; font-size:16pt;\">·</span><span style=\" font-family:\'Times New Roman\'; font-size:7pt;\">       </span><span style=\" font-size:12pt;\">Source Lines of Code without Comments - Total amount of lines of source code, without counting comments. The number of compliable lines of code.</span> </p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:16pt;\"> </span> </p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Symbol\'; font-size:16pt;\">·</span><span style=\" font-family:\'Times New Roman\'; font-size:7pt;\">       </span><span style=\" font-size:12pt;\">Blank Lines - Total amount of lines that contain nothing within the source code.</span> </p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:16pt;\"> </span> </p>\n"
@@ -233,15 +233,6 @@ class Ui_Form(object):
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:115%;\"><span style=\" font-family:\'Courier New\'; font-size:12pt;\">o</span><span style=\" font-family:\'Times New Roman\'; font-size:7pt;\">   </span><span style=\" font-size:12pt;\">ESLOC at Max Nesting – Set the X value for the above function.</span> </p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:115%;\"><span style=\" font-size:12pt; font-weight:600;\"> </span> </p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:115%;\"><span style=\" font-family:\'Symbol\'; font-size:16pt;\">·</span><span style=\" font-family:\'Times New Roman\'; font-size:7pt;\">       </span><span style=\" font-size:12pt;\">Executable Source Lines of Code Less Than X Within Functions – Determine if there is any function within the source code that contains more than X lines of executable lines of code.</span> </p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:115%;\"><span style=\" font-size:12pt; font-weight:600;\"> </span> </p>\n"))
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:115%;\"><span style=\" font-size:12pt; font-weight:600;\"> </span> </p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:115%;\"><span style=\" font-family:\'Symbol\'; font-size:16pt;\">·</span><span style=\" font-family:\'Times New Roman\'; font-size:7pt;\">       </span><span style=\" font-size:12pt;\"></span> </p></body></html>"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("Form", "Measurement Dictionary"))
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    Form = QtWidgets.QWidget()
-    ui = Ui_Form()
-    ui.setupUi(Form)
-    Form.show()
-    sys.exit(app.exec_())

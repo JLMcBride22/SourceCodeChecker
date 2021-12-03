@@ -167,7 +167,7 @@ class MainWindow(qtw.QMainWindow):
 
                 
                 mhist = MeasurementHistorian
-                tempconn = mhist.create_connection("test3.db")
+                tempconn = mhist.create_connection("CodeAnalysis.db")
                 historyList = []
                 historyList =  mhist.pullHistory(mhist, tempconn, fileName)
                 #print(historyList)
