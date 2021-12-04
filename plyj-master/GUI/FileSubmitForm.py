@@ -133,6 +133,7 @@ class FileSubmitForm(qtw.QDialog):
 
                         if ret == qm.Yes:
                             listPaths.append(pathway)
+                        
                     else:
                         listPaths.append(pathway)
 
@@ -171,13 +172,14 @@ class FileSubmitForm(qtw.QDialog):
             dlg.exec_()
             return
 
-        #All files  were successfully compiled   
-        dlg = QMessageBox()
-            
-        dlg.setText("Compilation Success:")
-        dlg.setInformativeText("ALL "+ str(numSuccessAnal) + " file(s) were able to be compiled.")
-        dlg.setIcon(1)
-        dlg.exec_()
+        #All files  were successfully compiled
+        if numSuccessAnal != 0: 
+            dlg = QMessageBox()
+                
+            dlg.setText("Compilation Success:")
+            dlg.setInformativeText("ALL "+ str(numSuccessAnal) + " file(s) were able to be compiled.")
+            dlg.setIcon(1)
+            dlg.exec_()
             
 
         self.close()
