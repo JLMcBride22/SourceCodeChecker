@@ -1,18 +1,10 @@
-"""
-======================================================================================
-*
-*
-* @name:      ARI.py(Analysis report Interface)
-* @author(s): Jonathan Lewis
-* @date:      12/01/2021
-* @purpose:   The purpose of this file manages the database and inserting the results of the parser
-*             into the database.
-*             
-*
-*
-=======================================================================================
-
-"""
+#********************************************************************************************
+# ARI.py(Analysis report Interface)
+# Purpose: The purpose of this file manages the database and inserting the results of the parser
+#             into the database.
+# Authors: Jonathan Lewis.
+# Build Date: December 3, 2021.
+#********************************************************************************************
 import sys
 sys.path.append(".")
 from PyQt5.QtWidgets import QTableView
@@ -28,7 +20,8 @@ from Excel_Conversion import ExcelConverter
 import Utilities.xlsxwriter
 from Measurement_Histories_Draft.MeasurementHistorian import MeasurementHistorian
 import os
-#The main objectives of the ari class is to interface the frontend with the backend of the program. It house the database and the model and it runs it to the parsar
+#The main objectives of the ari class is to interface the frontend with the backend of the program.
+# It house the database and the model and it runs it to the parsar
 class ARI():
     #In the init of the ARI, we create the database(if one doesn't exist) and a model for the table.
     #
@@ -46,6 +39,7 @@ class ARI():
 
         self.db.open()
         self.db.transaction()
+        #creates the sql table if it doesn't already exist.
         self.db.exec_(
            ''' CREATE TABLE IF NOT EXISTS AnalysisReports (
                                         id integer PRIMARY KEY,
@@ -148,20 +142,22 @@ class ARI():
         self.tableView.resizeColumnsToContents()
         self.tableView.setColumnWidth(0,0)
         self.tableView.setEnabled(True)
-    #Allows ARI to control the fit the columns
+
+
+    #Allows ARI to control the table and fit the columns and enable and disable the table.
     def setTable(self , tableView:QTableView):
         self.tableView = tableView
 
-            
-
         return 0
 
+    # Allows the ARI to control if the emptyLabel is displayed or not.
     def setEmptyLabel(self, emptyLabelIn):
         self.emptyLabel = emptyLabelIn
     
 
 
-    #This method takes the sends the list and sends the filepath through the parser with the all the metrics that were checked.
+    #This method takes the sends the list and sends the filepath through
+    # the parser with the all the metrics that were checked.
     def takeFileList(self, filePathList: list, listOfCheckedMetrics : list):
         self.uncompilable = []
         listOfOutputs = []
@@ -180,7 +176,7 @@ class ARI():
                 self.uncompilable.append(filePath)
             
         
-    
+        #this actually insert the list of list into the sqldatabase
         for output in listOfOutputs:
 
             self.insertData(output)
@@ -192,7 +188,7 @@ class ARI():
             self.emptyLabel.setHidden(True)
             self.isEmpty = False
 
-    #Returns true if the filePath is already in the table
+    #Returns true if the file is and the table and has been changed or not.
     def checkForRedundent(self, pathway, timestamp)-> bool:
         q = QSqlQuery(self.db)
         qStr = "Select * FROM AnalysisReports WHERE longFileName = \'" + str(pathway) +"\' AND timestamp = \'"+ timestamp+ "\';"
@@ -228,7 +224,6 @@ class ARI():
         mHist = MeasurementHistorian
         testConverter = ExcelConverter
         
-         
         quer = QSqlQuery('Select filename FROM AnalysisReports')
         listOfFilenames = []
         while quer.next():

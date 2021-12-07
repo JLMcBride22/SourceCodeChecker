@@ -110,9 +110,10 @@ class FileSubmitForm(qtw.QDialog):
 
             for i in range(0, countPaths):
                 
-                pathway = self.uiForm.filePathList.item(i).text()
+                pathwayItem = self.uiForm.filePathList.item(i)
+                pathway = pathwayItem.text()
+                
 
-                #if the filepath is already in the table...
 
 
                 
@@ -133,7 +134,10 @@ class FileSubmitForm(qtw.QDialog):
 
                         if ret == qm.Yes:
                             listPaths.append(pathway)
-                        
+                        elif ret == qm.No:
+                            self.uiForm.filePathList.removeItemWidget(pathwayItem)
+                            pathwayItem.setHidden(True)
+                             
                     else:
                         listPaths.append(pathway)
 
@@ -161,10 +165,10 @@ class FileSubmitForm(qtw.QDialog):
 
             self.uiForm.filePathList.clear()
             self.uiForm.filePathList.addItems(uncompiled)
-            i = 0
-            while(i < len(uncompiled)):
-                self.uiForm.filePathList.item(i).setBackground(QColor('#f0027f'))
-                i += 1
+            ii = 0
+            while(ii < len(uncompiled)):
+                self.uiForm.filePathList.item(ii).setBackground(QColor('#f0027f'))
+                ii += 1
 
             dlg.setText("Compilation failure:")
             dlg.setInformativeText("The " +str(len(uncompiled))+ " file(s), highlighted in red, failed to compile. The other "+ str(numSuccessAnal) + " file(s) were able to be compiled.")
@@ -173,11 +177,11 @@ class FileSubmitForm(qtw.QDialog):
             return
 
         #All files  were successfully compiled
-        if numSuccessAnal != 0: 
+        else: 
             dlg = QMessageBox()
                 
             dlg.setText("Compilation Success:")
-            dlg.setInformativeText("ALL "+ str(numSuccessAnal) + " file(s) were able to be compiled.")
+            dlg.setInformativeText("ALL "+ str(numSuccessAnal) + " file(s) were able to compile.")
             dlg.setIcon(1)
             dlg.exec_()
             

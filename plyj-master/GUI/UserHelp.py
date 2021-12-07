@@ -9,4 +9,4 @@ class userHelpC(qtw.QWidget):
         super(userHelpC, self).__init__(*args, **kwargs)
         self.uiForm = Ui_Form()
         self.uiForm.setupUi(self)
-        self.tree = None
+        

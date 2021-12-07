@@ -101,6 +101,8 @@ class historyForm(qtw.QWidget):
                 col += 1
                 k+=1
             i+=1
+            self.uiForm.tableWidget.resizeColumnsToContents()
+            self.uiForm.tableWidget.setAlternatingRowColors(True)
 
 
         

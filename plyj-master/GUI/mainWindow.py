@@ -1,6 +1,10 @@
+# mainWindow.py
+# Purpose: To Display the upload files in a table, manages the SQL table, and manages the pop-up menu
+# Authors: James T. Kinkead, Jonathan Lewis.
+# Build Date: December 3, 2021.
+#********************************************************************************************
+
 import sys
-
-
 
 from PyQt5.QtGui import QCloseEvent
 
@@ -43,6 +47,7 @@ class MainWindow(qtw.QMainWindow):
     def __init__(self, *args, **kwargs):
         super(MainWindow, self).__init__(*args, **kwargs)
         self.ui.setupUi(self)
+        
         self.ui.actionInstruction.associatedGraphicsWidgets
         self.ari = None
         ## Adds the function to the button/menu options.
@@ -52,13 +57,8 @@ class MainWindow(qtw.QMainWindow):
 
         
         self.fileSubmit = None
-        self.popUpMenu =QMenu()
-        
-        
-
-
-
-        
+        #Creates the popupMenu
+        self.popUpMenu = QMenu()
 
         ##buttons
         self.ui.addFilesButton.clicked.connect(self.uploadFile_s)
@@ -84,6 +84,7 @@ class MainWindow(qtw.QMainWindow):
         self.ari.setEmptyLabel(self.ui.label)
         if(not self.ari.isEmpty):
             self.ui.label.setHidden(True)
+            
         else:
             self.ui.JavaTableView.setEnabled(False)
         
@@ -91,7 +92,7 @@ class MainWindow(qtw.QMainWindow):
         
         
 
-    # Opens the dialog for help
+    # Opens the window for help
     def openHelp(self):
         help = userHelpC(self)
         help.setWindowTitle("Help")
@@ -106,10 +107,9 @@ class MainWindow(qtw.QMainWindow):
             self.ari.generateExcelsAll(dlg[0])
             
 
-
+    #Eventfilter manages the popup window
     def eventFilter(self, source, event):
-            if event.type() == QEvent.ContextMenu and source is self.ui.JavaTableView:
-                
+            if event.type() == QEvent.ContextMenu and source is self.ui.JavaTableView and not self.ari.isEmpty:
                 
                 
                 if self.popUpMenu.exec_(event.globalPos()):
@@ -118,6 +118,7 @@ class MainWindow(qtw.QMainWindow):
 
             return super().eventFilter(source, event)
     
+   #Opens the file submit window where the user can the files and metrics for their analysis
     def uploadFile_s(self):
         
 
@@ -140,7 +141,7 @@ class MainWindow(qtw.QMainWindow):
         else:
             dlg = QMessageBox()
             dlg.setText("You haven't selected a file")
-            dlg.setInformativeText("Please select a file to view details.")
+            dlg.setInformativeText("Please select a file to view its report.")
             dlg.setIcon(3)
             dlg.exec_()
             return None
@@ -150,7 +151,7 @@ class MainWindow(qtw.QMainWindow):
         return id
 
         
-
+    # This method opens up the view history for the selected file.
     def viewHistory(self):
             #TODO dialog boxes
             id = self.getSelectedRowFromDB()
@@ -208,7 +209,7 @@ class MainWindow(qtw.QMainWindow):
 
 
 
-    ## Places the buttons in the table
+    ## Adds the model from the ARI to the JavaTableView
     def populate_table(self):
         #self.dbModel = QSqlTableModel(self)
 
@@ -217,23 +218,19 @@ class MainWindow(qtw.QMainWindow):
 
         self.dbModel = self.ari.getModel()
         
-
-
-
-
-        
         self.ui.JavaTableView.setModel(self.dbModel)
         self.ui.JavaTableView.resizeColumnsToContents()
-        #hide columns
-        #self.ui.JavaTableView.hideColumn(0)
+
+        #We are setting the ID column to have width of zero for selection purpose.
+        # Everytime we resize the table to fit the columns we must set it back to zero.
         self.ui.JavaTableView.setColumnWidth(0,0)
+
+        #Hides columns that the user doesn't need to see.
         self.ui.JavaTableView.hideColumn(48)
         self.ui.JavaTableView.hideColumn(49)
         self.ui.JavaTableView.hideColumn(50)
 
         #sets the filter search bar
-
-
         self.ui.SearchBar.textChanged.connect(self.search)
 
         self.ui.JavaTableView.setVisible(True)
@@ -241,18 +238,16 @@ class MainWindow(qtw.QMainWindow):
 
     
     def search(self):
-        annee = self.ui.SearchBar.text()
-        #behaviors SQL injection that would break the code
-        if "'" in annee:
-            annee = annee.replace("'", "''",-1)
-        if len(annee) == 0:
-            self.dbModel.setFilter("")
-        else:
-            
-            filt = "filename LIKE '%"+ annee +"%'"
-            #print(filt)
-            self.dbModel.setFilter(filt)
-            #self.dbModel.select()
+        searchText = self.ui.SearchBar.text()
+        #behaviors SQL injection that would break the SQL database
+        if "'" in searchText:
+            searchText = searchText.replace("'", "''",-1)
+        
+        
+        filt = "filename LIKE '%"+ searchText +"%'"
+        #print(filt)
+        self.dbModel.setFilter(filt)
+        #self.dbModel.select()
             
 
 
